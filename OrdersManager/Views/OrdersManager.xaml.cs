@@ -12,6 +12,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Elysium;
+using MVVM;
+using OrdersManager.ModelView;
 
 namespace OrdersManager
 {
@@ -23,6 +25,8 @@ namespace OrdersManager
         public MainWindow()
         {
             InitializeComponent();
+            OrdersManagerView formView = new OrdersManagerView();
+            this.DataContext = formView;
         }
     }
 }

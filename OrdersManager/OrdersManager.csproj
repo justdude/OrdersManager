@@ -35,12 +35,14 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Elysium, Version=2.0.976.4, Culture=neutral, PublicKeyToken=afa220db249e5b15, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
       <HintPath>Elysium\v4.0_2.0.976.4__afa220db249e5b15\Elysium.dll</HintPath>
+      <SpecificVersion>False</SpecificVersion>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Elysium.Notifications, Version=2.0.62.4, Culture=neutral, PublicKeyToken=afa220db249e5b15, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>Elysium.Notifications\v4.0_2.0.62.4__afa220db249e5b15\Elysium.Notifications.dll</HintPath>
+      <Private>True</Private>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
@@ -69,6 +71,10 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="ModelView\OrdersManagerView.cs" />
+    <Compile Include="ModelView\PersonModelView.cs" />
+    <Compile Include="ModelView\ProjectModelView.cs" />
+    <Compile Include="Model\Project.cs" />
     <Compile Include="MVVM\Commands\CommandReference.cs" />
     <Compile Include="MVVM\Commands\DelegateCommand.cs" />
     <Compile Include="MVVM\Elements\Node.cs" />
@@ -102,10 +108,7 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="ModelView\" />
-    <Folder Include="Model\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
