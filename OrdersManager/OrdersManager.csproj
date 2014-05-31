@@ -71,13 +71,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="ModelView\OrdersManagerView.cs" />
-    <Compile Include="ModelView\PersonModelView.cs" />
-    <Compile Include="ModelView\ProjectModelView.cs" />
-    <Compile Include="Model\Project.cs" />
+    <Compile Include="ModelView\OrdersRootViewModel.cs" />
+    <Compile Include="ModelView\PersonViewModel.cs" />
+    <Compile Include="ModelView\ProjectViewModel.cs" />
     <Compile Include="MVVM\Commands\CommandReference.cs" />
     <Compile Include="MVVM\Commands\DelegateCommand.cs" />
     <Compile Include="MVVM\Elements\Node.cs" />
+    <Compile Include="MVVM\Node.cs" />
     <Compile Include="MVVM\ViewModelsBase\ViewModelBase.cs" />
     <Compile Include="Views\OrdersManager.xaml.cs">
       <DependentUpon>OrdersManager.xaml</DependentUpon>
@@ -108,7 +108,9 @@
     </None>
     <AppDesigner Include="Properties\" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Model\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

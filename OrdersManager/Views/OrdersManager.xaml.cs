@@ -25,7 +25,7 @@ namespace OrdersManager
         public MainWindow()
         {
             InitializeComponent();
-            OrdersManagerView formView = new OrdersManagerView();
+            OrdersRootViewModel formView = new OrdersRootViewModel();
             this.DataContext = formView;
         }
     }
