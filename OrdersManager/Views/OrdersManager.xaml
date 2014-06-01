@@ -5,7 +5,9 @@
         xmlns:metro="http://schemas.codeplex.com/elysium"
         xmlns:params="http://schemas.codeplex.com/elysium/params"
         xmlns:local="clr-namespace:OrdersManager.ModelView"
-        
+        xmlns:mvvvm="clr-namespace:MVVM"
+        xmlns:selector="clr-namespace:OrdersManager.TemplateSelector"
+                 
         WindowStartupLocation="CenterScreen"
         params:Design.Theme="Light"
         params:Manager.Theme="Light" 
@@ -13,17 +15,11 @@
         params:Manager.ContrastBrush="White"
         Title="MainWindow" Height="350" Width="525" >
     <Window.Resources>
-        <!--<ControlTemplate x:Key="OkCancel" TargetType=">
-            <StackPanel  >
-                <Button Content="Ok" Height="30" Width="100" Command="{Binding OkeyClick}" ></Button>
-                <TextBlock Width="20"></TextBlock>
-                <Button Content="Cancel" Height="30" Width="100" Command="{Binding CancelClick}" ></Button>
-            </StackPanel>
-        </ControlTemplate>-->
-
+        
+        <!--FreelancerViewModel-->
         <HierarchicalDataTemplate
-                                    DataType="{x:Type local:PersonViewModel}"
-                                    ItemsSource="{Binding Path=Projects}">
+                                    DataType="{x:Type local:FreelancerViewModel}"
+                                    ItemsSource="{Binding Children}">
             <Border CornerRadius="3"
                         Padding="2"
                         BorderThickness="2" 
@@ -34,9 +30,24 @@
             </Border>
         </HierarchicalDataTemplate>
 
+        <!--CostumerViewModel-->
+        <HierarchicalDataTemplate
+                                    DataType="{x:Type local:CostumerViewModel}"
+                                    ItemsSource="{Binding Children}">
+            <Border CornerRadius="3"
+                        Padding="2"
+                        BorderThickness="2" 
+                        BorderBrush="#FFB03636">
+                <StackPanel>
+                    <TextBlock Text="{Binding Path=FIO}"/>
+                </StackPanel>
+            </Border>
+        </HierarchicalDataTemplate>
+
+        <!--ProjectViewModel-->
         <HierarchicalDataTemplate   
                                     DataType="{x:Type local:ProjectViewModel}"
-                                    ItemsSource="{Binding Path=Costumers}">
+                                    ItemsSource="{Binding Children}">
                 <Border CornerRadius="3"
                         Padding="2"
                         BorderThickness="2" 
@@ -44,13 +55,90 @@
                     <TextBlock Text="{Binding Path=Name}"></TextBlock>
                 </Border>
         </HierarchicalDataTemplate>
+
+        <!--TaskViewModel-->
+        <HierarchicalDataTemplate   
+                                    DataType="{x:Type local:TaskViewModel}"
+                                    ItemsSource="{Binding Children}">
+            <Border CornerRadius="3"
+                        Padding="2"
+                        BorderThickness="2" 
+                        BorderBrush="#FF366DB0">
+                <TextBlock Text="{Binding Path=Name}"></TextBlock>
+            </Border>
+        </HierarchicalDataTemplate>
+
+        <!--Node-->
+        <HierarchicalDataTemplate DataType="{x:Type mvvvm:Node}" ItemsSource="{Binding Children}">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="{Binding Text}"/>
+            </StackPanel>
+        </HierarchicalDataTemplate>
         
+        
+        <!--Person data-->
+        <DataTemplate x:Key="PersonTemplate" DataType="{x:Type local:PersonViewModel}"> 
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="31"/>
+                    <RowDefinition Height="179*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+                <TextBlock Text="Информация:" VerticalAlignment="Stretch" HorizontalAlignment="Left" Grid.Row="0"></TextBlock>
+                <TextBox   Grid.Row="1" VerticalAlignment="Top"  Text="{Binding ProjectInfo}" AcceptsReturn="True" Height="138" ></TextBox>
+                <StackPanel Grid.Row="2" HorizontalAlignment="Right" 
+                                                         VerticalAlignment="Stretch"
+                                                         Orientation="Horizontal"
+                                                         Margin="0,1,1,1" >
+                    <Button Content="Ok" Height="30" Width="100" Command="{Binding OkeyClick}" ></Button>
+                    <TextBlock Width="20"></TextBlock>
+                    <Button Content="Cancel" Height="30" Width="100" Command="{Binding CancelClick}" ></Button>
+                </StackPanel>
+            </Grid>
+        </DataTemplate>
+
+        <!--GridedTemplate-->
+        <DataTemplate x:Key="GridedTemplate">
+            <ListView Margin="2" ItemsSource="{Binding Project}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="{x:Null}">
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Header="ProductID" DisplayMemberBinding="{Binding Path=Column1}"></GridViewColumn>
+                        <GridViewColumn Header="Product Name" DisplayMemberBinding="{Binding Path=Column2}"></GridViewColumn>
+
+                    </GridView>
+                </ListView.View>
+            </ListView>
+        </DataTemplate>
+        
+        <!--View data types-->
+        <selector:TemplateSelector 
+            GridedView = "{StaticResource GridedTemplate}"
+            ProfileView="{StaticResource PersonTemplate}" 
+            x:Key="GridProfileSelector"
+        />
+
+
+        <!--style-->
+        
+        <!--TreeViewItem-->
         <Style TargetType="TreeViewItem">
             <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded, Mode=TwoWay}" />
             <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
             <Setter Property="Margin" Value="2"></Setter>
+            <Style.Triggers>
+                <Trigger Property="IsSelected" Value="True">
+                    <Setter Property="FontWeight" Value="Bold" />
+                </Trigger>
+            </Style.Triggers>
         </Style>
-
+        
+        <!--MenuItem-->
+        <Style x:Key="ContextMenuItemStyle">
+            <Setter Property="MenuItem.Header" Value="{Binding Text}"/>
+            <Setter Property="MenuItem.ItemsSource" Value="{Binding Children}"/>
+            <Setter Property="MenuItem.Command" Value="{Binding Command}" />
+        </Style>
+        
     </Window.Resources>
     <Controls:Window.ApplicationBar>
         <Controls:ApplicationBar>
@@ -68,39 +156,41 @@
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="18*"/>
+                        <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="29*"/>
                     </Grid.ColumnDefinitions>
-                    <Border Grid.Column="0" CornerRadius="2" BorderThickness="2 
-                            " BorderBrush="#FF4F56F5" Padding="2" Margin="1">
-                        <TreeView  Name="trw_Products" ItemsSource="{Binding Costumers}"  
+
+                        <TreeView  Name="trw_Products" 
+                                   ItemsSource="{Binding Nodes}"  
+                                   Margin="1"
                                    BorderBrush="{x:Null}" 
                                    Background="{x:Null}" >
-                        </TreeView>
-                    </Border>
+                        <TreeView.ContextMenu>
+                            <ContextMenu ItemContainerStyle="{StaticResource ContextMenuItemStyle}" ItemsSource="{Binding MenuOptions}" />
+                        </TreeView.ContextMenu>
+                    </TreeView>
+                    
+                    <GridSplitter Grid.Column="1"
+                                  Background="#FF4093DC" 
+                                  BorderThickness="2"
+                                  VerticalAlignment="Stretch" 
+                                  HorizontalAlignment="Center"
+                                  Width="5"
+                                  MinHeight="250" 
+                                  Foreground="#FF272727"></GridSplitter>
 
-                    <Border Grid.Column="1" CornerRadius="2" BorderThickness="0 
-                            " BorderBrush="#FF4F56F5" Padding="2" Margin="1">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="31"/>
-                                <RowDefinition Height="179*"/>
-                                <RowDefinition Height="30"/>
-                            </Grid.RowDefinitions>
-                            <TextBlock Text="Информация:" VerticalAlignment="Stretch" HorizontalAlignment="Left" Grid.Row="0"></TextBlock>
-                            <TextBox   Grid.Row="1" VerticalAlignment="Top"  Text="{Binding ProjectInfo}" AcceptsReturn="True" ></TextBox>
-                            <StackPanel Grid.Row="2" HorizontalAlignment="Right" 
-                                                     VerticalAlignment="Stretch"
-                                                     Orientation="Horizontal"
-                                                     Margin="0,1,1,1" >
-                                <Button Content="Ok" Height="30" Width="100" Command="{Binding OkeyClick}" ></Button>
-                                <TextBlock Width="20"></TextBlock>
-                                <Button Content="Cancel" Height="30" Width="100" Command="{Binding CancelClick}" ></Button>
-                            </StackPanel>
-                        </Grid>
-                    </Border>
+                    <ListBox Grid.Column="2"   
+                             VerticalAlignment="Stretch"
+                             HorizontalAlignment="Stretch"
+                             Margin="4"
+                             ItemsSource="{Binding SelectedNodes}"
+                             ItemTemplateSelector="{StaticResource GridProfileSelector}">
+                        
+                    </ListBox>
 
                 </Grid>
             </TabItem>
+
             <TabItem Header="Персоны">
                 <Grid>
                     <TextBlock>Loading...</TextBlock>
@@ -123,6 +213,7 @@
                 </Grid>
             </TabItem>
         </TabControl>
+
 
         <StatusBar Grid.Row="1" Background="{x:Null}" Foreground="{x:Null}">
             <StatusBarItem Background="{x:Null}" Foreground="{x:Null}">

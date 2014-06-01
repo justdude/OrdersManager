@@ -7,14 +7,14 @@ using System.Collections.ObjectModel;
  
 namespace OrdersManager.ModelView
 {
-    class FreelancerViewModel : PersonViewModel
+    public class FreelancerViewModel : PersonViewModel
     {
         private string careerName = "Freelanser";
         public string CareerName
         {
             get
             {
-                return CareerName;
+                return careerName;
             }
             set
             {
@@ -23,20 +23,25 @@ namespace OrdersManager.ModelView
             }
         }
 
-
-        public ObservableCollection<ProjectViewModel> Projects
+        /*public ObservableCollection<TaskViewModel> Tasks
         {
             get
             {
-                return new ObservableCollection<ProjectViewModel>(CacheManager.CacheManager.Instance.Projects); //.Where(p=>p. = base.FIO) 
+                var tasks = new List<TaskViewModel>() { new TaskViewModel(), new TaskViewModel(), new TaskViewModel() };
+                return new ObservableCollection<TaskViewModel>(tasks);
             }
             set
             {
-                CacheManager.CacheManager.Instance.Projects = value.ToList();
-                OnPropertyChanged("Projects");
+                OnPropertyChanged("Tasks");
             }
-        }
+        }*/
 
+        public bool IsLead { get; set; }
+
+        public FreelancerViewModel()
+        {
+            base.FIO = "Dr. Watson";
+        }
 
     }
 }

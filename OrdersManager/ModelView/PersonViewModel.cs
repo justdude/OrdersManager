@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using MVVM;
+using System.Collections.ObjectModel;
 
 namespace OrdersManager.ModelView
 {
-    public class PersonViewModel: ViewModelBase
+    public class PersonViewModel: Node
     {
-        private string fio = "Some name";
+        private string fio = "Sherlock Holmes";
         public string FIO
         {
             get
@@ -22,7 +23,7 @@ namespace OrdersManager.ModelView
             }
         }
 
-        protected string photoPath;
+        protected string photoPath = @"\PhotoCache\programmist.png";
         public string PhotoPath
         {
             get
@@ -40,23 +41,28 @@ namespace OrdersManager.ModelView
         {
             get
             {
-                return photoPath;
+                return "London, 221B Baker Street";
             }
             set
             {
-                photoPath = value;
                 OnPropertyChanged("Adress");
             }
         }
 
 
-        /*public List<ProjectViewModel> Projects { get; set; }
-
-        public PersonViewModel()
+        public ObservableCollection<ProjectViewModel> Projects
         {
-            List<ProjectViewModel> arr = new List<ProjectViewModel>() { new ProjectViewModel(), new ProjectViewModel() };
-            Projects = arr;
-        }*/
+            get
+            {
+                return new ObservableCollection<ProjectViewModel>(CacheManager.CacheManager.Instance.Projects); //.Where(p=>p. = base.FIO) 
+            }
+            set
+            {
+                CacheManager.CacheManager.Instance.Projects = value.ToList();
+                OnPropertyChanged("Projects");
+            }
+        }
+
 
     }
 }

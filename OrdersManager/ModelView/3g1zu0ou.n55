@@ -1,0 +1,52 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using MVVM;
+
+namespace OrdersManager.ModelView
+{
+    public class ProjectViewModel: ViewModelBase
+    {
+        public string Name
+        {
+            get
+            {
+                return "Project name";
+            }
+            set
+            {
+                OnPropertyChanged("Name");
+            }
+        }
+
+        private float Cost;
+        public DateTime FinalDate
+        {
+            get
+            {
+                return finalDate;
+            }
+            set
+            {
+                finalDate = value;
+                OnPropertyChanged("FinalDate");
+            }
+        }
+        
+
+        private DateTime finalDate;
+        public DateTime FinalDate
+        {
+            get
+            {
+                return finalDate;
+            }
+            set
+            {
+                finalDate = value;
+                OnPropertyChanged("FinalDate");
+            }
+        }
+    }
+}

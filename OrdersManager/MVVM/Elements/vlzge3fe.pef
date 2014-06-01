@@ -4,9 +4,9 @@ using System.Windows.Controls;
 using System.Collections;
 using System;
 
-namespace MVVM
+namespace WpfApplication
 {
-    public class Node : ViewModelBase
+    public class Node : INotifyPropertyChanged
     {
         public Node()
         {
@@ -36,7 +36,7 @@ namespace MVVM
             set
             {
                 this.isChecked = value;
-                OnPropertyChanged("IsChecked");
+                RaisePropertyChanged("IsChecked");
             }
         }
 
@@ -46,7 +46,7 @@ namespace MVVM
             set
             {
                 this.text = value;
-                OnPropertyChanged("Text");
+                RaisePropertyChanged("Text");
             }
         }
 
@@ -56,7 +56,7 @@ namespace MVVM
             set
             {
                 isExpanded = value;
-                OnPropertyChanged("IsExpanded");
+                RaisePropertyChanged("IsExpanded");
             }
         }
 
@@ -69,12 +69,12 @@ namespace MVVM
             }
         }
 
-        /*public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged;
         private void RaisePropertyChanged(string propertyName)
         {
             if (this.PropertyChanged != null)
                 this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-        }*/
+        }
 
     }//class Node
 
