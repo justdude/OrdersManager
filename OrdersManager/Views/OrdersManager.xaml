@@ -89,7 +89,7 @@
                     <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
                 <TextBlock Text="Информация:" VerticalAlignment="Stretch" HorizontalAlignment="Left" Grid.Row="0"></TextBlock>
-                <TextBox   Grid.Row="1" VerticalAlignment="Top"  Text="{Binding ProjectInfo}" AcceptsReturn="True" Height="138" ></TextBox>
+                <TextBox   Grid.Row="1" VerticalAlignment="Top"  Text="{Binding CareerName}" AcceptsReturn="True" Height="138" ></TextBox>
                 <StackPanel Grid.Row="2" HorizontalAlignment="Right" 
                                                          VerticalAlignment="Stretch"
                                                          Orientation="Horizontal"
@@ -152,6 +152,10 @@
             </Button>
         </ControlTemplate>
 
+        <DataTemplate x:Key="DefaultTemplate">
+            <TextBlock>Some text</TextBlock>
+        </DataTemplate>
+        
         <DataTemplate x:Key="MyTabHeaderTemplate">
             <Grid>
                 <Grid.ColumnDefinitions>

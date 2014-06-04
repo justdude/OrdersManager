@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using MVVM;
 using System.Collections.ObjectModel;
+using System.Data;
 
 namespace OrdersManager.ModelView
 {
@@ -13,6 +14,19 @@ namespace OrdersManager.ModelView
         private float projectCost = 1000000;
         private string projectStatus = "In progres";
         private DateTime finalDate = DateTime.Now;
+
+        public DataView Project
+        {
+            get
+            {
+                DataTable table = new DataTable("Project");
+                table.Columns.Add("Column1");
+                table.Columns.Add("Column2");
+                table.Rows.Add("text1", "text2");
+                table.Rows.Add("text1", "text2");
+                return table.DefaultView;
+            }
+        }
 
         public string Name
         {

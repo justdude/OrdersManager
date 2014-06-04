@@ -63,18 +63,7 @@ namespace OrdersManager.ModelView
             }
         }
 
-        public DataView Project
-        {
-            get
-            {
-                DataTable table = new DataTable("Project");
-                table.Columns.Add("Column1");
-                table.Columns.Add("Column2");
-                table.Rows.Add("text1","text2");
-                table.Rows.Add("text1", "text2");
-                return table.DefaultView;
-            }
-        }
+
 
         public object SelectedItem
         {
