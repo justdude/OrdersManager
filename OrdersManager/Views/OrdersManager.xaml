@@ -106,9 +106,10 @@
             <ListView Margin="2" ItemsSource="{Binding Project}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="{x:Null}">
                 <ListView.View>
                     <GridView>
-                        <GridViewColumn Header="ProductID" DisplayMemberBinding="{Binding Path=Column1}"></GridViewColumn>
-                        <GridViewColumn Header="Product Name" DisplayMemberBinding="{Binding Path=Column2}"></GridViewColumn>
-
+                        <GridViewColumn Header="Project name" DisplayMemberBinding="{Binding Path=Name}"></GridViewColumn>
+                        <GridViewColumn Header="Project Cost" DisplayMemberBinding="{Binding Path=ProjectCost}"></GridViewColumn>
+                        <GridViewColumn Header="Project Status" DisplayMemberBinding="{Binding Path=ProjectStatus}"></GridViewColumn>
+                        <GridViewColumn Header="Final Date" DisplayMemberBinding="{Binding Path=FinalDate}"></GridViewColumn>
                     </GridView>
                 </ListView.View>
             </ListView>

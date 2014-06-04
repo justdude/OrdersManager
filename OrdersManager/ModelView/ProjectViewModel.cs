@@ -20,10 +20,16 @@ namespace OrdersManager.ModelView
             get
             {
                 DataTable table = new DataTable("Project");
-                table.Columns.Add("Column1");
-                table.Columns.Add("Column2");
-                table.Rows.Add("text1", "text2");
-                table.Rows.Add("text1", "text2");
+                table.Columns.Add("Name");
+                table.Columns.Add("ProjectCost");
+                table.Columns.Add("ProjectStatus");
+                table.Columns.Add("FinalDate");
+
+                table.Rows.Add(Name.ToString(), 
+                               ProjectCost.ToString(), 
+                               ProjectStatus.ToString(), 
+                               FinalDate.ToShortDateString());
+
                 return table.DefaultView;
             }
         }
