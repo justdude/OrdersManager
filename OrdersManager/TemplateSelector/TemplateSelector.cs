@@ -15,10 +15,17 @@ namespace OrdersManager.TemplateSelector
 
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
-            if (item is FreelancerViewModel || item is CostumerViewModel)
+            if (item is FreelancerViewModel)
                 return ProfileView;
+                //return (container as FrameworkElement).FindResource("FreelancerViewModel") as DataTemplate;
+            else if (item is CostumerViewModel)
+                return ProfileView;
+            //return (container as FrameworkElement).FindResource("CostumerViewModel") as DataTemplate;
+            else if (item is ProjectViewModel)
+                return GridedView;
+                //return (container as FrameworkElement).FindResource("ProjectViewModel") as DataTemplate;
+            return null;
 
-            return GridedView;
         }
     }
    

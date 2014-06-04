@@ -82,7 +82,6 @@ namespace OrdersManager.ModelView
             {
                 
                 //System.Windows.MessageBox.Show("sad");
-                OnPropertyChanged("SelectedItem");
                 return selectedNode;
             }
             set
