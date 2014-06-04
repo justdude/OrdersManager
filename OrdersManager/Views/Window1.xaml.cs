@@ -9,31 +9,21 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Elysium;
-using MVVM;
 using OrdersManager.ModelView;
 
-namespace OrdersManager
+namespace OrdersManager.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Window1.xaml
     /// </summary>
-    public partial class MainWindow : Elysium.Controls.Window
+    public partial class Window1 : Window
     {
-        private OrdersRootViewModel formView;
-        public MainWindow()
+        public Window1()
         {
             InitializeComponent();
-
-            formView = new OrdersRootViewModel(tabControl.Items);
+            var formView = new OrdersRootViewModel(null);
             this.DataContext = formView;
-        }
-
-        private void trw_Products_SelectedItemChanged(object sender, RoutedPropertyChangedEventArgs<object> e)
-        {
-
         }
     }
 }

@@ -76,6 +76,10 @@ namespace OrdersManager.ModelView
             return Name;
         }*/
 
+        public override string ToString()
+        {
+            return Name;
+        }
 
     }
 }

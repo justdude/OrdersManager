@@ -5,14 +5,13 @@ using System.Linq;
 using System.Text;
 using System.Windows;
 using System.Windows.Input;
-using System.Windows.Controls;
 
 namespace MVVM
 {
     /// <summary>
     /// Provides common functionality for ViewModel classes
     /// </summary>
-    public abstract class ViewModelBase : INotifyPropertyChanged
+    public abstract class ViewModelBase : TabItem,INotifyPropertyChanged
     {
         public event PropertyChangedEventHandler PropertyChanged;
 

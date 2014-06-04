@@ -17,7 +17,7 @@ namespace MVVM
         private ObservableCollection<Node> parent = new ObservableCollection<Node>();
         private string text;
         private string id;
-        private bool? isChecked = true;
+        private bool isSelected = false;
         private bool isExpanded;
 
         public ObservableCollection<Node> Children
@@ -30,13 +30,13 @@ namespace MVVM
             get { return this.parent; }
         }
 
-        public bool? IsChecked
+        public bool IsSelected
         {
-            get { return this.isChecked; }
+            get { return this.isSelected; }
             set
             {
-                this.isChecked = value;
-                OnPropertyChanged("IsChecked");
+                this.isSelected = value;
+                OnPropertyChanged("IsSelected");
             }
         }
 
@@ -67,6 +67,35 @@ namespace MVVM
             {
                 this.id = value;
             }
+        }
+
+        public static Node FindSelectedNode(ObservableCollection<Node> nodes)
+        {
+            Node selectedNode = null;
+            foreach (var node in nodes)
+            {
+                selectedNode = GetSelected(node);
+                if (selectedNode != null)
+                    return selectedNode;
+            }
+            return selectedNode;
+        }
+
+        private static Node GetSelected(Node baseNode)
+        {
+            if (baseNode == null) return null;
+            if (baseNode.isSelected )
+                return baseNode;
+
+            if (baseNode.Children!=null)
+                foreach (Node node in baseNode.Children)
+                {
+                    if (node != null && node.IsSelected)
+                        return node;
+                    if (node.Children != null)
+                        return Node.GetSelected(node);
+                }
+            return null;
         }
 
         /*public event PropertyChangedEventHandler PropertyChanged;

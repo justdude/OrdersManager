@@ -80,6 +80,16 @@
             </StackPanel>
         </HierarchicalDataTemplate>
 
+
+        <DataTemplate x:Key="projecttab" DataType="{x:Type local:ProjectTabViewModel}" >
+            <mv:ProjectsTab DataContext="{Binding CurrentMyTabContentViewModel}"></mv:ProjectsTab>
+        </DataTemplate>
+
+        <DataTemplate x:Key="persontab" DataType="{x:Type local:PersonTabViewModel}">
+            <mv:UserTab DataContext="{Binding CurrentMyTabContentViewModel}"></mv:UserTab>
+        </DataTemplate>
+
+
         <!--Person data-->
         <DataTemplate x:Key="PersonTemplate" DataType="{x:Type local:PersonViewModel}">
             <Grid>
@@ -123,6 +133,10 @@
         <!--<DataTemplate DataType="{x:Type local:AddTabViewModel}">
             <mv:></mv:>
         </DataTemplate>-->
+        <selector:TabSelector
+            PersonTab = "{StaticResource persontab}"
+            ProjectTab="{StaticResource projecttab}" 
+        x:Key="tabSelector" />
        
 
         <!--style-->
@@ -156,17 +170,6 @@
             </Button>
         </ControlTemplate>
 
-        <DataTemplate x:Key="MyTabHeaderTemplate">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <TextBlock>asdaasd</TextBlock>
-                <TextBlock Grid.Column="1" Text="{Binding Header}" Width="80" Height="25" FontWeight="Bold"/>
-            </Grid>
-        </DataTemplate>
-
 
     </Window.Resources>
     <Controls:Window.ApplicationBar>
@@ -182,9 +185,12 @@
             <RowDefinition Height="25*"/>
         </Grid.RowDefinitions>
         <TabControl Grid.Row="0"
-                    Name="tabControl"
-                    IsSynchronizedWithCurrentItem="True">
-            <TabItem Header="Проекты">
+                    IsSynchronizedWithCurrentItem="True"
+                    ContentTemplateSelector="{StaticResource tabSelector}"
+                    ItemsSource="{Binding Tabs}">
+                    
+
+            <!--<TabItem Header="Проекты">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="18*"/>
@@ -213,21 +219,22 @@
                                   Width="5"
                                   MinHeight="250" 
                                   Foreground="#FF272727"></GridSplitter>
-                <ContentControl Grid.Column="2" 
-                                    Content="{Binding OrdersRootViewModel.SelectedItem}"/>
-                <ListBox Grid.Column="2"   
+                    <ContentControl Grid.Column="2" 
+                                    Content="{Binding OrdersRootViewModel.SelectedItem}"/>-->
+                    <!--
+                    <ListBox Grid.Column="2"   
                              VerticalAlignment="Stretch"
                              HorizontalAlignment="Stretch"
                              Margin="4"
                              ItemsSource="{Binding SelectedNodes}"
                              ItemTemplateSelector="{StaticResource GridProfileSelector}">
+                        
+                    </ListBox>-->
 
-                </ListBox>
+              <!--  </Grid>
+            </TabItem>-->
 
-              </Grid>
-            </TabItem>
-
-            <TabItem Header="Персоны">
+            <!--<TabItem Header="Персоны">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="18*"/>
@@ -238,12 +245,12 @@
                     <StackPanel Grid.Row="0">
                         <ListBox>
                             <ListBox.Resources>
-                               <!-- <DataTemplate DataType="">
+                                <DataTemplate DataType="">
                                     <TextBlock Text="Project"></TextBlock>
                                 </DataTemplate>
                                 <DataTemplate DataType="">
 
-                                </DataTemplate-->
+                                </DataTemplate>
                             </ListBox.Resources>
                         </ListBox>
                         <TreeView  Name="trw_Products1" 
@@ -254,8 +261,7 @@
                                    BorderBrush="{x:Null}" 
                                    Background="{x:Null}" >
                             <TreeView.ContextMenu>
-                                <ContextMenu ItemContainerStyle="{StaticResource ContextMenuItemStyle}" 
-                                             ItemsSource="{Binding MenuOptions}" />
+                                <ContextMenu ItemContainerStyle="{StaticResource ContextMenuItemStyle}" ItemsSource="{Binding MenuOptions}" />
                             </TreeView.ContextMenu>
                         </TreeView>
                     </StackPanel>
@@ -270,30 +276,25 @@
                                   MinHeight="250" 
                                   Foreground="#FF272727"></GridSplitter>
                     <ContentControl Grid.Column="2" 
-                                    ContentTemplate="{Binding SelectedItem, ElementName=trw_Products1}"/>
+                                    Content="{Binding OrdersRootViewModel.SelectedItem}"/>
                 </Grid>
             </TabItem>
-            
-            <TabItem Header="...">
+            -->
+            <!--<TabItem Header="...">
                 <TabItem.Template>
                     <ControlTemplate>
                         <Button Command="{Binding AddTabItemClick}"
                                 Background="{x:Null}" 
                                 BorderBrush="{x:Null}" 
                                 Foreground="Black"  >
-                            <Image 
-                                Height="28"
-                                Width="28"
-                                HorizontalAlignment="Stretch"
-                                VerticalAlignment="Stretch"
-                                Source="/Images/plus.png"></Image>
+                            <TextBlock >...</TextBlock>
                         </Button>
                     </ControlTemplate>
                 </TabItem.Template>
                 <Grid>
                     <TextBlock>Add new tab</TextBlock>
                 </Grid>
-            </TabItem>
+            </TabItem>-->
         </TabControl>
 
 

@@ -65,14 +65,42 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CacheManager\CacheManager.cs" />
+    <Compile Include="Converters\TypeToViewConverter.cs" />
+    <Compile Include="ModelView\Tabs\AddTabViewModel.cs" />
     <Compile Include="ModelView\CostumerViewModel.cs" />
     <Compile Include="ModelView\FreelancerViewModel.cs" />
+    <Compile Include="ModelView\Tabs\PersonTabViewModel.cs" />
+    <Compile Include="ModelView\Tabs\ProjectTabViewModel.cs" />
+    <Compile Include="ModelView\Tabs\TabsItemsManager.cs" />
     <Compile Include="ModelView\TaskViewModel.cs" />
+    <Compile Include="MVVM\Commands\CommandBehavior.cs" />
     <Compile Include="MVVM\Elements\MenuItem.cs" />
+    <Compile Include="MVVM\Elements\TabItemViewModelBase.cs" />
+    <Compile Include="MVVM\ViewModelsBase\IContent.cs" />
+    <Compile Include="TemplateSelector\TabSelector.cs" />
     <Compile Include="TemplateSelector\TemplateSelector.cs" />
     <Compile Include="Views\PersonInfo.xaml.cs">
       <DependentUpon>PersonInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ProjectsTab.xaml.cs">
+      <DependentUpon>ProjectsTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TabsWindowControl\SelectTabTypeControl.xaml.cs">
+      <DependentUpon>SelectTabTypeControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TabsWindowControl\TabTypeSelect.xaml.cs">
+      <DependentUpon>TabTypeSelect.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UserTab.xaml.cs">
+      <DependentUpon>UserTab.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Window1.xaml.cs">
+      <DependentUpon>Window1.xaml</DependentUpon>
+    </Compile>
+    <Page Include="ResourceDicionary.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\OrdersManager.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -95,6 +123,26 @@
     <Page Include="Views\PersonInfo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\ProjectsTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TabsWindowControl\SelectTabTypeControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TabsWindowControl\TabTypeSelect.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UserTab.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Window1.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
@@ -124,6 +172,9 @@
   <ItemGroup>
     <Folder Include="Model\" />
     <Folder Include="PhotoCache\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\plus.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

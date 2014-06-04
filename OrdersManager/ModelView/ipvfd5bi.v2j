@@ -16,26 +16,70 @@ namespace OrdersManager.ModelView
     public class OrdersRootViewModel : ViewModelBase
     {
 
+
+        public ItemCollection Tabs
+        {
+            get;
+            private set;
+        }
+
+        private DelegateCommand onAddTabItemClick;
+
+        public ICommand LoadContent { get; set; }
+
+        public ICommand AddTabItemClick 
+        { 
+            get
+            {
+                if (onAddTabItemClick==null)
+                {
+                    onAddTabItemClick = new DelegateCommand(OnAddTabItemClick);
+                }
+
+
+                return onAddTabItemClick;
+            }
+            set
+            {
+                OnPropertyChanged("AddTabItemClick");
+            }
+        }
+
         public static OrdersRootViewModel Instance
         {
             get;
             private set;
         }
 
-        public ObservableCollection<Node> Nodes 
-        { 
-            get; 
-            private set; 
-        }
-
-        private ItemCollection Tabs;
-
-        public TabItem[] TabsStartCollections
+        public void OnAddTabItemClick()
         {
-            get;
-            private set;
+
+            /*// Set the new tab to be the current tab
+            ICollectionView collectionView1 = CollectionViewSource.GetDefaultView(this.Tabs);
+
+            if (collectionView1 != null)
+            {
+               // collectionView1.MoveCurrentTo(tabItemViewModelBase);
+            }*/
+
+            
+
+            List<string> tabHeaders = new List<string>();
+            foreach(var tab in Tabs)
+                tabHeaders.Add( (string)((TabItem)tab).Header);
+            Views.TabTypeSelect window = new Views.TabTypeSelect(tabHeaders);
+            window.Show();
+
+         
         }
 
+        public void AddTab(int Index)
+        {
+            TabItem cachedTab = new TabItem();
+            cachedTab.Content = ((TabItem)Tabs[Index]).Content;
+            cachedTab.Header = ((TabItem)Tabs[Index]).Header;
+            Tabs.Add(cachedTab);
+        }
 
         public List<MVVM.MenuItem> MenuOptions
         {
@@ -61,6 +105,8 @@ namespace OrdersManager.ModelView
                                     });
                return menu;
             }
+
+
         }
 
         public DataView Project
@@ -76,6 +122,7 @@ namespace OrdersManager.ModelView
             }
         }
 
+        private object selectedNode;
         public object SelectedItem
         {
             get
@@ -100,6 +147,7 @@ namespace OrdersManager.ModelView
         }
 
 
+        //public ObservableCollection<PersonViewModel> Persons { get; set; }
         public ObservableCollection<ProjectViewModel> Projects 
         {
             get
@@ -130,39 +178,12 @@ namespace OrdersManager.ModelView
             }
         }
 
-
-        public ICommand LoadContent 
-        { 
-            get; 
-            set; 
-        }
-
-        public ICommand AddTabItemClick
-        {
-            get
-            {
-                if (onAddTabItemClick == null)
-                {
-                    onAddTabItemClick = new DelegateCommand(OnAddTabItemClick);
-                }
-                return onAddTabItemClick;
-            }
-            set
-            {
-                OnPropertyChanged("AddTabItemClick");
-            }
-        }
-
-
-        private object selectedNode;
-        private DelegateCommand onAddTabItemClick;
-
+        public ObservableCollection<Node> Nodes { get; private set; }
 
         public OrdersRootViewModel(ItemCollection tabs)
         {
-            Instance = this;
             this.Tabs = tabs;
-            FillTabs();
+           // tabs.Add(tabs[0]);
 
             LoadContent = new DelegateCommand(
                 () => 
@@ -171,22 +192,7 @@ namespace OrdersManager.ModelView
                 },
                 () => { return true; }
                 );
-
-            FillNodes();
-
-        }
-
-        private void FillTabs()
-        {
-            List<TabItem> TabsStart = Tabs.OfType<TabItem>().ToList<TabItem>();
-            TabsStart.RemoveAt(TabsStart.Count - 1);
-            TabsStartCollections = TabsStart.ToArray();
-        }
-
-        private void FillNodes()
-        {
             var Projects = OrdersManager.CacheManager.CacheManager.Instance.Projects;
-
             for (int i = 0; i < Freelancers.Count; i++)
             {
                 Freelancers[i].Children.Add(Costumers[0]);
@@ -194,30 +200,11 @@ namespace OrdersManager.ModelView
                 {
                     pr.Children.Add(Freelancers[i]);
                 }
-
+               
             }
             Nodes = new ObservableCollection<Node>(Projects);
-        }
 
-        public void OnAddTabItemClick()
-        {
-            List<string> tabHeaders = new List<string>();
-            foreach (var tab in TabsStartCollections)
-                tabHeaders.Add((string)((TabItem)tab).Header);
-            Views.TabTypeSelect window = new Views.TabTypeSelect(tabHeaders);
-            window.ShowDialog();
-        }
 
-        /// <summary>
-        /// AddTab
-        /// </summary>
-        /// <param name="Index"> индекс вкладки</param>
-        public void AddTab(int Index)
-        {
-            TabItem cachedTab = new TabItem();
-            cachedTab.Content = (TabsStartCollections[Index]).Content;
-            cachedTab.Header = (TabsStartCollections[Index]).Header;
-            Tabs.Insert(Tabs.Count - 1,cachedTab);
         }
 
     }
