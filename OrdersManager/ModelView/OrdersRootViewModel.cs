@@ -41,24 +41,32 @@ namespace OrdersManager.ModelView
         {
             get  {
                 var menu = new List<MVVM.MenuItem>();
-                var mi = new MVVM.MenuItem("Add");
-                for (int i = 0; i < 4; i++ )
-                {
+                var add = new MVVM.MenuItem("Add");
+                add.Command = new DelegateCommand(() => { System.Windows.MessageBox.Show(""); });
                     /*var sff = fl;
-                    mi.Children.Add(new MenuItem(fl.Attributes.Description) 
+                    add.Children.Add(new MenuItem(fl.Attributes.Description) 
                     { 
                         Command = new DelegateCommand(() =>
                         { 
                             LoadFromFormat(sff); 
                         }) */
-                }
-                menu.Add(mi);
 
+
+                var goTo = new MVVM.MenuItem("Go to...")
+                {
+                    Command =  new MVVM.DelegateCommand( 
+                                                         () => { GoToTab(SelectedItem.GetType().ToString()); }
+                                )
+                };
+
+                menu.Add(add);
+                menu.Add(goTo);
                 menu.Add(new MVVM.MenuItem("Close _All") 
                                     { 
                                         /*Command = new DelegatingCommand(OnCloseAll, 
                                                         () => FileList.Count > 0)*/
                                     });
+
                return menu;
             }
         }
@@ -69,8 +77,7 @@ namespace OrdersManager.ModelView
         {
             get
             {
-                
-                //System.Windows.MessageBox.Show("sad");
+                selectedNode = Node.FindSelectedNode(Nodes);
                 return selectedNode;
             }
             set
@@ -78,13 +85,6 @@ namespace OrdersManager.ModelView
                 selectedNode = value;
                 OnPropertyChanged("SelectedItem");
             }
-            /*set
-            {
-                if (value == null) return;
-                selectedNode = value;
-                selectedNode.IsSelected = value.IsSelected;
-                OnPropertyChanged("IsSelected");
-            }*/
         }
 
 
@@ -166,9 +166,15 @@ namespace OrdersManager.ModelView
 
         private void FillTabs()
         {
-            List<TabItem> TabsStart = Tabs.OfType<TabItem>().ToList<TabItem>();
-            TabsStart.RemoveAt(TabsStart.Count - 1);
+            List<TabItem> TabsStart = ToTabsList(this.Tabs);
             TabsStartCollections = TabsStart.ToArray();
+        }
+
+        private List<TabItem> ToTabsList(ItemCollection tabs)
+        {
+            List<TabItem> TabsStart = tabs.OfType<TabItem>().ToList<TabItem>();
+            TabsStart.RemoveAt(TabsStart.Count - 1);
+            return TabsStart;
         }
 
         private void FillNodes()
@@ -206,6 +212,17 @@ namespace OrdersManager.ModelView
             cachedTab.Content = (TabsStartCollections[Index]).Content;
             cachedTab.Header = (TabsStartCollections[Index]).Header;
             Tabs.Insert(Tabs.Count - 1,cachedTab);
+        }
+
+        public void GoToTab(string typeName)
+        {
+            var tabs = ToTabsList(Tabs);
+            var res = tabs.FirstOrDefault<TabItem>(
+                p => p.GetType().ToString()== typeName && p.TabIndex <= Tabs.CurrentPosition);
+            if (res!=null)
+            {
+                Tabs.MoveCurrentTo(res);
+            }
         }
 
     }

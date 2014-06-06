@@ -195,6 +195,7 @@
 
                         <TreeView  Name="trw_Products" 
                                    ItemsSource="{Binding Nodes}"
+                                   
                                    mvvvm:CommandBehavior.RoutedEventName="SelectedItemChanged"
                                    mvvvm:CommandBehavior.TheCommandToRun="{Binding Path=LoadContent}"
                                    Margin="1"
