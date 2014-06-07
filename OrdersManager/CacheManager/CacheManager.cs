@@ -21,26 +21,26 @@ namespace OrdersManager.CacheManager
         {
             Projects = new List<ProjectViewModel>()
             {
+                /*new ProjectViewModel(),
                 new ProjectViewModel(),
-                new ProjectViewModel(),
-                new ProjectViewModel()
+                new ProjectViewModel()*/
             };
 
             Freelancers = new List<FreelancerViewModel>()
             {
+                /*new FreelancerViewModel(),
                 new FreelancerViewModel(),
                 new FreelancerViewModel(),
                 new FreelancerViewModel(),
-                new FreelancerViewModel(),
-                new FreelancerViewModel()
+                new FreelancerViewModel()*/
             };
 
             Costumers = new List<CostumerViewModel>()
             {
+                /*new CostumerViewModel(),
                 new CostumerViewModel(),
                 new CostumerViewModel(),
-                new CostumerViewModel(),
-                new CostumerViewModel()
+                new CostumerViewModel()*/
             };
         }
 

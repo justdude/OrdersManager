@@ -103,7 +103,7 @@
 
         <!--Grided data template-->
         <DataTemplate x:Key="GridedTemplate" DataType="{x:Type local:ProjectViewModel}">
-            <ListView Margin="2" ItemsSource="{Binding Project}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="{x:Null}">
+            <ListView Margin="2" ItemsSource="{Binding TableView}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="{x:Null}">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Header="Project name" DisplayMemberBinding="{Binding Path=Name}"></GridViewColumn>

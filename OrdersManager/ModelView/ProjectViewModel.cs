@@ -5,46 +5,56 @@ using System.Text;
 using MVVM;
 using System.Collections.ObjectModel;
 using System.Data;
+using OrdersManager.Model;
 
 namespace OrdersManager.ModelView
 {
     public class ProjectViewModel: Node
     {
 
-        private float projectCost = 1000000;
-        private string projectStatus = "In progres";
-        private DateTime finalDate = DateTime.Now;
+        protected Project Project
+        { get; set; }
 
-        public DataView Project
+
+        public ProjectViewModel(Project project)
+        {
+            this.Project = project;
+        }
+  
+        public DataView TableView
         {
             get
             {
-                DataTable table = new DataTable("Project");
-                table.Columns.Add("Name");
+                DataTable table = new DataTable("TableView");
+                table.Columns.Add("Id");
                 table.Columns.Add("ProjectCost");
                 table.Columns.Add("ProjectStatus");
+                table.Columns.Add("StartDate");
                 table.Columns.Add("FinalDate");
 
-                table.Rows.Add(Name.ToString(), 
+                table.Rows.Add(Id.ToString(), 
                                ProjectCost.ToString(), 
                                ProjectStatus.ToString(), 
+                               StartDate.ToString(),
                                FinalDate.ToShortDateString());
 
                 return table.DefaultView;
             }
         }
 
-        public string Name
+        public int Id
         {
             get
             {
-                return "Project name";
+                return Project.Id;
             }
             set
             {
-                OnPropertyChanged("Name");
+                Project.Id = value;
+                OnPropertyChanged("Id");
             }
         }
+
 
         public OrdersManager.ModelView.FreelancerViewModel Lead
         {
@@ -65,11 +75,11 @@ namespace OrdersManager.ModelView
         {
             get
             {
-                return projectCost;
+                return Project.ProjectCost;
             }
             set
             {
-                projectCost = value;
+                Project.ProjectCost = value;
                 OnPropertyChanged("ProjectCost");
             }
         }
@@ -79,31 +89,44 @@ namespace OrdersManager.ModelView
         {
             get
             {
-                return projectStatus;
+                return Project.ProjectStatus;
             }
             set
             {
-                projectStatus = value;
+                Project.ProjectStatus = value;
                 OnPropertyChanged("ProjectStatus");
             }
         }
-        
+
+        public DateTime StartDate
+        {
+            get
+            {
+                return Project.StartDate;
+            }
+            set
+            {
+                Project.StartDate = value;
+                OnPropertyChanged("StartDate");
+            }
+        }
 
         public DateTime FinalDate
         {
             get
             {
-                return finalDate;
+                return Project.FinalDate;
             }
             set
             {
-                finalDate = value;
+                Project.FinalDate = value;
                 OnPropertyChanged("FinalDate");
             }
         }
 
 
-        public ObservableCollection<TaskViewModel> Tasks
+
+        /*public ObservableCollection<TaskViewModel> Tasks
         {
             get
             {
@@ -114,12 +137,12 @@ namespace OrdersManager.ModelView
             {
                 OnPropertyChanged("Tasks");
             }
-        }
+        }*/
 
-        public override string ToString()
+        /*public override string ToString()
         {
             return Name;
-        }
+        }*/
 
     }
 }

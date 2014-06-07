@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using MVVM;
 using System.Collections.ObjectModel;
+using OrdersManager.Model;
 
 namespace OrdersManager.ModelView
 {
@@ -11,33 +12,91 @@ namespace OrdersManager.ModelView
     public class TaskViewModel : Node
     {
 
-        private string name = "Some task";
-        private string taskStatus = "in progress";
+        protected Task Task
+        {
+            get;
+            set;
+        }
+
+        public TaskViewModel(Task task)
+        {
+            this.Task = task;
+        }
+
+        public new int Id
+        {
+            get
+            {
+                return Task.Id;
+            }
+            set
+            {
+                Task.Id = value;
+                OnPropertyChanged("Id");
+            }
+        }
+
+        public int ExecutorId
+        {
+            get
+            {
+                return Task.ExecutorId;
+            }
+            set
+            {
+                Task.ExecutorId = value;
+                OnPropertyChanged("EstimateDate");
+            }
+        }
+        public int ProjectId
+        {
+            get
+            {
+                return Task.ProjectId;
+            }
+            set
+            {
+                Task.ProjectId = value;
+                OnPropertyChanged("ProjectId");
+            }
+        }
 
         public string Name
         {
             get
             {
-                return name;
+                return Task.Name;
             }
             set
             {
-                name = value;
+                Task.Name = value;
                 OnPropertyChanged("Name");
             }
         }
-
 
         public string TaskStatus
         {
             get
             {
-                return taskStatus;
+                return Task.TaskStatus;
             }
             set
             {
-                taskStatus = value;
+                Task.TaskStatus = value;
                 OnPropertyChanged("TaskStatus");
+            }
+        }
+
+        public string StartDate
+        {
+            get
+            {
+                return Task.StartDate;
+            }
+            set
+            {
+                Task.StartDate = value;
+                OnPropertyChanged("StartDate");
             }
         }
 
@@ -45,41 +104,31 @@ namespace OrdersManager.ModelView
         {
             get
             {
-                return DateTime.Now.ToString();
+                return Task.EstimateDate;
             }
             set
             {
+                Task.EstimateDate = value;
                 OnPropertyChanged("EstimateDate");
             }
         }
 
 
-        public ProjectViewModel Project
+        /*public ProjectViewModel TableView
         {
             get; set;
-        }
-
-        /*public ObservableCollection<FreelancerViewModel> Freelancers
-        {
-            get
-            {
-                return new ObservableCollection<FreelancerViewModel>(CacheManager.CacheManager.Instance.Freelancers); //.Where(p=>p. = base.FIO) 
-            }
-            set
-            {
-                CacheManager.CacheManager.Instance.Freelancers = value.ToList();
-                OnPropertyChanged("Freelancers");
-            }
         }*/
+
+
         /*public override string ToString()
         {
             return Name;
         }*/
 
-        public override string ToString()
+        /*public override string ToString()
         {
             return Name;
-        }
+        }*/
 
     }
 }

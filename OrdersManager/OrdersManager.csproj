@@ -47,6 +47,15 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.SQLite, Version=1.0.92.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libraries\System.Data.SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Data.SQLite.Linq, Version=1.0.92.0, Culture=neutral, PublicKeyToken=db937bc2d44ff139, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Libraries\System.Data.SQLite.Linq.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -66,6 +75,8 @@
     </ApplicationDefinition>
     <Compile Include="CacheManager\CacheManager.cs" />
     <Compile Include="Converters\TypeToViewConverter.cs" />
+    <Compile Include="Database\CommandBuilder.cs" />
+    <Compile Include="Database\DatabaseManager.cs" />
     <Compile Include="ModelView\Tabs\AddTabViewModel.cs" />
     <Compile Include="ModelView\CostumerViewModel.cs" />
     <Compile Include="ModelView\FreelancerViewModel.cs" />
@@ -73,6 +84,11 @@
     <Compile Include="ModelView\Tabs\ProjectTabViewModel.cs" />
     <Compile Include="ModelView\Tabs\TabsItemsManager.cs" />
     <Compile Include="ModelView\TaskViewModel.cs" />
+    <Compile Include="Model\Costumer.cs" />
+    <Compile Include="Model\Freelancer.cs" />
+    <Compile Include="Model\Person.cs" />
+    <Compile Include="Model\Project.cs" />
+    <Compile Include="Model\Task.cs" />
     <Compile Include="MVVM\Commands\CommandBehavior.cs" />
     <Compile Include="MVVM\Elements\MenuItem.cs" />
     <Compile Include="MVVM\Elements\TabItemViewModelBase.cs" />
@@ -163,6 +179,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Database\db.s3db" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -170,7 +187,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Model\" />
     <Folder Include="PhotoCache\" />
   </ItemGroup>
   <ItemGroup>

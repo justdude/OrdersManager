@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using MVVM;
 using System.Collections.ObjectModel;
- 
+using OrdersManager.Model; 
+
 namespace OrdersManager.ModelView
 {
     public class FreelancerViewModel : PersonViewModel
@@ -38,7 +39,7 @@ namespace OrdersManager.ModelView
 
         public bool IsLead { get; set; }
 
-        public FreelancerViewModel()
+        public FreelancerViewModel(Person person) : base(person)
         {
             base.FIO = "Dr. Watson";
         }

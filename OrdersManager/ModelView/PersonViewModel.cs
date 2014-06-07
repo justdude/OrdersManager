@@ -4,35 +4,42 @@ using System.Linq;
 using System.Text;
 using MVVM;
 using System.Collections.ObjectModel;
-
+using OrdersManager.Model;
 namespace OrdersManager.ModelView
 {
     public class PersonViewModel: Node
     {
-        private string fio = "Sherlock Holmes";
+
+        protected Person Person
+        { get; set; }
+
+        public PersonViewModel(Person person)
+        {
+            this.Person = person;
+        }
+
         public string FIO
         {
             get
             {
-                return fio;
+                return Person.FIO;
             }
             set
             {
-                fio = value;
-                OnPropertyChanged("Fio");
+                Person.FIO = value;
+                OnPropertyChanged("FIO");
             }
         }
 
-        protected string photoPath = @"\PhotoCache\programmist.png";
         public string PhotoPath
         {
             get
             {
-                return photoPath;
+                return @"\PhotoCache\" + Person.PhotoName;
             }
             set
             {
-                photoPath = value;
+                Person.PhotoName = value;
                 OnPropertyChanged("PhotoPath");
             }
         }
@@ -41,16 +48,17 @@ namespace OrdersManager.ModelView
         {
             get
             {
-                return "London, 221B Baker Street";
+                return Person.Adress;
             }
             set
             {
+                Person.Adress = value;
                 OnPropertyChanged("Adress");
             }
         }
 
 
-        public ObservableCollection<ProjectViewModel> Projects
+       /* public ObservableCollection<ProjectViewModel> Projects
         {
             get
             {
@@ -66,7 +74,7 @@ namespace OrdersManager.ModelView
         public override string ToString()
         {
             return FIO;
-        }
+        }*/
 
     }
 }

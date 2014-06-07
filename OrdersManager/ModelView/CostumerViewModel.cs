@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using MVVM;
 using System.Collections.ObjectModel;
+using OrdersManager.Model;
 
 namespace OrdersManager.ModelView
 {
@@ -22,7 +23,7 @@ namespace OrdersManager.ModelView
                 OnPropertyChanged("CareerName");
             }
         }
-        public CostumerViewModel()
+        public CostumerViewModel(Person person) : base(person)
         {
             base.FIO = "Moriarti";
         }
