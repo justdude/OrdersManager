@@ -195,6 +195,8 @@ namespace OrdersManager.ModelView
 
         public void OnAddTabItemClick()
         {
+            SQLite.SQLiteConnection conn = new SQLite.SQLiteConnection("db.sqlite");
+
             List<string> tabHeaders = new List<string>();
             foreach (var tab in TabsStartCollections)
                 tabHeaders.Add((string)((TabItem)tab).Header);
