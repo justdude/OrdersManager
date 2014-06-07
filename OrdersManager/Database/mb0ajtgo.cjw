@@ -2,11 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using OrdersManager.Model;
+using System.Data.SQLite;
+using System.Data.SQLite.Linq;
 
 namespace OrdersManager.Database
 {
-    public class CommandBuilder
+    public class Command
     {
+
+        public 
 
     }
 }

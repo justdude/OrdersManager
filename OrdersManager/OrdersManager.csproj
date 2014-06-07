@@ -75,7 +75,7 @@
     </ApplicationDefinition>
     <Compile Include="CacheManager\CacheManager.cs" />
     <Compile Include="Converters\TypeToViewConverter.cs" />
-    <Compile Include="Database\CommandBuilder.cs" />
+    <Compile Include="Database\Command.cs" />
     <Compile Include="Database\DatabaseManager.cs" />
     <Compile Include="ModelView\Tabs\AddTabViewModel.cs" />
     <Compile Include="ModelView\CostumerViewModel.cs" />

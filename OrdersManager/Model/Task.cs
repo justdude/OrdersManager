@@ -22,10 +22,10 @@ namespace OrdersManager.Model
         public string TaskStatus
         { get; set; }
 
-        public string StartDate
+        public DateTime StartDate
         { get; set; }
 
-        public string EstimateDate
+        public DateTime EstimateDate
         { get; set; }
     }
 }
