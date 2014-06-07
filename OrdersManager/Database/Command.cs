@@ -20,13 +20,13 @@ namespace OrdersManager.Database
         public Command(SQLiteConnection connection)
         {
             this.Connection = connection;
-            Command = new SQLiteCommand(connection);
+            Comm = new SQLiteCommand(connection);
         }
 
         public Command(SQLiteConnection connection, string commangText)
         {
             this.Connection = connection;
-            Command = new SQLiteCommand(commangText, connection);
+            Comm = new SQLiteCommand(commangText, connection);
         }
 
         public SQLiteCommand GetCommand()

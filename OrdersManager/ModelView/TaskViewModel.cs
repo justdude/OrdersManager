@@ -87,7 +87,7 @@ namespace OrdersManager.ModelView
             }
         }
 
-        public string StartDate
+        public DateTime StartDate
         {
             get
             {
@@ -100,7 +100,7 @@ namespace OrdersManager.ModelView
             }
         }
 
-        public string EstimateDate
+        public DateTime EstimateDate
         {
             get
             {
