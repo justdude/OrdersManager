@@ -23,8 +23,12 @@ namespace OrdersManager.ModelView
             private set;
         }
 
+        public ObservableCollection<Node> Nodes 
+        { 
+            get; 
+            private set; 
+        }
 
-        #region Tabs
         private ItemCollection Tabs;
 
         public TabItem[] TabsStartCollections
@@ -32,9 +36,8 @@ namespace OrdersManager.ModelView
             get;
             private set;
         }
-        #endregion
 
-        #region ContextMenu
+
         public List<MVVM.MenuItem> MenuOptions
         {
             get  {
@@ -68,9 +71,8 @@ namespace OrdersManager.ModelView
                return menu;
             }
         }
-        #endregion
 
-        #region Items
+
 
         public object SelectedItem
         {
@@ -86,11 +88,6 @@ namespace OrdersManager.ModelView
             }
         }
 
-        public ObservableCollection<Node> Nodes
-        {
-            get;
-            private set;
-        }
 
         public ObservableCollection<ProjectViewModel> Projects 
         {
@@ -106,16 +103,8 @@ namespace OrdersManager.ModelView
         {
             get
             {
-                Command comm = new Command(DatabaseManager.Instance.Connection);
-                var table = comm.SelectCostumers();
-                var data = DatabaseConverter.ConvertRowsToList<Model.Costumer>(table, DatabaseConverter.ToCostumer);
-
-                var list = new ObservableCollection<CostumerViewModel>(data.ConvertAll<CostumerViewModel>( 
-                    x=>{
-                        
-                        return new CostumerViewModel(x);
-                    } )
-                    );
+                var data = OrdersManager.CacheManager.CacheManager.Instance.Costumers;
+                var list = new ObservableCollection<CostumerViewModel>(data);
                 return list;
             }
         }
@@ -130,9 +119,7 @@ namespace OrdersManager.ModelView
             }
         }
 
-        #endregion
 
-        #region Commands
         public ICommand LoadContent 
         { 
             get; 
@@ -154,7 +141,6 @@ namespace OrdersManager.ModelView
                 OnPropertyChanged("AddTabItemClick");
             }
         }
-        #endregion
 
 
         private object selectedNode;
@@ -175,90 +161,10 @@ namespace OrdersManager.ModelView
                 () => { return true; }
                 );
 
-            Helper.DoInbackground(new Action(() => { }), new Action(() => { }));
             FillNodes();
 
         }
-        public ObservableCollection<TaskViewModel> Tasks { get; set; }
 
-        private ObservableCollection<Node> ComputeProjects(List<ProjectViewModel> projects)
-        {
-            ObservableCollection<ProjectViewModel> Projects = new ObservableCollection<ProjectViewModel>(projects);
-            Node header = new MVVM.Node();
-            header.Text = "Проекты";
-
-            for (int i = 0; i < Projects.Count; i++)
-            {
-                //заказчик
-                CostumerViewModel owner = this.Costumers.Where(costumer => costumer.Id == Projects[i].Lead.Id).First();
-
-                //задания
-                var childTasks = new ObservableCollection<TaskViewModel>(this.Tasks.Where(task => task.ProjectId == Projects[i].Id).ToList());
-                
-                Projects[i].Children.Add(owner);
-                foreach (var chTask in childTasks)
-                {
-                    Projects[i].Children.Add(chTask);
-                }
-
-                //проходимся по задачам
-                 for(int j=1; j<Projects[i].Children.Count; j++)
-                 {
-                     FreelancerViewModel freelancer = Freelancers.Where(fr=>fr.Id == ((FreelancerViewModel)Projects[i].Children[j]).Id).First();
-                     Projects[i].Children[j].Children.Add(freelancer);
-                 }
-                 header.Children.Add(Projects[i]);
-            }
-            return header.Children;
-        }
-
-        private void FillNodes()
-        {
-            var Projects = OrdersManager.CacheManager.CacheManager.Instance.Projects;
-
-            /* for (int i = 0; i < Costumers.Count; i++ )
-             {
-
-             }*/
-
-            /*for (int i = 0; i < Freelancers.Count; i++)
-            {
-                Freelancers[i].Children.Add(Costumers[0]);
-                foreach (var pr in Projects)
-                {
-                    pr.Children.Add(Freelancers[i]);
-                }
-
-            }*/
-            Nodes = new ObservableCollection<Node>(Costumers);
-        }
-
-        public void OnAddTabItemClick()
-        {
-
-            Command comm = new Database.Command(DatabaseManager.Instance.Connection);
-
-            comm.CreateTableCostumer();
-            comm.CreateTableFreelancer();
-            comm.CreateTableTask();
-            comm.CreateProjects();
-            var costumer = new OrdersManager.Model.Costumer();
-            costumer.FIO = "dfgdfgdfgdfgdfg";
-            costumer.PhotoName = "bvnvbnvbnvbnvbnvbn";
-            costumer.Adress = "adress";
-            comm.InsertCostumer(costumer);
-
-            DatabaseManager.Instance.Close();
-
-
-            List<string> tabHeaders = new List<string>();
-            foreach (var tab in TabsStartCollections)
-                tabHeaders.Add((string)((TabItem)tab).Header);
-            Views.TabTypeSelect window = new Views.TabTypeSelect(tabHeaders);
-            window.ShowDialog();
-        }
-
-        #region tabs computings
         private void FillTabs()
         {
             List<TabItem> TabsStart = ToTabsList(this.Tabs);
@@ -270,6 +176,44 @@ namespace OrdersManager.ModelView
             List<TabItem> TabsStart = tabs.OfType<TabItem>().ToList<TabItem>();
             TabsStart.RemoveAt(TabsStart.Count - 1);
             return TabsStart;
+        }
+
+        private void FillNodes()
+        {
+            var Projects = OrdersManager.CacheManager.CacheManager.Instance.Projects;
+
+            for (int i = 0; i < Freelancers.Count; i++)
+            {
+                Freelancers[i].Children.Add(Costumers[0]);
+                foreach (var pr in Projects)
+                {
+                    pr.Children.Add(Freelancers[i]);
+                }
+
+            }
+            Nodes = new ObservableCollection<Node>(Projects);
+        }
+
+        public void OnAddTabItemClick()
+        {
+
+            DatabaseManager.Instance.Connect();
+            Command comm = new Database.Command(DatabaseManager.Instance.Connection);
+            comm.CreateTableCostumer();
+            comm.CreateTableFreelancer();
+            comm.CreateTableTask();
+            comm.CreateProjects();
+
+            Command.InsertCostumer(new );
+
+            DatabaseManager.Instance.Close();
+
+
+            List<string> tabHeaders = new List<string>();
+            foreach (var tab in TabsStartCollections)
+                tabHeaders.Add((string)((TabItem)tab).Header);
+            Views.TabTypeSelect window = new Views.TabTypeSelect(tabHeaders);
+            window.ShowDialog();
         }
 
         /// <summary>
@@ -294,6 +238,6 @@ namespace OrdersManager.ModelView
                 Tabs.MoveCurrentTo(res);
             }
         }
-        #endregion
+
     }
 }

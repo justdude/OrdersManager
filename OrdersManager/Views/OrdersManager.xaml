@@ -16,11 +16,11 @@
         params:Manager.ContrastBrush="White"
         Title="MainWindow" Height="350" Width="525" >
     <Window.Resources>
-        
+
         <!--Converters-->
-        
+
         <!--type converter-->
-        
+
         <!--FreelancerViewModel-->
         <HierarchicalDataTemplate
                                     DataType="{x:Type local:FreelancerViewModel}"
@@ -53,18 +53,19 @@
         <HierarchicalDataTemplate   
                                     DataType="{x:Type local:ProjectViewModel}"
                                     ItemsSource="{Binding Children}">
-                <Border CornerRadius="3"
+            <Border CornerRadius="3"
                         Padding="2"
                         BorderThickness="2" 
                         BorderBrush="#FF366DB0">
-                    <TextBlock Text="{Binding Path=Name}"></TextBlock>
-                </Border>
+                <TextBlock Text="{Binding Path=Name}"></TextBlock>
+            </Border>
         </HierarchicalDataTemplate>
 
         <!--TaskViewModel-->
         <HierarchicalDataTemplate   
                                     DataType="{x:Type local:TaskViewModel}"
                                     ItemsSource="{Binding Children}">
+
             <Border CornerRadius="3"
                         Padding="2"
                         BorderThickness="2" 
@@ -82,25 +83,44 @@
 
         <!--Person data-->
         <DataTemplate x:Key="PersonTemplate" DataType="{x:Type local:PersonViewModel}">
-            <Grid>
+            <Grid Margin="2">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="31"/>
-                    <RowDefinition Height="179*"/>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="75*"/>
+					<RowDefinition Height="30"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="30*"/>
+					<RowDefinition Height="20*"/>
+                    <RowDefinition Height="35*"/>
                     <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
-                <TextBlock Text="Информация:" VerticalAlignment="Stretch" HorizontalAlignment="Left" Grid.Row="0"></TextBlock>
-                <TextBox   Grid.Row="1" VerticalAlignment="Top"  Text="{Binding CareerName}" AcceptsReturn="True" Height="138" ></TextBox>
-                <StackPanel Grid.Row="2" HorizontalAlignment="Right" 
-                                                         VerticalAlignment="Stretch"
-                                                         Orientation="Horizontal"
-                                                         Margin="0,1,1,1" >
-                    <Button Content="Ok" Height="30" Width="100" Command="{Binding OkeyClick}" ></Button>
-                    <TextBlock Width="20"></TextBlock>
-                    <Button Content="Cancel" Height="30" Width="100" Command="{Binding CancelClick}" ></Button>
-                </StackPanel>
+               
+			    <TextBlock Grid.Row="0" Text="Профиль" VerticalAlignment="Stretch" HorizontalAlignment="Center" ></TextBlock>
+                
+				<Image Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" MinHeight="38" ></Image>
+				<Button Grid.Row="2" Content="Select" Height="30"  Width="140" ></Button>
+				
+				<TextBlock Grid.Row="3" Text="ФИО:" VerticalAlignment="Stretch" HorizontalAlignment="Left" ></TextBlock>
+				<TextBox   Grid.Row="4" VerticalAlignment="Top"  Text="{Binding CareerName}" AcceptsReturn="False"  ></TextBox>
+				
+				<TextBlock Grid.Row="5" Text="Контакты:" VerticalAlignment="Stretch" HorizontalAlignment="Left" ></TextBlock>
+				<TextBox   Grid.Row="6" VerticalAlignment="Top"  Text="{Binding CareerName}" AcceptsReturn="False"  ></TextBox>
+                
+				<ContentControl Grid.Row="7" ContentTemplate="{DynamicResource OkCancel}"></ContentControl>
             </Grid>
         </DataTemplate>
 
+        <DataTemplate x:Key="OkCancel">
+            <StackPanel  HorizontalAlignment="Right" 
+                                                         VerticalAlignment="Stretch"
+                                                         Orientation="Horizontal"
+                                                         Margin="0,1,1,1" >
+                <Button Content="Ok" Height="30" Width="100" Command="{Binding OkeyClick}" ></Button>
+                <TextBlock Width="20"></TextBlock>
+                <Button Content="Cancel" Height="30" Width="100" Command="{Binding CancelClick}" ></Button>
+            </StackPanel>
+        </DataTemplate>
+        
         <!--Grided data template-->
         <DataTemplate x:Key="GridedTemplate" DataType="{x:Type local:ProjectViewModel}">
             <ListView Margin="2" ItemsSource="{Binding TableView}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="{x:Null}">
@@ -156,7 +176,7 @@
         <DataTemplate x:Key="DefaultTemplate">
             <TextBlock>Some text</TextBlock>
         </DataTemplate>
-        
+
         <DataTemplate x:Key="MyTabHeaderTemplate">
             <Grid>
                 <Grid.ColumnDefinitions>
@@ -170,13 +190,13 @@
 
 
     </Window.Resources>
-    <Controls:Window.ApplicationBar>
+    <!-- <Controls:Window.ApplicationBar>
         <Controls:ApplicationBar>
-            <!-- Right Click on the UI to open Application Bar -->
+            Right Click on the UI to open Application Bar 
             <Controls:DropDownCommandButton  Header="THEME"/>
         </Controls:ApplicationBar>
-    </Controls:Window.ApplicationBar>
-    
+    </Controls:Window.ApplicationBar> -->
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="291*"/>
@@ -193,7 +213,7 @@
                         <ColumnDefinition Width="29*"/>
                     </Grid.ColumnDefinitions>
 
-                        <TreeView  Name="trw_Products" 
+                    <TreeView  Name="trw_Products" 
                                    ItemsSource="{Binding Nodes}"
                                    
                                    mvvvm:CommandBehavior.RoutedEventName="SelectedItemChanged"
@@ -206,7 +226,7 @@
                                          ItemsSource="{Binding MenuOptions}" />
                         </TreeView.ContextMenu>
                     </TreeView>
-                    
+
                     <GridSplitter Grid.Column="1"
                                   Background="#FF4093DC" 
                                   BorderThickness="2"
@@ -215,9 +235,9 @@
                                   Width="5"
                                   MinHeight="250" 
                                   Foreground="#FF272727"></GridSplitter>
-                <ContentControl Grid.Column="2" 
+                    <ContentControl Grid.Column="2" 
                                     Content="{Binding OrdersRootViewModel.SelectedItem}"/>
-                <!--<ListBox Grid.Column="2"   
+                    <!--<ListBox Grid.Column="2"   
                              VerticalAlignment="Stretch"
                              HorizontalAlignment="Stretch"
                              Margin="4"
@@ -226,7 +246,7 @@
 
                 </ListBox>-->
 
-              </Grid>
+                </Grid>
             </TabItem>
 
             <TabItem Header="Персоны">
@@ -236,17 +256,21 @@
                         <ColumnDefinition Width="auto"/>
                         <ColumnDefinition Width="29*"/>
                     </Grid.ColumnDefinitions>
-                
+
                     <StackPanel Grid.Row="0">
-                        <ListBox>
+                        <ListBox SelectedItem="{Binding SelectedItemTypeName}">
                             <ListBox.Resources>
-                               <!-- <DataTemplate DataType="">
+                                <!-- <DataTemplate DataType="">
                                     <TextBlock Text="Project"></TextBlock>
                                 </DataTemplate>
                                 <DataTemplate DataType="">
 
                                 </DataTemplate-->
                             </ListBox.Resources>
+                            <ListBox.Items>
+                                <ListBoxItem>Заказчики</ListBoxItem>
+                                <ListBoxItem>Исполнители</ListBoxItem>
+                            </ListBox.Items>
                         </ListBox>
                         <TreeView  Name="trw_Products1" 
                                    ItemsSource="{Binding Nodes}"
@@ -261,7 +285,7 @@
                             </TreeView.ContextMenu>
                         </TreeView>
                     </StackPanel>
-                    
+
 
                     <GridSplitter Grid.Column="1"
                                   Background="#FF4093DC" 
@@ -275,11 +299,11 @@
                                     ContentTemplateSelector="{StaticResource GridProfileSelector}"
                                     Content="{Binding SelectedItem, ElementName=trw_Products1}"
                                     >
-             
+
                     </ContentControl>
                 </Grid>
             </TabItem>
-            
+
             <TabItem Header="...">
                 <TabItem.Template>
                     <ControlTemplate>
@@ -304,7 +328,7 @@
 
 
         <StatusBar Grid.Row="1" Background="{x:Null}" Foreground="{x:Null}">
-            <StatusBarItem Background="{x:Null}" Foreground="{x:Null}">
+            <StatusBarItem Foreground="{x:Null}" Background="#FFC7CFE0">
                 <TextBlock  Text="{Binding Status}" MinWidth="29" MaxWidth="100" />
             </StatusBarItem>
         </StatusBar>

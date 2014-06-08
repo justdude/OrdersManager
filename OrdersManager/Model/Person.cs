@@ -8,7 +8,7 @@ namespace OrdersManager.Model
 
     public class Person
     {
-        public int Id
+        public long Id
         { get; set; }
 
         public string CareerName

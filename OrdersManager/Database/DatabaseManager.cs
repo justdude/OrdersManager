@@ -26,24 +26,23 @@ namespace OrdersManager.Database
             private set;
         }
 
-        public const string ConnectionString = @"Data Source=DataBase.db;Version=3;";
+        public const string ConnectionString = @"Data Source=Orders.db3;Version=3;";
+
 
         public DatabaseManager()
         {
-            this.Connection = new SQLiteConnection();
+            Connect();
         }
 
-        public void Connect()
+        private void Connect()
         {
+            if (!System.IO.File.Exists("Orders.db3"))
+                SQLiteConnection.CreateFile("Orders.db3");
+
             this.Connection = new SQLiteConnection(ConnectionString);
             Connection.Open();
         }
 
-        public SQLiteCommand CreateCommand()
-        {
-            SQLiteCommand command = Connection.CreateCommand();
-            return command;
-        }
 
         public void Close()
         {

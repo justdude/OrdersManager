@@ -53,6 +53,8 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Devart.Data, Version=5.0.963.0, Culture=neutral, PublicKeyToken=09af7300eec23701" />
+    <Reference Include="Devart.Data.SQLite, Version=5.2.171.0, Culture=neutral, PublicKeyToken=09af7300eec23701, processorArchitecture=MSIL" />
     <Reference Include="Elysium, Version=2.0.976.4, Culture=neutral, PublicKeyToken=afa220db249e5b15, processorArchitecture=MSIL">
       <HintPath>Elysium\v4.0_2.0.976.4__afa220db249e5b15\Elysium.dll</HintPath>
       <SpecificVersion>False</SpecificVersion>
@@ -72,6 +74,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Data.SQLite">
       <HintPath>..\packages\System.Data.SQLite.Core.1.0.92.0\lib\net40\System.Data.SQLite.dll</HintPath>
     </Reference>
@@ -81,6 +84,7 @@
     <Reference Include="System.Data.SQLite.Linq">
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.92.0\lib\net40\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -101,6 +105,12 @@
     <Compile Include="Converters\TypeToViewConverter.cs" />
     <Compile Include="Database\Command.cs" />
     <Compile Include="Database\DatabaseManager.cs" />
+    <Compile Include="DataSet1.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </Compile>
+    <Compile Include="Helper.cs" />
     <Compile Include="ModelView\Tabs\AddTabViewModel.cs" />
     <Compile Include="ModelView\CostumerViewModel.cs" />
     <Compile Include="ModelView\FreelancerViewModel.cs" />
@@ -114,11 +124,10 @@
     <Compile Include="Model\Project.cs" />
     <Compile Include="Model\Task.cs" />
     <Compile Include="MVVM\Commands\CommandBehavior.cs" />
+    <Compile Include="MVVM\Elements\HeaderNode.cs" />
     <Compile Include="MVVM\Elements\MenuItem.cs" />
     <Compile Include="MVVM\Elements\TabItemViewModelBase.cs" />
     <Compile Include="MVVM\ViewModelsBase\IContent.cs" />
-    <Compile Include="SQLite.cs" />
-    <Compile Include="SQLiteAsync.cs" />
     <Compile Include="TemplateSelector\TabSelector.cs" />
     <Compile Include="TemplateSelector\TemplateSelector.cs" />
     <Compile Include="Views\PersonInfo.xaml.cs">
@@ -205,7 +214,19 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="App.Config" />
     <None Include="Database\db.s3db" />
+    <None Include="DataSet1.xsc">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </None>
+    <None Include="DataSet1.xsd">
+      <Generator>MSDataSetGenerator</Generator>
+      <LastGenOutput>DataSet1.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="DataSet1.xss">
+      <DependentUpon>DataSet1.xsd</DependentUpon>
+    </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

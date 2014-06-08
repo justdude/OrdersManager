@@ -8,13 +8,13 @@ namespace OrdersManager.Model
     public class Project
     {
 
-        public int Id 
+        public long Id 
         { get; set; }
 
-        public int TeamLeadId
+        public long TeamLeadId
         { get; set; }
 
-        public int CostumerId
+        public long CostumerId
         { get; set; }
 
         public float ProjectCost

@@ -11,65 +11,24 @@ using System.Data;
 namespace OrdersManager.Database
 {
 
-    public class DatabaseConverter
+    public class DatabaseConverter<T>
     {
-        public static List<T> ConvertRowsToList<T>(DataTable input, Func<DataRow,T> conversion)
+
+        public delegate T Convert(DataRow row);
+
+        public static List<T> ConvertRowsToList<T>(DataTable input, Convert conversion)
         {
             List<T> retval = new List<T>();
-            foreach (DataRow dr in input.Rows)
+            foreach(DataRow dr in input.Rows)
                 retval.Add(conversion(dr));
 
             return retval;
         }
 
-        public static OrdersManager.Model.Costumer ToCostumer(DataRow row)
+        public OrdersManager.Model.Costumer ToCostumer(DataRow row)
         {
-            Costumer costumer = new Costumer();
-            costumer.Id = (long)row[0];
-            costumer.CareerName = (string)row[1];
-            costumer.FIO = (string)row[2];
-            costumer.PhotoPath = (string)row[3];
-            costumer.Adress = (string)row[4];
-            costumer.PhotoName = (string)row[5];
-            return costumer;
-        }
 
-        public static OrdersManager.Model.Freelancer ToFreelancer(DataRow row)
-        {
-            Freelancer freelancer = new Freelancer();
-            freelancer.Id = (long)row[0];
-            freelancer.CareerName = (string)row[1];
-            freelancer.FIO = (string)row[2];
-            freelancer.PhotoPath = (string)row[3];
-            freelancer.Adress = (string)row[4];
-            freelancer.PhotoName = (string)row[5];
-            return freelancer;
-        }
-
-        public static OrdersManager.Model.Task ToTask(DataRow row)
-        {
-            Task task = new Task();
-            task.Id = (long)row[0];
-            task.ProjectId = (long)row[1];
-            task.ExecutorId = (long)row[2];
-            task.Name = (string)row[3];
-            task.TaskStatus = (string)row[4];
-            task.StartDate = (DateTime)row[5];
-            task.EstimateDate = (DateTime)row[6];
-            return task;
-        }
-
-        public static OrdersManager.Model.Project ToModel(DataRow row)
-        {
-            Project project = new Project();
-            project.Id = (long)row[0];
-            project.TeamLeadId = (long)row[1];
-            project.CostumerId = (long)row[2];
-            project.ProjectCost = (float)row[3];
-            project.ProjectStatus = (string)row[4];
-            project.StartDate = (DateTime)row[5];
-            project.FinalDate = (DateTime)row[6];
-            return project;
+            return null;
         }
 
     }
@@ -170,14 +129,7 @@ namespace OrdersManager.Database
             SQLiteCommand command = new SQLiteCommand(Connection);
             string query = "Select * From Costumers";
             SQLiteDataAdapter adapter = new SQLiteDataAdapter(query, Connection);
-            try 
-            { 
-                adapter.Fill(table);
-            }
-            catch(Exception ex)
-            {
-                System.Windows.MessageBox.Show(ex.Message.ToString());
-            }
+            adapter.Fill(table);
             return table;
         }
 
@@ -223,10 +175,5 @@ namespace OrdersManager.Database
         }
 
         #endregion
-
-        public static void Compute(Project project, List<Task> tasks)
-        {
-            tasks.Where(p => p.ProjectId == project.Id).ToList();
-        }
     }
 }

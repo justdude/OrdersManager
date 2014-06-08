@@ -23,7 +23,7 @@ namespace OrdersManager.ModelView
             this.Task = task;
         }
 
-        public new int Id
+        public new long Id
         {
             get
             {
@@ -36,7 +36,7 @@ namespace OrdersManager.ModelView
             }
         }
 
-        public int ExecutorId
+        public long ExecutorId
         {
             get
             {
@@ -48,7 +48,7 @@ namespace OrdersManager.ModelView
                 OnPropertyChanged("EstimateDate");
             }
         }
-        public int ProjectId
+        public long ProjectId
         {
             get
             {

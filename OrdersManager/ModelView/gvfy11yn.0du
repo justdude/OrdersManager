@@ -179,37 +179,31 @@ namespace OrdersManager.ModelView
             FillNodes();
 
         }
-        public ObservableCollection<TaskViewModel> Tasks { get; set; }
+
 
         private ObservableCollection<Node> ComputeProjects(List<ProjectViewModel> projects)
         {
-            ObservableCollection<ProjectViewModel> Projects = new ObservableCollection<ProjectViewModel>(projects);
+            ObservableCollection<ProjectViewModel> Projects = new ObservableCollection<ProjectViewModel>();
             Node header = new MVVM.Node();
             header.Text = "Проекты";
+            header.Children.Add(Projects);
 
             for (int i = 0; i < Projects.Count; i++)
             {
-                //заказчик
-                CostumerViewModel owner = this.Costumers.Where(costumer => costumer.Id == Projects[i].Lead.Id).First();
-
-                //задания
-                var childTasks = new ObservableCollection<TaskViewModel>(this.Tasks.Where(task => task.ProjectId == Projects[i].Id).ToList());
-                
-                Projects[i].Children.Add(owner);
-                foreach (var chTask in childTasks)
-                {
-                    Projects[i].Children.Add(chTask);
-                }
-
-                //проходимся по задачам
-                 for(int j=1; j<Projects[i].Children.Count; j++)
-                 {
-                     FreelancerViewModel freelancer = Freelancers.Where(fr=>fr.Id == ((FreelancerViewModel)Projects[i].Children[j]).Id).First();
-                     Projects[i].Children[j].Children.Add(freelancer);
-                 }
-                 header.Children.Add(Projects[i]);
+                Projects[]
             }
-            return header.Children;
+
+                /*for (int i = 0; i < Freelancers.Count; i++)
+                {
+                    Freelancers[i].Children.Add(Costumers[0]);
+                    foreach (var pr in Projects)
+                    {
+                        pr.Children.Add(Freelancers[i]);
+                    }
+
+                }*/
+                var Nodes = new ObservableCollection<Node>();
+                return Nodes;
         }
 
         private void FillNodes()

@@ -7,13 +7,13 @@ namespace OrdersManager.Model
 {
     public class Task
     {
-        public int Id
+        public long Id
         { get; set; }
 
-        public int ProjectId
+        public long ProjectId
         { get; set; }
 
-        public int ExecutorId
+        public long ExecutorId
         { get; set; }
 
         public string Name

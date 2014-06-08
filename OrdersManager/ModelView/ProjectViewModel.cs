@@ -42,7 +42,7 @@ namespace OrdersManager.ModelView
             }
         }
 
-        public int Id
+        public long Id
         {
             get
             {
