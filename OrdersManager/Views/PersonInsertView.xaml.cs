@@ -16,7 +16,7 @@ namespace OrdersManager.Views
     /// <summary>
     /// Логика взаимодействия для PersonInsertView.xaml
     /// </summary>
-    public partial class PersonInsertView : : Elysium.Controls.Window
+    public partial class PersonInsertView : Elysium.Controls.Window
     {
         public PersonInsertView()
         {

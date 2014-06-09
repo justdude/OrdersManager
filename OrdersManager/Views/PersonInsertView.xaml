@@ -14,8 +14,8 @@
         params:Manager.Theme="Light" 
         params:Manager.AccentBrush="{x:Static metro:AccentBrushes.Sky}"
         params:Manager.ContrastBrush="White"
-        Title="MainWindow" Height="350" Width="525" >
-        <Grid>
-            
-        </Grid>
+        Title="MainWindow" Height="420" Width="340" >
+        <WrapPanel>
+            <ContentControl DataContext="{StaticResource PersonTemplate}"></ContentControl>
+        </WrapPanel>
 </Controls:Window>
