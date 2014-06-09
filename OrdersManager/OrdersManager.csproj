@@ -133,6 +133,9 @@
     <Compile Include="Views\PersonInfo.xaml.cs">
       <DependentUpon>PersonInfo.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\PersonInsertView.xaml.cs">
+      <DependentUpon>PersonInsertView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ProjectsTab.xaml.cs">
       <DependentUpon>ProjectsTab.xaml</DependentUpon>
     </Compile>
@@ -174,6 +177,10 @@
     <Page Include="Views\PersonInfo.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\PersonInsertView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProjectsTab.xaml">
       <SubType>Designer</SubType>

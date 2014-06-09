@@ -1,9 +1,14 @@
-﻿<Window x:Class="OrdersManager.Views.TabTypeSelect"
+﻿<Controls:Window x:Class="OrdersManager.Views.TabTypeSelect"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:Controls="clr-namespace:Elysium.Controls;assembly=Elysium"
+        xmlns:metro="http://schemas.codeplex.com/elysium"
+        xmlns:params="http://schemas.codeplex.com/elysium/params"
+        xmlns:local="clr-namespace:OrdersManager.ModelView"
+        xmlns:mvvvm="clr-namespace:MVVM"
         xmlns:view="clr-namespace:OrdersManager.Views"
         Title="TabTypeSelect" Height="300" Width="300">
     <Grid>
         <view:SelectTabTypeControl></view:SelectTabTypeControl>
     </Grid>
-</Window>
+</Controls:Window>

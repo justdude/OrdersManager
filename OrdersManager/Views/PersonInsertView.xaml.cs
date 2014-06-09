@@ -10,22 +10,17 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
-using OrdersManager.ModelView;
 using Elysium;
-
 namespace OrdersManager.Views
 {
     /// <summary>
-    /// Interaction logic for TabTypeSelect.xaml
+    /// Логика взаимодействия для PersonInsertView.xaml
     /// </summary>
-    public partial class TabTypeSelect : Elysium.Controls.Window
+    public partial class PersonInsertView : : Elysium.Controls.Window
     {
-        public TabTypeSelect(List<string> tabTypesNames)
+        public PersonInsertView()
         {
             InitializeComponent();
-            Action act = () => this.Close();
-            AddTabViewModel modelView = new AddTabViewModel(tabTypesNames, act);
-            this.DataContext = modelView;
         }
     }
 }
