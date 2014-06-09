@@ -102,8 +102,6 @@
 				
 				<TextBlock Grid.Row="3" Text="ФИО:" VerticalAlignment="Stretch" HorizontalAlignment="Left" ></TextBlock>
 				<TextBox   Grid.Row="4" VerticalAlignment="Top"  Text="{Binding CareerName}" AcceptsReturn="False"  ></TextBox>
-				
-				<TextBlock Grid.Row="5" Text="Контакты:" VerticalAlignment="Stretch" HorizontalAlignment="Left" ></TextBlock>
 				<TextBox   Grid.Row="6" VerticalAlignment="Top"  Text="{Binding CareerName}" AcceptsReturn="False"  ></TextBox>
                 
 				<ContentControl Grid.Row="7" ContentTemplate="{DynamicResource OkCancel}"></ContentControl>
@@ -121,6 +119,29 @@
             </StackPanel>
         </DataTemplate>
         
+		<!--TaskView data-->
+        <DataTemplate x:Key="TaskTemplate" DataType="{x:Type local:TaskViewModel}">
+            <Grid Margin="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="20"/>
+                    <RowDefinition Height="75*"/>
+					<RowDefinition Height="30"/>
+                    <RowDefinition Height="20*"/>
+                    <RowDefinition Height="30*"/>
+					<RowDefinition Height="20*"/>
+                    <RowDefinition Height="35*"/>
+                    <RowDefinition Height="30"/>
+                </Grid.RowDefinitions>
+               
+			    <TextBlock Grid.Row="0" Text="Профиль" VerticalAlignment="Stretch" HorizontalAlignment="Center" ></TextBlock>
+             
+				<TextBlock Grid.Row="5" Text="Контакты:" VerticalAlignment="Stretch" HorizontalAlignment="Left" ></TextBlock>
+				<TextBox   Grid.Row="6" VerticalAlignment="Top"  Text="{Binding CareerName}" AcceptsReturn="False"  ></TextBox>
+                
+				<ContentControl Grid.Row="7" ContentTemplate="{DynamicResource OkCancel}"></ContentControl>
+            </Grid>
+        </DataTemplate>
+
         <!--Grided data template-->
         <DataTemplate x:Key="GridedTemplate" DataType="{x:Type local:ProjectViewModel}">
             <ListView Margin="2" ItemsSource="{Binding TableView}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="{x:Null}">
@@ -145,22 +166,31 @@
         <!--style-->
 
         <!--TreeViewItem-->
-        <Style TargetType="TreeViewItem">
+        <Style TargetType="TreeViewItem" >
             <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded, Mode=TwoWay}" />
             <Setter Property="IsSelected" Value="{Binding Path=OrdersRootViewModel.IsSelected, Mode=TwoWay}" />
             <Setter Property="Margin" Value="2"></Setter>
             <Style.Triggers>
-                <Trigger Property="IsSelected" Value="True">
+                <Trigger Property="IsSelected" Value="true">
                     <Setter Property="FontWeight" Value="Bold" />
+                    <Setter Property = "Border.Background" Value="Red"/>
+                   
                 </Trigger>
             </Style.Triggers>
         </Style>
 
+   
         <!--MenuItem-->
-        <Style x:Key="ContextMenuItemStyle">
+        <Style x:Key="ContextMenuItemStyle" TargetType="{x:Type MenuItem}">
             <Setter Property="MenuItem.Header" Value="{Binding Text}"/>
             <Setter Property="MenuItem.ItemsSource" Value="{Binding Children}"/>
             <Setter Property="MenuItem.Command" Value="{Binding Command}" />
+            <Style.Triggers>
+                <Trigger Property="MenuItem.IsMouseOver" Value="true">
+                    <Setter Property = "Foreground" Value="White"/>
+                    <Setter Property = "Background" Value="Blue"/>
+                </Trigger>
+            </Style.Triggers>
         </Style>
 
 
@@ -190,6 +220,7 @@
 
 
     </Window.Resources>
+
     <!-- <Controls:Window.ApplicationBar>
         <Controls:ApplicationBar>
             Right Click on the UI to open Application Bar 
@@ -215,15 +246,22 @@
 
                     <TreeView  Name="trw_Products" 
                                    ItemsSource="{Binding Nodes}"
-                                   
                                    mvvvm:CommandBehavior.RoutedEventName="SelectedItemChanged"
                                    mvvvm:CommandBehavior.TheCommandToRun="{Binding Path=LoadContent}"
                                    Margin="1"
                                    BorderBrush="{x:Null}" 
                                    Background="{x:Null}" >
+                        <TreeView.Resources>
+    <!-- x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                      Color="Blue" />
+                            <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}"
+                      Color="White" />-->
+                        </TreeView.Resources>
                         <TreeView.ContextMenu>
                             <ContextMenu ItemContainerStyle="{StaticResource ContextMenuItemStyle}" 
-                                         ItemsSource="{Binding MenuOptions}" />
+                                         ItemsSource="{Binding MenuOptions}" >
+
+								</ContextMenu>
                         </TreeView.ContextMenu>
                     </TreeView>
 
