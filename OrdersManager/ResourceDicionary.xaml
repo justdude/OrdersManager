@@ -7,7 +7,10 @@
                     xmlns:mvvvm="clr-namespace:MVVM"
                     xmlns:converters="clr-namespace:OrdersManager.Converters"
                     xmlns:selector="clr-namespace:OrdersManager.TemplateSelector"
-                    xmlns:mv="clr-namespace:OrdersManager.Views" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
+                    xmlns:mv="clr-namespace:OrdersManager.Views" 
+                    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+                    mc:Ignorable="d">
 
 
 
@@ -103,10 +106,9 @@
             <Grid Margin="4" d:DesignHeight="400.88">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20"/>
-                    <RowDefinition Height="100*"/>
+                    <RowDefinition Height="83*"/>
                     <RowDefinition Height="32"/>
-                    <RowDefinition Height="78*"/>
-                    <RowDefinition Height="80*"/>
+                    <RowDefinition Height="78"/>
                     <RowDefinition Height="80*"/>
                     <RowDefinition Height="32"/>
                 </Grid.RowDefinitions>
@@ -119,45 +121,93 @@
                         HorizontalAlignment="Center"  
                         BorderBrush="#FF335568"
                         
-                        MinWidth="150" 
+                        MinWidth="85" MaxWidth="230"
                         Height="185" Background="#FFBAD5F0" BorderThickness="2" >
-                    <Image  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"   Stretch="UniformToFill" Source="{Binding PhotoPath}" />
+                    <Image  VerticalAlignment="Center" HorizontalAlignment="Center"   Stretch="Fill" Source="{Binding PhotoPath}" />
                 </Border>
                 <Button Grid.Row="2" Command="{Binding SelectImagePath}" Width="120" Height="26"  Background="#7FDDDDDD" >
                     <TextBlock Text="Change photo..." Background="{x:Null}" FontSize="10" Foreground="#FF8C85B9" ></TextBlock>
                 </Button>
 
-                <StackPanel Grid.Row="3" Orientation="Vertical" MinHeight="60">
-                    <TextBlock Text="ФИО:" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="29.353" />
+                <StackPanel Grid.Row="3" Orientation="Vertical">
+                    <TextBlock Text="ФИО:" VerticalAlignment="Center" HorizontalAlignment="Left" Width="29.353" />
                     <TextBox   VerticalAlignment="Top"  Text="{Binding FIO}" AcceptsReturn="False" Height="30"  />
                 </StackPanel>
 
-                <StackPanel Grid.Row="4" Orientation="Vertical" MinHeight="80">
+                <StackPanel Grid.Row="4" Orientation="Vertical">
                     <TextBlock  Text="Контакты:" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="53.947" />
-                    <TextBox   VerticalAlignment="Top"  Text="{Binding Adress}" AcceptsReturn="True" Height="30"   />
+                    <TextBox   VerticalAlignment="Top"  Text="{Binding Adress}" AcceptsReturn="True" MinHeight="48"   />
                 </StackPanel>
 
-                <ContentControl Grid.Row="7" ContentTemplate="{StaticResource OkCancel}"></ContentControl>
+                <ContentControl Grid.Row="5" ContentTemplate="{StaticResource OkCancel}"></ContentControl>
             </Grid>
         </ScrollViewer>
     </DataTemplate>
 
     <!--Grided data template-->
     <DataTemplate x:Key="GridedTemplate" DataType="{x:Type local:ProjectViewModel}">
-        <ListView Margin="2" ItemsSource="{Binding TableView}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="{x:Null}">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Project name" DisplayMemberBinding="{Binding ProjectName}"/>
-                    <GridViewColumn Header="Project Cost" DisplayMemberBinding="{Binding ProjectCost}"/>
-                    <GridViewColumn Header="Project Status" DisplayMemberBinding="{Binding ProjectStatus}"/>
-                    <GridViewColumn Header="Start Date" DisplayMemberBinding="{Binding StartDate}"/>
-                    <GridViewColumn Header="Final Date" DisplayMemberBinding="{Binding FinalDate}"/>
-                </GridView>
-            </ListView.View>
-        </ListView>
+        <ScrollViewer>
+            <Grid Margin="2" DataContext="{Binding TableView}" 
+            VerticalAlignment="Stretch" 
+            HorizontalAlignment="Stretch" >
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Название проэкта:" Style="{StaticResource ResourceKey=TexBlock}" Margin="2"/>
+                    <TextBox Text="{Binding ProjectName}" />
+
+                    <TextBlock Text="Заказчик:" Style="{StaticResource ResourceKey=TexBlock}" Margin="2"/>
+                    <ComboBox ItemsSource="{Binding AllPeoples}" SelectedItem="{Binding SelectedCostumer}"></ComboBox>
+
+                    <TextBlock Text="Лидер:" Style="{StaticResource ResourceKey=TexBlock}" Margin="2"/>
+                    <ComboBox ItemsSource="{Binding AllPeoples}" SelectedItem="{Binding SelectedTeamLead}"></ComboBox>
+
+                    <TextBlock Text="Стоимость:" Style="{StaticResource ResourceKey=TexBlock}" Margin="2"/>
+                    <TextBox Text="{Binding ProjectCost}"/>
+
+                    <TextBlock Text="Статус:" Style="{StaticResource ResourceKey=TexBlock}" Margin="2"/>
+                    <TextBox Text="{Binding ProjectStatus}"/>
+
+                    <TextBlock Text="Начало:" Style="{StaticResource ResourceKey=TexBlock}" Margin="2"/>
+                    <TextBox Text="{Binding StartDate}"/>
+
+                    <TextBlock Text="Срок:" Style="{StaticResource ResourceKey=TexBlock}" Margin="2"/>
+                    <TextBox Text="{Binding FinalDate}"/>
+
+
+                    <ContentControl Margin="5" ContentTemplate="{DynamicResource OkCancel}"/>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
     </DataTemplate>
 
     <!--TaskView data-->
+    <DataTemplate x:Key="TaskTemplate" DataType="{x:Type local:TaskViewModel}">
+        <ScrollViewer>
+            <Grid Margin="2"  
+            VerticalAlignment="Stretch" 
+            HorizontalAlignment="Stretch" >
+                <StackPanel Orientation="Vertical">
+                    <TextBlock Text="Описание задачи:" Style="{StaticResource ResourceKey=TexBlock}" Margin="2"/>
+                    <TextBox Text="{Binding Name}" />
+
+                    <TextBlock Text="Статус:" Style="{StaticResource ResourceKey=TexBlock}" Margin="2"/>
+                    <TextBox Text="{Binding TaskStatus}"/>
+
+                    <TextBlock Text="Начало:" Style="{StaticResource ResourceKey=TexBlock}" Margin="2"/>
+                    <TextBox Text="{Binding StartDate}"/>
+
+                    <TextBlock Text="Срок:" Style="{StaticResource ResourceKey=TexBlock}" Margin="2"/>
+                    <TextBox Text="{Binding EstimateDate}"/>
+
+
+                    <ContentControl Margin="5" ContentTemplate="{DynamicResource OkCancel}"/>
+                </StackPanel>
+            </Grid>
+        </ScrollViewer>
+    </DataTemplate>
+
+
+    <!--
+  
     <DataTemplate x:Key="TaskTemplate" DataType="{x:Type local:TaskViewModel}">
         <Grid Margin="2">
             <Grid.RowDefinitions>
@@ -178,7 +228,7 @@
 
             <ContentControl Grid.Row="7" ContentTemplate="{DynamicResource OkCancel}"/>
         </Grid>
-    </DataTemplate>
+    </DataTemplate> -->
 
 
 
@@ -186,6 +236,7 @@
     <selector:TemplateSelector 
 		GridedView = "{StaticResource GridedTemplate}"
 		ProfileView="{StaticResource PersonTemplate}" 
+        TaskView="{StaticResource TaskTemplate}" 
 		x:Key="GridProfileSelector"
         />
 

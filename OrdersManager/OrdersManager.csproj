@@ -102,7 +102,6 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CacheManager\CacheManager.cs" />
-    <Compile Include="Converters\TypeToViewConverter.cs" />
     <Compile Include="Converters\VisibityToBool.cs" />
     <Compile Include="Database\Command.cs" />
     <Compile Include="Database\DatabaseManager.cs" />

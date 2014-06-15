@@ -12,6 +12,7 @@ namespace OrdersManager.TemplateSelector
     {
         public DataTemplate GridedView { get; set; }
         public DataTemplate ProfileView { get; set; }
+        public DataTemplate TaskView { get; set; }
 
         public static TemplateSelector Instance
         {
@@ -28,13 +29,15 @@ namespace OrdersManager.TemplateSelector
         {
             if (item is FreelancerViewModel)
                 return ProfileView;
-                //return (container as FrameworkElement).FindResource("FreelancerViewModel") as DataTemplate;
+            //return (container as FrameworkElement).FindResource("FreelancerViewModel") as DataTemplate;
             else if (item is CostumerViewModel)
                 return ProfileView;
             //return (container as FrameworkElement).FindResource("CostumerViewModel") as DataTemplate;
             else if (item is ProjectViewModel)
                 return GridedView;
-                //return (container as FrameworkElement).FindResource("ProjectViewModel") as DataTemplate;
+            //return (container as FrameworkElement).FindResource("ProjectViewModel") as DataTemplate;
+            else if (item is TaskViewModel)
+                return TaskView;
             return null;
 
         }

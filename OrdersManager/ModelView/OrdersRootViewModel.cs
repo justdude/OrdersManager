@@ -108,7 +108,6 @@ namespace OrdersManager.ModelView
         }
         #endregion
 
-
         #region Lisbox people type
         private int selectedItemTypeNameIndex;
         public int SelectedItemTypeNameIndex
@@ -132,6 +131,7 @@ namespace OrdersManager.ModelView
         #endregion
 
         #region Items
+        private object selectedNode;
         private ObservableCollection<Node> projects;
         private ObservableCollection<Node> peoples;
 
@@ -151,6 +151,8 @@ namespace OrdersManager.ModelView
                 OnPropertyChanged("SelectedItem");
             }
         }
+
+        public ObservableCollection<TaskViewModel> Tasks { get; set; }
 
         public ObservableCollection<Node> Projects
         {
@@ -262,10 +264,9 @@ namespace OrdersManager.ModelView
 
         #endregion
 
-        private object selectedNode;
+        #region Delegetes click
         private DelegateCommand onAddTabItemClick;
-
-
+        #endregion     
 
         public OrdersRootViewModel(ItemCollection tabs)
         {
@@ -319,6 +320,8 @@ namespace OrdersManager.ModelView
             worker.RunWorkerAsync();
 
         }
+
+        #region Select From Database for treeview
 
         public ObservableCollection<Node> FillProjects()
         {
@@ -448,29 +451,43 @@ namespace OrdersManager.ModelView
             return tempList;
         }
 
+        #endregion
 
 
-        public ObservableCollection<TaskViewModel> Tasks { get; set; }
+        #region OnClick
 
+        public void OnDeleteClick()
+        {
+           // var target = null;
+            //if ()
+        }
+
+        public void OnInsertClick()
+        {
+
+        }
         
 
+        #endregion
+
+        #region Tabs handle
 
         public void OnAddTabItemClick()
         {
 
-           /* Command comm = new Database.Command(DatabaseManager.Instance.Connection);
+            /* Command comm = new Database.Command(DatabaseManager.Instance.Connection);
 
-            comm.CreateTableCostumer();
-            comm.CreateTableFreelancer();
-            comm.CreateTableTask();
-            comm.CreateProjects();
-            var costumer = new OrdersManager.Model.Costumer();
-            costumer.FIO = "dfgdfgdfgdfgdfg";
-            costumer.PhotoName = "bvnvbnvbnvbnvbnvbn";
-            costumer.Adress = "adress";
-            comm.InsertCostumer(costumer);
+             comm.CreateTableCostumer();
+             comm.CreateTableFreelancer();
+             comm.CreateTableTask();
+             comm.CreateProjects();
+             var costumer = new OrdersManager.Model.Costumer();
+             costumer.FIO = "dfgdfgdfgdfgdfg";
+             costumer.PhotoName = "bvnvbnvbnvbnvbnvbn";
+             costumer.Adress = "adress";
+             comm.InsertCostumer(costumer);
 
-            DatabaseManager.Instance.Close();*/
+             DatabaseManager.Instance.Close();*/
 
             List<string> tabHeaders = new List<string>();
             foreach (var tab in TabsStartCollections)
@@ -479,7 +496,6 @@ namespace OrdersManager.ModelView
             window.ShowDialog();
         }
 
-        #region tabs computings
         private void FillTabs()
         {
             List<TabItem> TabsStart = ToTabsList(this.Tabs);

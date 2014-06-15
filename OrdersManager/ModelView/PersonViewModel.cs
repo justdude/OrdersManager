@@ -49,7 +49,8 @@ namespace OrdersManager.ModelView
         {
             get
             {
-                return @"\PhotoCache\" + Person.PhotoName;
+                return System.IO.Path.GetFullPath("PhotoCache/" + Person.PhotoName);
+                //return @"\PhotoCache\" + Person.PhotoName;
             }
             set
             {
