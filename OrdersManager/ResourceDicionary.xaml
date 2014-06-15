@@ -7,219 +7,240 @@
                     xmlns:mvvvm="clr-namespace:MVVM"
                     xmlns:converters="clr-namespace:OrdersManager.Converters"
                     xmlns:selector="clr-namespace:OrdersManager.TemplateSelector"
-                    xmlns:mv="clr-namespace:OrdersManager.Views">
+                    xmlns:mv="clr-namespace:OrdersManager.Views" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d">
 
 
 
 
-        <!--Converters-->
-        <converters:VisibityToBool  x:Key="visibilityConv">
-            
-        </converters:VisibityToBool>
-        <!--type converter-->
+    <!--type converter-->
 
-        <!--FreelancerViewModel-->
-        <HierarchicalDataTemplate
-                                    DataType="{x:Type local:FreelancerViewModel}"
-                                    ItemsSource="{Binding Children}">
-            <Border CornerRadius="3"
-                        Padding="2"
-                        BorderThickness="2" 
-                        BorderBrush="#FFB03636">
-                <StackPanel>
-                    <TextBlock Text="{Binding Path=FIO}"/>
-                </StackPanel>
-            </Border>
-        </HierarchicalDataTemplate>
+    <!--style-->
 
-        <!--CostumerViewModel-->
-        <HierarchicalDataTemplate
-                                    DataType="{x:Type local:CostumerViewModel}"
-                                    ItemsSource="{Binding Children}">
-            <Border CornerRadius="3"
-                        Padding="2"
-                        BorderThickness="2" 
-                        BorderBrush="#FFB03636">
-                <StackPanel>
-                    <TextBlock Text="{Binding Path=FIO}"/>
-                </StackPanel>
-            </Border>
-        </HierarchicalDataTemplate>
+    <!--Converters-->
+    <converters:VisibityToBool  x:Key="visibilityConv"/>
 
-        <!--ProjectViewModel-->
-        <HierarchicalDataTemplate   
-                                    DataType="{x:Type local:ProjectViewModel}"
-                                    ItemsSource="{Binding Children}">
-            <Border CornerRadius="3"
-                        Padding="2"
-                        BorderThickness="2" 
-                        BorderBrush="#FF366DB0">
-            <TextBlock Text="{Binding Path=ProjectName}"></TextBlock>
-            </Border>
-        </HierarchicalDataTemplate>
-
-        <!--TaskViewModel-->
-        <HierarchicalDataTemplate   
-                                    DataType="{x:Type local:TaskViewModel}"
-                                    ItemsSource="{Binding Children}">
-
-            <Border CornerRadius="3"
-                        Padding="2"
-                        BorderThickness="2" 
-                        BorderBrush="#FF366DB0">
-                <TextBlock Text="{Binding Path=Name}"></TextBlock>
-            </Border>
-        </HierarchicalDataTemplate>
-
-        <!--Node-->
-        <HierarchicalDataTemplate DataType="{x:Type mvvvm:Node}" ItemsSource="{Binding Children}">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="{Binding Text}"/>
+    <!--FreelancerViewModel-->
+    <HierarchicalDataTemplate
+		DataType="{x:Type local:FreelancerViewModel}"
+		ItemsSource="{Binding Children}">
+        <Border CornerRadius="3"
+			Padding="2"
+			BorderThickness="2" 
+			BorderBrush="#FFB03636">
+            <StackPanel>
+                <TextBlock Text="{Binding FIO}"/>
             </StackPanel>
-        </HierarchicalDataTemplate>
+        </Border>
+    </HierarchicalDataTemplate>
 
-    
+    <!--CostumerViewModel-->
+    <HierarchicalDataTemplate
+		DataType="{x:Type local:CostumerViewModel}"
+		ItemsSource="{Binding Children}">
+        <Border CornerRadius="3"
+			Padding="2"
+			BorderThickness="2" 
+			BorderBrush="#FFB03636">
+            <StackPanel>
+                <TextBlock Text="{Binding FIO}"/>
+            </StackPanel>
+        </Border>
+    </HierarchicalDataTemplate>
+
+    <!--ProjectViewModel-->
+    <HierarchicalDataTemplate   
+		DataType="{x:Type local:ProjectViewModel}"
+		ItemsSource="{Binding Children}">
+        <Border CornerRadius="3"
+			Padding="2"
+			BorderThickness="2" 
+			BorderBrush="#FF366DB0">
+            <TextBlock Text="{Binding ProjectName}"/>
+        </Border>
+    </HierarchicalDataTemplate>
+
+    <!--TaskViewModel-->
+    <HierarchicalDataTemplate   
+		DataType="{x:Type local:TaskViewModel}"
+		ItemsSource="{Binding Children}">
+
+        <Border CornerRadius="3"
+			Padding="2"
+			BorderThickness="2" 
+			BorderBrush="#FF366DB0">
+            <TextBlock Text="{Binding Name}"/>
+        </Border>
+    </HierarchicalDataTemplate>
+
+    <!--Node-->
+    <HierarchicalDataTemplate DataType="{x:Type mvvvm:Node}" ItemsSource="{Binding Children}">
+        <StackPanel Orientation="Horizontal">
+            <TextBlock Text="{Binding Text}"/>
+        </StackPanel>
+    </HierarchicalDataTemplate>
+
+
     <!--Textblock font-->
     <Style x:Key="TexBlock" TargetType="{x:Type TextBlock}">
-        <Setter Property="FontWeight" Value="Bold"></Setter>
-        <Setter Property="FontSize" Value="16"></Setter>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="16"/>
     </Style>
-    
-        <!--Person data-->
-        <DataTemplate x:Key="PersonTemplate" DataType="{x:Type local:PersonViewModel}">
-            <Grid Margin="2">
+
+    <DataTemplate x:Key="OkCancel">
+        <StackPanel  HorizontalAlignment="Right" 
+			VerticalAlignment="Stretch"
+			Orientation="Horizontal"
+			Margin="0,1,1,1" >
+            <Button Content="Ok" Height="30" Width="100" Command="{Binding OkeyClick}" />
+            <TextBlock Width="20"/>
+            <Button Content="Cancel" Height="30" Width="100" Command="{Binding CancelClick}" />
+        </StackPanel>
+    </DataTemplate>
+
+    <!--Person data-->
+    <DataTemplate x:Key="PersonTemplate" DataType="{x:Type local:PersonViewModel}">
+        <ScrollViewer>
+            <Grid Margin="4" d:DesignHeight="400.88">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20"/>
-                    <RowDefinition Height="75*"/>
-                    <RowDefinition Height="35"/>
-                    <RowDefinition Height="20*"/>
-                    <RowDefinition Height="30*"/>
-                    <RowDefinition Height="20*"/>
-                    <RowDefinition Height="35*"/>
+                    <RowDefinition Height="100*"/>
+                    <RowDefinition Height="32"/>
+                    <RowDefinition Height="78*"/>
+                    <RowDefinition Height="80*"/>
+                    <RowDefinition Height="80*"/>
+                    <RowDefinition Height="32"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Text="Профиль" VerticalAlignment="Stretch" HorizontalAlignment="Center"  Style="{StaticResource ResourceKey=TexBlock}"></TextBlock>
+                <TextBlock Grid.Row="0" Text="Профиль" VerticalAlignment="Stretch" HorizontalAlignment="Center"  Style="{StaticResource ResourceKey=TexBlock}" Margin="33.435,0" Width="73.13"/>
 
-                <Image Grid.Row="1" VerticalAlignment="Stretch" Source="{Binding  PhotoPath}" HorizontalAlignment="Center" ></Image>
-                <Button Grid.Row="2" Command="{Binding SelectImagePath}" Height="28" Padding="-8" Width="140" >
-                        <Label Content="Select"></Label>
+                <Border Grid.Row="1" 
+                        Margin="2"
+                        VerticalAlignment="Center"  
+                        HorizontalAlignment="Center"  
+                        BorderBrush="#FF335568"
+                        
+                        MinWidth="150" 
+                        Height="185" Background="#FFBAD5F0" BorderThickness="2" >
+                    <Image  VerticalAlignment="Stretch" HorizontalAlignment="Stretch"   Stretch="UniformToFill" Source="{Binding PhotoPath}" />
+                </Border>
+                <Button Grid.Row="2" Command="{Binding SelectImagePath}" Width="120" Height="26"  Background="#7FDDDDDD" >
+                    <TextBlock Text="Change photo..." Background="{x:Null}" FontSize="10" Foreground="#FF8C85B9" ></TextBlock>
                 </Button>
-                <TextBlock Grid.Row="3" Text="ФИО:" VerticalAlignment="Stretch" HorizontalAlignment="Left" ></TextBlock>
-                <TextBox   Grid.Row="4" VerticalAlignment="Top"  Text="{Binding FIO}" AcceptsReturn="False"  ></TextBox>
-                <TextBlock Grid.Row="5" Text="Контакты:" VerticalAlignment="Stretch" HorizontalAlignment="Left" ></TextBlock>
-            <TextBox   Grid.Row="6" VerticalAlignment="Top"  Text="{Binding Adress}" AcceptsReturn="True" Height="40"   ></TextBox>
-        </Grid>
-        </DataTemplate>
 
-        <DataTemplate x:Key="OkCancel">
-            <StackPanel  HorizontalAlignment="Right" 
-                                                         VerticalAlignment="Stretch"
-                                                         Orientation="Horizontal"
-                                                         Margin="0,1,1,1" >
-                <Button Content="Ok" Height="30" Width="100" Command="{Binding OkeyClick}" ></Button>
-                <TextBlock Width="20"></TextBlock>
-                <Button Content="Cancel" Height="30" Width="100" Command="{Binding CancelClick}" ></Button>
-            </StackPanel>
-        </DataTemplate>
+                <StackPanel Grid.Row="3" Orientation="Vertical" MinHeight="60">
+                    <TextBlock Text="ФИО:" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="29.353" />
+                    <TextBox   VerticalAlignment="Top"  Text="{Binding FIO}" AcceptsReturn="False" Height="30"  />
+                </StackPanel>
 
-        <!--TaskView data-->
-        <DataTemplate x:Key="TaskTemplate" DataType="{x:Type local:TaskViewModel}">
-            <Grid Margin="2">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="20"/>
-                    <RowDefinition Height="75*"/>
-                    <RowDefinition Height="30"/>
-                    <RowDefinition Height="20*"/>
-                    <RowDefinition Height="30*"/>
-                    <RowDefinition Height="20*"/>
-                    <RowDefinition Height="35*"/>
-                    <RowDefinition Height="30"/>
-                </Grid.RowDefinitions>
+                <StackPanel Grid.Row="4" Orientation="Vertical" MinHeight="80">
+                    <TextBlock  Text="Контакты:" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="53.947" />
+                    <TextBox   VerticalAlignment="Top"  Text="{Binding Adress}" AcceptsReturn="True" Height="30"   />
+                </StackPanel>
 
-                <TextBlock Grid.Row="0" Text="Профиль" VerticalAlignment="Stretch" HorizontalAlignment="Center" ></TextBlock>
-
-                <TextBlock Grid.Row="5" Text="Контакты:" VerticalAlignment="Stretch" HorizontalAlignment="Left" ></TextBlock>
-                <TextBox   Grid.Row="6" VerticalAlignment="Top"  Text="{Binding CareerName}" AcceptsReturn="False"  ></TextBox>
-
-                <ContentControl Grid.Row="7" ContentTemplate="{DynamicResource OkCancel}"></ContentControl>
+                <ContentControl Grid.Row="7" ContentTemplate="{StaticResource OkCancel}"></ContentControl>
             </Grid>
-        </DataTemplate>
+        </ScrollViewer>
+    </DataTemplate>
 
-        <!--Grided data template-->
-        <DataTemplate x:Key="GridedTemplate" DataType="{x:Type local:ProjectViewModel}">
-            <ListView Margin="2" ItemsSource="{Binding TableView}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="{x:Null}">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Project name" DisplayMemberBinding="{Binding Path=Name}"></GridViewColumn>
-                        <GridViewColumn Header="Project Cost" DisplayMemberBinding="{Binding Path=ProjectCost}"></GridViewColumn>
-                        <GridViewColumn Header="Project Status" DisplayMemberBinding="{Binding Path=ProjectStatus}"></GridViewColumn>
-                        <GridViewColumn Header="Final Date" DisplayMemberBinding="{Binding Path=FinalDate}"></GridViewColumn>
-                    </GridView>
-                </ListView.View>
-            </ListView>
-        </DataTemplate>
+    <!--Grided data template-->
+    <DataTemplate x:Key="GridedTemplate" DataType="{x:Type local:ProjectViewModel}">
+        <ListView Margin="2" ItemsSource="{Binding TableView}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" BorderBrush="{x:Null}">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Project name" DisplayMemberBinding="{Binding ProjectName}"/>
+                    <GridViewColumn Header="Project Cost" DisplayMemberBinding="{Binding ProjectCost}"/>
+                    <GridViewColumn Header="Project Status" DisplayMemberBinding="{Binding ProjectStatus}"/>
+                    <GridViewColumn Header="Start Date" DisplayMemberBinding="{Binding StartDate}"/>
+                    <GridViewColumn Header="Final Date" DisplayMemberBinding="{Binding FinalDate}"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </DataTemplate>
 
-        <!--View data types-->
-        <selector:TemplateSelector 
-            GridedView = "{StaticResource GridedTemplate}"
-            ProfileView="{StaticResource PersonTemplate}" 
-            x:Key="GridProfileSelector"
+    <!--TaskView data-->
+    <DataTemplate x:Key="TaskTemplate" DataType="{x:Type local:TaskViewModel}">
+        <Grid Margin="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20"/>
+                <RowDefinition Height="75*"/>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="30*"/>
+                <RowDefinition Height="20*"/>
+                <RowDefinition Height="35*"/>
+                <RowDefinition Height="30"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="Профиль" VerticalAlignment="Stretch" HorizontalAlignment="Center" />
+
+            <TextBlock Grid.Row="5" Text="Контакты:" VerticalAlignment="Stretch" HorizontalAlignment="Left" />
+            <TextBox   Grid.Row="6" VerticalAlignment="Top"  Text="{Binding CareerName}" AcceptsReturn="False"  />
+
+            <ContentControl Grid.Row="7" ContentTemplate="{DynamicResource OkCancel}"/>
+        </Grid>
+    </DataTemplate>
+
+
+
+    <!--View data types-->
+    <selector:TemplateSelector 
+		GridedView = "{StaticResource GridedTemplate}"
+		ProfileView="{StaticResource PersonTemplate}" 
+		x:Key="GridProfileSelector"
         />
 
-        <!--style-->
+    <!--TreeViewItem-->
+    <Style TargetType="{x:Type TreeViewItem}">
+        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+        <Setter Property="Margin" Value="2"/>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="true">
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property = "Background" Value="Red"/>
 
-        <!--TreeViewItem-->
-        <Style TargetType="TreeViewItem">
-            <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded, Mode=TwoWay}" />
-            <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
-            <Setter Property="Margin" Value="2"></Setter>
-            <Style.Triggers>
-                <Trigger Property="IsSelected" Value="true">
-                    <Setter Property="FontWeight" Value="Bold" />
-                    <Setter Property = "Background" Value="Red"/>
-
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
 
-        <!--MenuItem-->
-        <Style x:Key="ContextMenuItemStyle" TargetType="{x:Type MenuItem}">
-            <Setter Property="MenuItem.Header" Value="{Binding Text}"/>
-            <Setter Property="MenuItem.ItemsSource" Value="{Binding Children}"/>
-            <Setter Property="MenuItem.Command" Value="{Binding Command}" />
-            <Style.Triggers>
-                <Trigger Property="MenuItem.IsMouseOver" Value="true">
-                    <Setter Property = "Foreground" Value="White"/>
-                    <Setter Property = "Background" Value="Blue"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
+    <!--MenuItem-->
+    <Style x:Key="ContextMenuItemStyle" TargetType="{x:Type MenuItem}">
+        <Setter Property="Header" Value="{Binding Text}"/>
+        <Setter Property="ItemsSource" Value="{Binding Children}"/>
+        <Setter Property="Command" Value="{Binding Command}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property = "Foreground" Value="White"/>
+                <Setter Property = "Background" Value="Blue"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
 
-        <ControlTemplate x:Key="AddControl">
-            <Button Command="{Binding AddTabItemClick}"
-                                Background="{x:Null}" 
-                                BorderBrush="{x:Null}" 
-                                Foreground="Black"  >
-                <TextBlock >...</TextBlock>
-            </Button>
-        </ControlTemplate>
+    <ControlTemplate x:Key="AddControl">
+        <Button Command="{Binding AddTabItemClick}"
+			Background="{x:Null}" 
+			BorderBrush="{x:Null}" 
+			Foreground="Black"  >
+            <TextBlock ><Run Text="..."/></TextBlock>
+        </Button>
+    </ControlTemplate>
 
-        <DataTemplate x:Key="DefaultTemplate">
-            <TextBlock>Some text</TextBlock>
-        </DataTemplate>
+    <DataTemplate x:Key="DefaultTemplate">
+        <TextBlock><Run Text="Some text"/></TextBlock>
+    </DataTemplate>
 
-        <DataTemplate x:Key="MyTabHeaderTemplate">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <TextBlock>asdaasd</TextBlock>
-                <TextBlock Grid.Column="1" Text="{Binding Header}" Width="80" Height="25" FontWeight="Bold"/>
-            </Grid>
-        </DataTemplate>
+    <DataTemplate x:Key="MyTabHeaderTemplate">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <TextBlock><Run Text="asdaasd"/></TextBlock>
+            <TextBlock Grid.Column="1" Text="{Binding Header}" Width="80" Height="25" FontWeight="Bold"/>
+        </Grid>
+    </DataTemplate>
 
 
 

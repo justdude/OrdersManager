@@ -1861,7 +1861,7 @@ namespace OrdersManager {
             [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Data.Design.TypedDataSetGenerator", "4.0.0.0")]
             internal void InitVars() {
                 this.columnId = base.Columns["Id"];
-                this.columnProjectId = base.Columns["ProjectId"];
+                this.columnProjectId = base.Columns["Idproject"];
                 this.columnExecutorId = base.Columns["ExecutorId"];
                 this.columnName = base.Columns["Name"];
                 this.columnTaskStatus = base.Columns["TaskStatus"];
@@ -1874,7 +1874,7 @@ namespace OrdersManager {
             private void InitClass() {
                 this.columnId = new global::System.Data.DataColumn("Id", typeof(long), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnId);
-                this.columnProjectId = new global::System.Data.DataColumn("ProjectId", typeof(int), null, global::System.Data.MappingType.Element);
+                this.columnProjectId = new global::System.Data.DataColumn("Idproject", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnProjectId);
                 this.columnExecutorId = new global::System.Data.DataColumn("ExecutorId", typeof(int), null, global::System.Data.MappingType.Element);
                 base.Columns.Add(this.columnExecutorId);
@@ -2646,7 +2646,7 @@ namespace OrdersManager {
                         return ((int)(this[this.tableTasks.ProjectIdColumn]));
                     }
                     catch (global::System.InvalidCastException e) {
-                        throw new global::System.Data.StrongTypingException("The value for column \'ProjectId\' in table \'Tasks\' is DBNull.", e);
+                        throw new global::System.Data.StrongTypingException("The value for column \'Idproject\' in table \'Tasks\' is DBNull.", e);
                     }
                 }
                 set {
@@ -5502,7 +5502,7 @@ namespace OrdersManager.DataSet1TableAdapters {
             tableMapping.SourceTable = "Table";
             tableMapping.DataSetTable = "Tasks";
             tableMapping.ColumnMappings.Add("Id", "Id");
-            tableMapping.ColumnMappings.Add("ProjectId", "ProjectId");
+            tableMapping.ColumnMappings.Add("Idproject", "Idproject");
             tableMapping.ColumnMappings.Add("ExecutorId", "ExecutorId");
             tableMapping.ColumnMappings.Add("Name", "Name");
             tableMapping.ColumnMappings.Add("TaskStatus", "TaskStatus");
@@ -5511,7 +5511,7 @@ namespace OrdersManager.DataSet1TableAdapters {
             this._adapter.TableMappings.Add(tableMapping);
             this._adapter.DeleteCommand = new global::Devart.Data.SQLite.SQLiteCommand();
             this._adapter.DeleteCommand.Connection = this.Connection;
-            this._adapter.DeleteCommand.CommandText = @"DELETE FROM ""main"".""Tasks"" WHERE ((""Id"" = :Original_Id) AND ((:IsNull_ProjectId = 1 AND ""ProjectId"" IS NULL) OR (""ProjectId"" = :Original_ProjectId)) AND ((:IsNull_ExecutorId = 1 AND ""ExecutorId"" IS NULL) OR (""ExecutorId"" = :Original_ExecutorId)) AND ((:IsNull_Name = 1 AND ""Name"" IS NULL) OR (""Name"" = :Original_Name)) AND ((:IsNull_TaskStatus = 1 AND ""TaskStatus"" IS NULL) OR (""TaskStatus"" = :Original_TaskStatus)) AND ((:IsNull_StartDate = 1 AND ""StartDate"" IS NULL) OR (""StartDate"" = :Original_StartDate)) AND ((:IsNull_EstimateDate = 1 AND ""EstimateDate"" IS NULL) OR (""EstimateDate"" = :Original_EstimateDate)))";
+            this._adapter.DeleteCommand.CommandText = @"DELETE FROM ""main"".""Tasks"" WHERE ((""Id"" = :Original_Id) AND ((:IsNull_ProjectId = 1 AND ""Idproject"" IS NULL) OR (""Idproject"" = :Original_ProjectId)) AND ((:IsNull_ExecutorId = 1 AND ""ExecutorId"" IS NULL) OR (""ExecutorId"" = :Original_ExecutorId)) AND ((:IsNull_Name = 1 AND ""Name"" IS NULL) OR (""Name"" = :Original_Name)) AND ((:IsNull_TaskStatus = 1 AND ""TaskStatus"" IS NULL) OR (""TaskStatus"" = :Original_TaskStatus)) AND ((:IsNull_StartDate = 1 AND ""StartDate"" IS NULL) OR (""StartDate"" = :Original_StartDate)) AND ((:IsNull_EstimateDate = 1 AND ""EstimateDate"" IS NULL) OR (""EstimateDate"" = :Original_EstimateDate)))";
             this._adapter.DeleteCommand.CommandType = global::System.Data.CommandType.Text;
             global::Devart.Data.SQLite.SQLiteParameter param = new global::Devart.Data.SQLite.SQLiteParameter();
             param.ParameterName = "Original_Id";
@@ -5526,7 +5526,7 @@ namespace OrdersManager.DataSet1TableAdapters {
             param.DbType = global::System.Data.DbType.Int32;
             param.SQLiteType = global::Devart.Data.SQLite.SQLiteType.Int32;
             param.IsNullable = true;
-            param.SourceColumn = "ProjectId";
+            param.SourceColumn = "Idproject";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             param.SourceColumnNullMapping = true;
             this._adapter.DeleteCommand.Parameters.Add(param);
@@ -5535,7 +5535,7 @@ namespace OrdersManager.DataSet1TableAdapters {
             param.DbType = global::System.Data.DbType.Int32;
             param.SQLiteType = global::Devart.Data.SQLite.SQLiteType.Int32;
             param.IsNullable = true;
-            param.SourceColumn = "ProjectId";
+            param.SourceColumn = "Idproject";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.DeleteCommand.Parameters.Add(param);
             param = new global::Devart.Data.SQLite.SQLiteParameter();
@@ -5623,8 +5623,8 @@ namespace OrdersManager.DataSet1TableAdapters {
             this._adapter.DeleteCommand.Parameters.Add(param);
             this._adapter.InsertCommand = new global::Devart.Data.SQLite.SQLiteCommand();
             this._adapter.InsertCommand.Connection = this.Connection;
-            this._adapter.InsertCommand.CommandText = "INSERT INTO \"main\".\"Tasks\" (\"Id\", \"ProjectId\", \"ExecutorId\", \"Name\", \"TaskStatus\"" +
-                ", \"StartDate\", \"EstimateDate\") VALUES (:Id, :ProjectId, :ExecutorId, :Name, :Tas" +
+            this._adapter.InsertCommand.CommandText = "INSERT INTO \"main\".\"Tasks\" (\"Id\", \"Idproject\", \"ExecutorId\", \"Name\", \"TaskStatus\"" +
+                ", \"StartDate\", \"EstimateDate\") VALUES (:Id, :Idproject, :ExecutorId, :Name, :Tas" +
                 "kStatus, :StartDate, :EstimateDate)";
             this._adapter.InsertCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::Devart.Data.SQLite.SQLiteParameter();
@@ -5635,11 +5635,11 @@ namespace OrdersManager.DataSet1TableAdapters {
             param.SourceColumn = "Id";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::Devart.Data.SQLite.SQLiteParameter();
-            param.ParameterName = "ProjectId";
+            param.ParameterName = "Idproject";
             param.DbType = global::System.Data.DbType.Int32;
             param.SQLiteType = global::Devart.Data.SQLite.SQLiteType.Int32;
             param.IsNullable = true;
-            param.SourceColumn = "ProjectId";
+            param.SourceColumn = "Idproject";
             this._adapter.InsertCommand.Parameters.Add(param);
             param = new global::Devart.Data.SQLite.SQLiteParameter();
             param.ParameterName = "ExecutorId";
@@ -5676,7 +5676,7 @@ namespace OrdersManager.DataSet1TableAdapters {
             this._adapter.InsertCommand.Parameters.Add(param);
             this._adapter.UpdateCommand = new global::Devart.Data.SQLite.SQLiteCommand();
             this._adapter.UpdateCommand.Connection = this.Connection;
-            this._adapter.UpdateCommand.CommandText = @"UPDATE ""main"".""Tasks"" SET ""Id"" = :Id, ""ProjectId"" = :ProjectId, ""ExecutorId"" = :ExecutorId, ""Name"" = :Name, ""TaskStatus"" = :TaskStatus, ""StartDate"" = :StartDate, ""EstimateDate"" = :EstimateDate WHERE ((""Id"" = :Original_Id) AND ((:IsNull_ProjectId = 1 AND ""ProjectId"" IS NULL) OR (""ProjectId"" = :Original_ProjectId)) AND ((:IsNull_ExecutorId = 1 AND ""ExecutorId"" IS NULL) OR (""ExecutorId"" = :Original_ExecutorId)) AND ((:IsNull_Name = 1 AND ""Name"" IS NULL) OR (""Name"" = :Original_Name)) AND ((:IsNull_TaskStatus = 1 AND ""TaskStatus"" IS NULL) OR (""TaskStatus"" = :Original_TaskStatus)) AND ((:IsNull_StartDate = 1 AND ""StartDate"" IS NULL) OR (""StartDate"" = :Original_StartDate)) AND ((:IsNull_EstimateDate = 1 AND ""EstimateDate"" IS NULL) OR (""EstimateDate"" = :Original_EstimateDate)))";
+            this._adapter.UpdateCommand.CommandText = @"UPDATE ""main"".""Tasks"" SET ""Id"" = :Id, ""Idproject"" = :Idproject, ""ExecutorId"" = :ExecutorId, ""Name"" = :Name, ""TaskStatus"" = :TaskStatus, ""StartDate"" = :StartDate, ""EstimateDate"" = :EstimateDate WHERE ((""Id"" = :Original_Id) AND ((:IsNull_ProjectId = 1 AND ""Idproject"" IS NULL) OR (""Idproject"" = :Original_ProjectId)) AND ((:IsNull_ExecutorId = 1 AND ""ExecutorId"" IS NULL) OR (""ExecutorId"" = :Original_ExecutorId)) AND ((:IsNull_Name = 1 AND ""Name"" IS NULL) OR (""Name"" = :Original_Name)) AND ((:IsNull_TaskStatus = 1 AND ""TaskStatus"" IS NULL) OR (""TaskStatus"" = :Original_TaskStatus)) AND ((:IsNull_StartDate = 1 AND ""StartDate"" IS NULL) OR (""StartDate"" = :Original_StartDate)) AND ((:IsNull_EstimateDate = 1 AND ""EstimateDate"" IS NULL) OR (""EstimateDate"" = :Original_EstimateDate)))";
             this._adapter.UpdateCommand.CommandType = global::System.Data.CommandType.Text;
             param = new global::Devart.Data.SQLite.SQLiteParameter();
             param.ParameterName = "Id";
@@ -5686,11 +5686,11 @@ namespace OrdersManager.DataSet1TableAdapters {
             param.SourceColumn = "Id";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::Devart.Data.SQLite.SQLiteParameter();
-            param.ParameterName = "ProjectId";
+            param.ParameterName = "Idproject";
             param.DbType = global::System.Data.DbType.Int32;
             param.SQLiteType = global::Devart.Data.SQLite.SQLiteType.Int32;
             param.IsNullable = true;
-            param.SourceColumn = "ProjectId";
+            param.SourceColumn = "Idproject";
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::Devart.Data.SQLite.SQLiteParameter();
             param.ParameterName = "ExecutorId";
@@ -5738,7 +5738,7 @@ namespace OrdersManager.DataSet1TableAdapters {
             param.DbType = global::System.Data.DbType.Int32;
             param.SQLiteType = global::Devart.Data.SQLite.SQLiteType.Int32;
             param.IsNullable = true;
-            param.SourceColumn = "ProjectId";
+            param.SourceColumn = "Idproject";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             param.SourceColumnNullMapping = true;
             this._adapter.UpdateCommand.Parameters.Add(param);
@@ -5747,7 +5747,7 @@ namespace OrdersManager.DataSet1TableAdapters {
             param.DbType = global::System.Data.DbType.Int32;
             param.SQLiteType = global::Devart.Data.SQLite.SQLiteType.Int32;
             param.IsNullable = true;
-            param.SourceColumn = "ProjectId";
+            param.SourceColumn = "Idproject";
             param.SourceVersion = global::System.Data.DataRowVersion.Original;
             this._adapter.UpdateCommand.Parameters.Add(param);
             param = new global::Devart.Data.SQLite.SQLiteParameter();
@@ -5848,7 +5848,7 @@ namespace OrdersManager.DataSet1TableAdapters {
             this._commandCollection = new global::Devart.Data.SQLite.SQLiteCommand[1];
             this._commandCollection[0] = new global::Devart.Data.SQLite.SQLiteCommand();
             this._commandCollection[0].Connection = this.Connection;
-            this._commandCollection[0].CommandText = "SELECT Id, ProjectId, ExecutorId, Name, TaskStatus, StartDate, EstimateDate FROM " +
+            this._commandCollection[0].CommandText = "SELECT Id, Idproject, ExecutorId, Name, TaskStatus, StartDate, EstimateDate FROM " +
                 "\"main\".Tasks";
             this._commandCollection[0].CommandType = global::System.Data.CommandType.Text;
         }

@@ -27,13 +27,13 @@ namespace OrdersManager.ModelView
             get
             {
                 DataTable table = new DataTable("TableView");
-                table.Columns.Add("Id");
+                table.Columns.Add("ProjectName");
                 table.Columns.Add("ProjectCost");
                 table.Columns.Add("ProjectStatus");
                 table.Columns.Add("StartDate");
                 table.Columns.Add("FinalDate");
 
-                table.Rows.Add(Id.ToString(), 
+                table.Rows.Add(ProjectName.ToString(), 
                                ProjectCost.ToString(), 
                                ProjectStatus.ToString(), 
                                StartDate.ToString(),
@@ -43,7 +43,7 @@ namespace OrdersManager.ModelView
             }
         }
 
-        public long Id
+        public long Idproject
         {
             get
             {

@@ -192,7 +192,7 @@ namespace OrdersManager.Database
         public void CreateTableTask()
         {
             SQLiteCommand command = new SQLiteCommand(Connection);
-            command.CommandText = "Create Table If Not Exists Tasks(Id int AUTO_INCREMENT, ProjectId int, ExecutorId int, Name varchar(255),TaskStatus varchar(100), StartDate , EstimateDate)";
+            command.CommandText = "Create Table If Not Exists Tasks(Id int AUTO_INCREMENT, Idproject int, ExecutorId int, Name varchar(255),TaskStatus varchar(100), StartDate , EstimateDate)";
             command.ExecuteNonQuery();
         }
 
@@ -226,9 +226,9 @@ namespace OrdersManager.Database
 
         public void InsertTask(Task item)
         {
-            string query = "Insert Into Task(ProjectId, ExecutorId, Name, TaskStatus, StartDate, EstimateDate ) Values(@ProjectId, @ExecutorId, @Name, @TaskStatus, @StartDate, @EstimateDate)";
+            string query = "Insert Into Task(Idproject, ExecutorId, Name, TaskStatus, StartDate, EstimateDate ) Values(@Idproject, @ExecutorId, @Name, @TaskStatus, @StartDate, @EstimateDate)";
             SQLiteCommand command = new SQLiteCommand(query, Connection);
-            command.Parameters.AddWithValue("@ProjectId", item.ProjectId);
+            command.Parameters.AddWithValue("@Idproject", item.ProjectId);
             command.Parameters.AddWithValue("@ExecutorId", item.ExecutorId);
             command.Parameters.AddWithValue("@Name", item.Name);
             command.Parameters.AddWithValue("@TaskStatus", item.TaskStatus);

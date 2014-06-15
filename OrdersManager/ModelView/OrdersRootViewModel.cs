@@ -336,7 +336,7 @@ namespace OrdersManager.ModelView
                 Node nodeLead = Freelancers.Where(p => p.PersonId == project.TeamLeadId).First();
                 foreach (var task in Tasks)
                 {
-                    if (task.ProjectId == project.Id)
+                    if (task.ProjectId == project.Idproject)
                     {
                         Node node = task;
                         foreach (var freelancer in Freelancers)
@@ -388,7 +388,7 @@ namespace OrdersManager.ModelView
 
                 foreach (var project in Projects)
                 {
-                    if (project.Id == costumer.PersonId)
+                    if (project.Idproject == costumer.PersonId)
                     {
                         Node childNode = project;
                         parentNode.Children.Add(project);

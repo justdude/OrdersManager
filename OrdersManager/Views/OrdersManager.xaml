@@ -71,9 +71,12 @@
                                   Width="5"
                                   MinHeight="250" 
                                   Foreground="#FF272727"></GridSplitter>
+
                     <ContentControl Grid.Column="2" 
-                                    Content="{Binding OrdersRootViewModel.SelectedItem}"/>
-                    <!--<ListBox Grid.Column="2"   
+                                    ContentTemplateSelector="{StaticResource GridProfileSelector}"
+                                    Content="{Binding SelectedItem, ElementName=trw_Products}"
+                                    />
+                        <!--<ListBox Grid.Column="2"   
                              VerticalAlignment="Stretch"
                              HorizontalAlignment="Stretch"
                              Margin="4"

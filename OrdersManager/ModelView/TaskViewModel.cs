@@ -57,7 +57,7 @@ namespace OrdersManager.ModelView
             set
             {
                 Task.ProjectId = value;
-                OnPropertyChanged("ProjectId");
+                OnPropertyChanged("Idproject");
             }
         }
 

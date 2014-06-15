@@ -245,6 +245,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="PhotoCache\" />
+    <Folder Include="Views\SimpleView\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\plus.png" />
