@@ -6,6 +6,8 @@ using OrdersManager.Model;
 using System.Data.SQLite;
 using System.Data.SQLite.Linq;
 using System.Data;
+using System.Collections.ObjectModel;
+using OrdersManager.ModelView;
 
 
 namespace OrdersManager.Database
@@ -22,15 +24,37 @@ namespace OrdersManager.Database
             return retval;
         }
 
+
+        public static string NullToString(object obj)
+        {
+            if ((obj as string) == null)
+            {
+                return " ";
+            }
+            return (string)obj;
+        }
+
+        public static DateTime NullToDate(object obj)
+        {
+            if (obj == null)
+            {
+                return DateTime.Now;
+            }
+            DateTime data = DateTime.MinValue;
+            if (DateTime.TryParse(obj.ToString(), out data))
+                return data;
+            return data; //SPIKE!!!!!!!!
+        }
+
         public static OrdersManager.Model.Costumer ToCostumer(DataRow row)
         {
             Costumer costumer = new Costumer();
             costumer.Id = (long)row[0];
-            costumer.CareerName = (string)row[1];
-            costumer.FIO = (string)row[2];
-            costumer.PhotoPath = (string)row[3];
-            costumer.Adress = (string)row[4];
-            costumer.PhotoName = (string)row[5];
+            //freelancer.CareerName = NullToString(row[1]);
+            costumer.FIO = NullToString(row[2]);
+            costumer.PhotoPath = NullToString(row[3]);
+            costumer.Adress = NullToString(row[4]);
+            costumer.PhotoName = NullToString(row[5]);
             return costumer;
         }
 
@@ -38,11 +62,11 @@ namespace OrdersManager.Database
         {
             Freelancer freelancer = new Freelancer();
             freelancer.Id = (long)row[0];
-            freelancer.CareerName = (string)row[1];
-            freelancer.FIO = (string)row[2];
-            freelancer.PhotoPath = (string)row[3];
-            freelancer.Adress = (string)row[4];
-            freelancer.PhotoName = (string)row[5];
+            //freelancer.CareerName = NullToString(row[1]);
+            freelancer.FIO = NullToString(row[2]);
+            freelancer.PhotoPath = NullToString(row[3]);
+            freelancer.Adress = NullToString(row[4]);
+            freelancer.PhotoName = NullToString(row[5]);
             return freelancer;
         }
 
@@ -52,27 +76,93 @@ namespace OrdersManager.Database
             task.Id = (long)row[0];
             task.ProjectId = (long)row[1];
             task.ExecutorId = (long)row[2];
-            task.Name = (string)row[3];
-            task.TaskStatus = (string)row[4];
-            task.StartDate = (DateTime)row[5];
-            task.EstimateDate = (DateTime)row[6];
+            task.Name = NullToString(row[3]);
+            task.TaskStatus = NullToString(row[4]);
+            task.StartDate = NullToDate(row[5]);
+            task.EstimateDate = (NullToDate(row[6]));
             return task;
         }
 
-        public static OrdersManager.Model.Project ToModel(DataRow row)
+        public static OrdersManager.Model.Project ToProject(DataRow row)
         {
             Project project = new Project();
             project.Id = (long)row[0];
             project.TeamLeadId = (long)row[1];
             project.CostumerId = (long)row[2];
-            project.ProjectCost = (float)row[3];
-            project.ProjectStatus = (string)row[4];
-            project.StartDate = (DateTime)row[5];
-            project.FinalDate = (DateTime)row[6];
+            project.ProjectCost = (float)((double)row[3]);
+            project.ProjectStatus = NullToString(row[4]);
+            project.StartDate = NullToDate(row[5]);
+            project.FinalDate = NullToDate(row[6]);
+            project.ProjectName = NullToString(row[7]);
             return project;
         }
 
     }
+
+    public class DatabaseLoader
+    {
+        public static ObservableCollection<ProjectViewModel> ComputeProjects(Command comm)
+        {
+            var table = comm.SelectProjects();
+            var data = DatabaseConverter.ConvertRowsToList<Model.Project>(table, DatabaseConverter.ToProject);
+
+            var list = new ObservableCollection<ProjectViewModel>(data.ConvertAll<ProjectViewModel>(
+                x =>
+                {
+
+                    return new ProjectViewModel(x);
+                })
+                );
+            return list;
+        }
+
+        public static ObservableCollection<TaskViewModel> ComputeTasks(Command comm)
+        {
+            var table = comm.SelectTasks();
+            var data = DatabaseConverter.ConvertRowsToList<Task>(table, DatabaseConverter.ToTask);
+
+            var list = new ObservableCollection<TaskViewModel>(data.ConvertAll<TaskViewModel>(
+                x =>
+                {
+
+                    return new TaskViewModel(x);
+                })
+                );
+            return list;
+        }
+
+        public static ObservableCollection<FreelancerViewModel> ComputeFreelansers(Command comm)
+        {
+            var table = comm.SelectFreelancers();
+            var data = DatabaseConverter.ConvertRowsToList<Freelancer>(table, DatabaseConverter.ToFreelancer);
+
+            var list = new ObservableCollection<FreelancerViewModel>(data.ConvertAll<FreelancerViewModel>(
+                x =>
+                {
+
+                    return new FreelancerViewModel(x);
+                })
+                );
+            return list;
+        }
+
+        public static ObservableCollection<CostumerViewModel> ComputeCostumers(Command comm)
+        {
+            var table = comm.SelectCostumers();
+            var data = DatabaseConverter.ConvertRowsToList<Costumer>(table, DatabaseConverter.ToCostumer);
+
+            var list = new ObservableCollection<CostumerViewModel>(data.ConvertAll<CostumerViewModel>(
+                x =>
+                {
+
+                    return new CostumerViewModel(x);
+                })
+                );
+            return list;
+        }
+
+    }
+
     public class Command
     {
 
@@ -157,6 +247,7 @@ namespace OrdersManager.Database
             command.Parameters.AddWithValue("@ProjectStatus", item.ProjectStatus);
             command.Parameters.AddWithValue("@StartDate", item.StartDate);
             command.Parameters.AddWithValue("@FinalDate", item.FinalDate);
+            command.Parameters.AddWithValue("@FinalDate", item.ProjectName);
             command.ExecuteNonQuery();
         }
 

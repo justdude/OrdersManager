@@ -18,6 +18,20 @@ namespace OrdersManager.ModelView
             this.Person = person;
         }
 
+
+        public long PersonId
+        {
+            get
+            {
+                return Person.Id;
+            }
+            set
+            {
+                Person.Id = value;
+                OnPropertyChanged("PersonId");
+            }
+        }
+
         public string FIO
         {
             get
@@ -62,11 +76,11 @@ namespace OrdersManager.ModelView
         {
             get
             {
-                return new ObservableCollection<ProjectViewModel>(CacheManager.CacheManager.Instance.Projects); //.Where(p=>p. = base.FIO) 
+                return new ObservableCollection<ProjectViewModel>(Cache.Cache.Instance.Projects); //.Where(p=>p. = base.FIO) 
             }
             set
             {
-                CacheManager.CacheManager.Instance.Projects = value.ToList();
+                Cache.Cache.Instance.Projects = value.ToList();
                 OnPropertyChanged("Projects");
             }
         }

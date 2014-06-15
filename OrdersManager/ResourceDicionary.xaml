@@ -5,6 +5,7 @@
                     xmlns:params="http://schemas.codeplex.com/elysium/params"
                     xmlns:local="clr-namespace:OrdersManager.ModelView"
                     xmlns:mvvvm="clr-namespace:MVVM"
+                    xmlns:converters="clr-namespace:OrdersManager.Converters"
                     xmlns:selector="clr-namespace:OrdersManager.TemplateSelector"
                     xmlns:mv="clr-namespace:OrdersManager.Views">
 
@@ -12,7 +13,9 @@
 
 
         <!--Converters-->
-
+        <converters:VisibityToBool  x:Key="visibilityConv">
+            
+        </converters:VisibityToBool>
         <!--type converter-->
 
         <!--FreelancerViewModel-->
@@ -51,7 +54,7 @@
                         Padding="2"
                         BorderThickness="2" 
                         BorderBrush="#FF366DB0">
-                <TextBlock Text="{Binding Path=Name}"></TextBlock>
+            <TextBlock Text="{Binding Path=ProjectName}"></TextBlock>
             </Border>
         </HierarchicalDataTemplate>
 
@@ -75,31 +78,37 @@
             </StackPanel>
         </HierarchicalDataTemplate>
 
+    
+    <!--Textblock font-->
+    <Style x:Key="TexBlock" TargetType="{x:Type TextBlock}">
+        <Setter Property="FontWeight" Value="Bold"></Setter>
+        <Setter Property="FontSize" Value="16"></Setter>
+    </Style>
+    
         <!--Person data-->
         <DataTemplate x:Key="PersonTemplate" DataType="{x:Type local:PersonViewModel}">
             <Grid Margin="2">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20"/>
                     <RowDefinition Height="75*"/>
-                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="35"/>
                     <RowDefinition Height="20*"/>
                     <RowDefinition Height="30*"/>
                     <RowDefinition Height="20*"/>
                     <RowDefinition Height="35*"/>
-                    <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
 
-                <TextBlock Grid.Row="0" Text="Профиль" VerticalAlignment="Stretch" HorizontalAlignment="Center" ></TextBlock>
+                <TextBlock Grid.Row="0" Text="Профиль" VerticalAlignment="Stretch" HorizontalAlignment="Center"  Style="{StaticResource ResourceKey=TexBlock}"></TextBlock>
 
-                <Image Grid.Row="1" VerticalAlignment="Stretch" HorizontalAlignment="Center" MinHeight="38" ></Image>
-                <Button Grid.Row="2" Content="Select" Height="30"  Width="140" ></Button>
-
+                <Image Grid.Row="1" VerticalAlignment="Stretch" Source="{Binding  PhotoPath}" HorizontalAlignment="Center" ></Image>
+                <Button Grid.Row="2" Command="{Binding SelectImagePath}" Height="28" Padding="-8" Width="140" >
+                        <Label Content="Select"></Label>
+                </Button>
                 <TextBlock Grid.Row="3" Text="ФИО:" VerticalAlignment="Stretch" HorizontalAlignment="Left" ></TextBlock>
-                <TextBox   Grid.Row="4" VerticalAlignment="Top"  Text="{Binding CareerName}" AcceptsReturn="False"  ></TextBox>
-                <TextBox   Grid.Row="6" VerticalAlignment="Top"  Text="{Binding CareerName}" AcceptsReturn="False"  ></TextBox>
-
-                <ContentControl Grid.Row="7" ContentTemplate="{DynamicResource OkCancel}"></ContentControl>
-            </Grid>
+                <TextBox   Grid.Row="4" VerticalAlignment="Top"  Text="{Binding FIO}" AcceptsReturn="False"  ></TextBox>
+                <TextBlock Grid.Row="5" Text="Контакты:" VerticalAlignment="Stretch" HorizontalAlignment="Left" ></TextBlock>
+            <TextBox   Grid.Row="6" VerticalAlignment="Top"  Text="{Binding Adress}" AcceptsReturn="True" Height="40"   ></TextBox>
+        </Grid>
         </DataTemplate>
 
         <DataTemplate x:Key="OkCancel">
@@ -160,14 +169,14 @@
         <!--style-->
 
         <!--TreeViewItem-->
-        <Style TargetType="TreeViewItem" >
+        <Style TargetType="TreeViewItem">
             <Setter Property="IsExpanded" Value="{Binding Path=IsExpanded, Mode=TwoWay}" />
-            <Setter Property="IsSelected" Value="{Binding Path=OrdersRootViewModel.IsSelected, Mode=TwoWay}" />
+            <Setter Property="IsSelected" Value="{Binding Path=IsSelected, Mode=TwoWay}" />
             <Setter Property="Margin" Value="2"></Setter>
             <Style.Triggers>
                 <Trigger Property="IsSelected" Value="true">
                     <Setter Property="FontWeight" Value="Bold" />
-                    <Setter Property = "Border.Background" Value="Red"/>
+                    <Setter Property = "Background" Value="Red"/>
 
                 </Trigger>
             </Style.Triggers>

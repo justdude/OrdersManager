@@ -3,45 +3,77 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using OrdersManager.ModelView;
+using System.Collections.ObjectModel;
 
 
-namespace OrdersManager.CacheManager
+namespace OrdersManager.Cache
 {
     public class CacheManager
     {
 
-
-       // public List<FreelancerViewModel> Freelancers;
-        public List<ProjectViewModel> Projects;
-        public List<FreelancerViewModel> Freelancers;
-        public List<CostumerViewModel> Costumers;
-
-
         public CacheManager()
         {
-            Projects = new List<ProjectViewModel>()
-            {
-                /*new ProjectViewModel(),
-                new ProjectViewModel(),
-                new ProjectViewModel()*/
-            };
+            
+        }
 
-            Freelancers = new List<FreelancerViewModel>()
-            {
-                /*new FreelancerViewModel(),
-                new FreelancerViewModel(),
-                new FreelancerViewModel(),
-                new FreelancerViewModel(),
-                new FreelancerViewModel()*/
-            };
 
-            Costumers = new List<CostumerViewModel>()
+        private ObservableCollection<ProjectViewModel> projects;
+        private ObservableCollection<TaskViewModel> tasks;
+        private ObservableCollection<CostumerViewModel> costumers;
+        private ObservableCollection<FreelancerViewModel> freelancers;
+
+
+        public ObservableCollection<ProjectViewModel> Projects
+        {
+            get
             {
-                /*new CostumerViewModel(),
-                new CostumerViewModel(),
-                new CostumerViewModel(),
-                new CostumerViewModel()*/
-            };
+                /*if (projects == null)
+                    projects = new ObservableCollection<ProjectViewModel>();*/
+                return projects;
+            }
+            set
+            {
+                projects = value;
+            }
+        }
+
+
+        public ObservableCollection<CostumerViewModel> Costumers
+        {
+            get
+            {
+                /*if (projects == null)
+                    projects = new ObservableCollection<ProjectViewModel>();*/
+                return costumers;
+            }
+            set
+            {
+                costumers = value;
+            }
+        }
+
+        public ObservableCollection<FreelancerViewModel> Freelancers
+        {
+            get
+            {
+                return freelancers;
+            }
+            set
+            {
+                freelancers = value;
+            }
+        }
+
+        public ObservableCollection<TaskViewModel> Tasks
+        {
+            get
+            {
+                return tasks;
+            }
+            set
+            {
+                tasks = value;
+            }
         }
 
         private static CacheManager cacheManager;

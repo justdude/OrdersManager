@@ -13,6 +13,17 @@ namespace OrdersManager.TemplateSelector
         public DataTemplate GridedView { get; set; }
         public DataTemplate ProfileView { get; set; }
 
+        public static TemplateSelector Instance
+        {
+            get;
+            private set;
+        }
+
+        public TemplateSelector()
+        {
+            Instance = this;
+        }
+
         public override DataTemplate SelectTemplate(object item, DependencyObject container)
         {
             if (item is FreelancerViewModel)

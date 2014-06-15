@@ -103,6 +103,7 @@
     </ApplicationDefinition>
     <Compile Include="CacheManager\CacheManager.cs" />
     <Compile Include="Converters\TypeToViewConverter.cs" />
+    <Compile Include="Converters\VisibityToBool.cs" />
     <Compile Include="Database\Command.cs" />
     <Compile Include="Database\DatabaseManager.cs" />
     <Compile Include="DataSet1.Designer.cs">
@@ -123,6 +124,7 @@
     <Compile Include="Model\Person.cs" />
     <Compile Include="Model\Project.cs" />
     <Compile Include="Model\Task.cs" />
+    <Compile Include="MVVM\AsyncObservableCollection.cs" />
     <Compile Include="MVVM\Commands\CommandBehavior.cs" />
     <Compile Include="MVVM\Elements\HeaderNode.cs" />
     <Compile Include="MVVM\Elements\MenuItem.cs" />

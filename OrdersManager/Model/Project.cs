@@ -28,5 +28,8 @@ namespace OrdersManager.Model
 
         public  DateTime FinalDate
         { get; set; }
+
+        public string ProjectName
+        { get; set; }
     }
 }

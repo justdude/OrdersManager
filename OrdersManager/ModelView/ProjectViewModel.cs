@@ -19,6 +19,7 @@ namespace OrdersManager.ModelView
         public ProjectViewModel(Project project)
         {
             this.Project = project;
+            base.Text = ProjectName;
         }
   
         public DataView TableView
@@ -56,18 +57,16 @@ namespace OrdersManager.ModelView
         }
 
 
-        public OrdersManager.ModelView.FreelancerViewModel Lead
+        public long TeamLeadId
         {
             get
             {
-                FreelancerViewModel freel = null;
-                freel = CacheManager.CacheManager.Instance.Freelancers.Where(p => p.IsLead == true).FirstOrDefault();
-                return freel;
+                return Project.TeamLeadId;
             }
             set
             {
-                //projectCost = value;
-                OnPropertyChanged("Lead");
+                Project.TeamLeadId = value;
+                OnPropertyChanged("TeamLeadId");
             }
         }
 
@@ -124,7 +123,18 @@ namespace OrdersManager.ModelView
             }
         }
 
-
+        public string ProjectName
+        {
+            get
+            {
+                return Project.ProjectName;
+            }
+            set
+            {
+                Project.ProjectName = value;
+                OnPropertyChanged("ProjectName");
+            }
+        }
 
         /*public ObservableCollection<TaskViewModel> Tasks
         {

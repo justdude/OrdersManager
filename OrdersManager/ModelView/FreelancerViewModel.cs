@@ -41,7 +41,6 @@ namespace OrdersManager.ModelView
 
         public FreelancerViewModel(Person person) : base(person)
         {
-            base.FIO = "Dr. Watson";
         }
 
     }

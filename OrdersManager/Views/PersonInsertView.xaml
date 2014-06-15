@@ -12,10 +12,18 @@
         WindowStartupLocation="CenterScreen"
         params:Design.Theme="Light"
         params:Manager.Theme="Light" 
-        params:Manager.AccentBrush="{x:Static metro:AccentBrushes.Sky}"
+        params:Manager.AccentBrush="{x:Static metro:AccentBrushes.Viridian}"
         params:Manager.ContrastBrush="White"
         Title="MainWindow" Height="420" Width="340" >
-        <WrapPanel>
-            <ContentControl DataContext="{StaticResource PersonTemplate}"></ContentControl>
-        </WrapPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="325*"/>
+            <RowDefinition Height="42"/>
+        </Grid.RowDefinitions>
+        <ContentControl Grid.Row="0" ContentTemplate="{StaticResource PersonTemplate}" >
+        </ContentControl>
+
+        <ContentControl Grid.Row="2" ContentTemplate="{StaticResource OkCancel}" >
+        </ContentControl>
+    </Grid>
 </Controls:Window>

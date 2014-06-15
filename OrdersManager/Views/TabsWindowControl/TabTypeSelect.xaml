@@ -7,6 +7,13 @@
         xmlns:local="clr-namespace:OrdersManager.ModelView"
         xmlns:mvvvm="clr-namespace:MVVM"
         xmlns:view="clr-namespace:OrdersManager.Views"
+        
+        WindowStartupLocation="CenterScreen"
+        params:Design.Theme="Light"
+        params:Manager.Theme="Light" 
+        params:Manager.AccentBrush="{x:Static metro:AccentBrushes.Viridian}"
+        params:Manager.ContrastBrush="White"
+                 
         Title="TabTypeSelect" Height="300" Width="300">
     <Grid>
         <view:SelectTabTypeControl></view:SelectTabTypeControl>

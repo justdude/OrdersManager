@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Windows.Controls;
 using System.Collections;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MVVM
 {
@@ -69,7 +71,21 @@ namespace MVVM
             }
         }
 
-        public static Node FindSelectedNode(ObservableCollection<Node> nodes)
+        /*private static Node GetSelectedItem(IEnumerable<Node> items)
+        {
+            //top-level items:
+            Node item = items.FirstOrDefault(i => i.IsSelected);
+            if (item == null)
+            {
+                //sub-level items:
+                IEnumerable<Node> subItems = items.OfType<Node>().SelectMany(d => d.Children);
+                if (items.Any())
+                    item = GetSelectedItem(subItems);
+            }
+            return item;
+        }*/
+
+        public static Node GetSelectedItem(ObservableCollection<Node> nodes)
         {
             Node selectedNode = null;
             foreach (var node in nodes)

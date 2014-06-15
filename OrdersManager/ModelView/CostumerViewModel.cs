@@ -25,7 +25,7 @@ namespace OrdersManager.ModelView
         }
         public CostumerViewModel(Person person) : base(person)
         {
-            base.FIO = "Moriarti";
+
         }
 
     }
