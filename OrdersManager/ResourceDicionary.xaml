@@ -22,6 +22,28 @@
     <!--Converters-->
     <converters:VisibityToBool  x:Key="visibilityConv"/>
 
+
+    <!--MenuItem-->
+    <Style x:Key="ContextMenuItemStyle" TargetType="{x:Type MenuItem}">
+        <Setter Property="Header" Value="{Binding Text}"/>
+        <Setter Property="ItemsSource" Value="{Binding Children}"/>
+        <Setter Property="Command" Value="{Binding Command}" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property = "Foreground" Value="White"/>
+                <Setter Property = "Background" Value="Blue"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+    <!--ContextMenu-->
+<!--    <DataTemplate x:Key="ContextMenuTemplate" DataType="{x:Type ContextMenu}">
+        <ContextMenu ItemContainerStyle="{StaticResource ContextMenuItemStyle}" 
+                                         ItemsSource="{Binding MenuOptions}" >
+
+        </ContextMenu>
+    </DataTemplate>-->
+
     <!--FreelancerViewModel-->
     <HierarchicalDataTemplate
 		DataType="{x:Type local:FreelancerViewModel}"
@@ -81,8 +103,7 @@
             <TextBlock Text="{Binding Text}"/>
         </StackPanel>
     </HierarchicalDataTemplate>
-
-
+    
     <!--Textblock font-->
     <Style x:Key="TexBlock" TargetType="{x:Type TextBlock}">
         <Setter Property="FontWeight" Value="Bold"/>
@@ -254,19 +275,6 @@
         </Style.Triggers>
     </Style>
 
-
-    <!--MenuItem-->
-    <Style x:Key="ContextMenuItemStyle" TargetType="{x:Type MenuItem}">
-        <Setter Property="Header" Value="{Binding Text}"/>
-        <Setter Property="ItemsSource" Value="{Binding Children}"/>
-        <Setter Property="Command" Value="{Binding Command}" />
-        <Style.Triggers>
-            <Trigger Property="IsMouseOver" Value="true">
-                <Setter Property = "Foreground" Value="White"/>
-                <Setter Property = "Background" Value="Blue"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
 
 
     <ControlTemplate x:Key="AddControl">

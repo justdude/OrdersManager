@@ -76,13 +76,7 @@ namespace OrdersManager.ModelView
 
                 var remove = new MVVM.MenuItem("Remove")
                 {
-                    Command = new MVVM.DelegateCommand(
-                                                         () => {
-                                                             
-                                                             //SelectedItem 
-                                                            
-                                                         }
-                                )
+                    Command = new MVVM.DelegateCommand(this.OnDeleteClick )
                 };
 
                 var goTo = new MVVM.MenuItem("Go to...")
@@ -277,6 +271,7 @@ namespace OrdersManager.ModelView
             LoadContent = new DelegateCommand(
                 () => 
                 {
+                   
                     //this.SelectedItem = Node.GetSelectedItem(this.Projects);
                 },
                 () => { return true; }
@@ -299,7 +294,10 @@ namespace OrdersManager.ModelView
                     Cache.CacheManager.Instance.Projects = DatabaseLoader.ComputeProjects(comm);
                     var nodes = new ObservableCollection<MVVM.Node>(Cache.CacheManager.Instance.Projects.Select(x => x as Node).ToList());*/
 
-                    System.Threading.Thread.Sleep(2000);
+                    Random rand = new Random();
+                    rand.Next(0, 1500);
+
+                    //System.Threading.Thread.Sleep(2000);
 
 
                     Projects = FillProjects();
@@ -458,6 +456,7 @@ namespace OrdersManager.ModelView
 
         public void OnDeleteClick()
         {
+            bool typed = SelectedItem is PersonTabViewModel; 
            // var target = null;
             //if ()
         }

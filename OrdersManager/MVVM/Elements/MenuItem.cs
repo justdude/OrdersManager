@@ -12,6 +12,8 @@ namespace MVVM
         public List<MenuItem> Children { get; private set; }
         public ICommand Command { get; set; }
 
+        //public Type type;
+
         public MenuItem(string item)
         {
             Text = item;
