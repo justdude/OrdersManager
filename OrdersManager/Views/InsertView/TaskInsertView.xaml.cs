@@ -9,30 +9,19 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Elysium;
-using MVVM;
-using OrdersManager.ModelView;
 
-namespace OrdersManager
+namespace OrdersManager.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for TaskInsertView.xaml
     /// </summary>
-    public partial class MainWindow : Elysium.Controls.Window
+    public partial class TaskInsertView : Elysium.Controls.Window
     {
-        private OrdersRootViewModel formView;
-        public MainWindow()
+        public TaskInsertView()
         {
             InitializeComponent();
-
-            formView = new OrdersRootViewModel(tabControl.Items);
-            this.DataContext = formView;
         }
-
-
-
-
     }
 }

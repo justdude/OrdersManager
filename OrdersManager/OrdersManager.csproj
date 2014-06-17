@@ -85,6 +85,7 @@
       <HintPath>..\packages\System.Data.SQLite.Linq.1.0.92.0\lib\net40\System.Data.SQLite.Linq.dll</HintPath>
     </Reference>
     <Reference Include="System.Transactions" />
+    <Reference Include="System.Windows.Interactivity, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Core" />
@@ -112,12 +113,12 @@
     </Compile>
     <Compile Include="Helper.cs" />
     <Compile Include="ModelView\Tabs\AddTabViewModel.cs" />
-    <Compile Include="ModelView\CostumerViewModel.cs" />
-    <Compile Include="ModelView\FreelancerViewModel.cs" />
+    <Compile Include="ModelView\Basic\CostumerViewModel.cs" />
+    <Compile Include="ModelView\Basic\FreelancerViewModel.cs" />
     <Compile Include="ModelView\Tabs\PersonTabViewModel.cs" />
     <Compile Include="ModelView\Tabs\ProjectTabViewModel.cs" />
     <Compile Include="ModelView\Tabs\TabsItemsManager.cs" />
-    <Compile Include="ModelView\TaskViewModel.cs" />
+    <Compile Include="ModelView\Basic\TaskViewModel.cs" />
     <Compile Include="Model\Costumer.cs" />
     <Compile Include="Model\Freelancer.cs" />
     <Compile Include="Model\Person.cs" />
@@ -128,14 +129,21 @@
     <Compile Include="MVVM\Elements\HeaderNode.cs" />
     <Compile Include="MVVM\Elements\MenuItem.cs" />
     <Compile Include="MVVM\Elements\TabItemViewModelBase.cs" />
+    <Compile Include="MVVM\Helpers\TreeViewExtension.cs" />
     <Compile Include="MVVM\ViewModelsBase\IContent.cs" />
     <Compile Include="TemplateSelector\TabSelector.cs" />
     <Compile Include="TemplateSelector\TemplateSelector.cs" />
+    <Compile Include="Views\InsertView\TaskInsertView.xaml.cs">
+      <DependentUpon>TaskInsertView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PersonInfo.xaml.cs">
       <DependentUpon>PersonInfo.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\PersonInsertView.xaml.cs">
+    <Compile Include="Views\InsertView\PersonInsertView.xaml.cs">
       <DependentUpon>PersonInsertView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\InsertView\ProjectInsertView.xaml.cs">
+      <DependentUpon>ProjectInsertView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ProjectsTab.xaml.cs">
       <DependentUpon>ProjectsTab.xaml</DependentUpon>
@@ -156,6 +164,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\InsertView\TaskInsertView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\OrdersManager.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -165,8 +177,8 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ModelView\OrdersRootViewModel.cs" />
-    <Compile Include="ModelView\PersonViewModel.cs" />
-    <Compile Include="ModelView\ProjectViewModel.cs" />
+    <Compile Include="ModelView\Basic\PersonViewModel.cs" />
+    <Compile Include="ModelView\Basic\ProjectViewModel.cs" />
     <Compile Include="MVVM\Commands\CommandReference.cs" />
     <Compile Include="MVVM\Commands\DelegateCommand.cs" />
     <Compile Include="MVVM\Elements\Node.cs" />
@@ -179,7 +191,11 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Views\PersonInsertView.xaml">
+    <Page Include="Views\InsertView\PersonInsertView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\InsertView\ProjectInsertView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -243,6 +259,7 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="ModelView\InsertModelView\" />
     <Folder Include="PhotoCache\" />
     <Folder Include="Views\SimpleView\" />
   </ItemGroup>

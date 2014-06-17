@@ -109,8 +109,40 @@ namespace MVVM
                     if (node != null && node.IsSelected)
                         return node;
                     if (node.Children != null)
-                        return Node.GetSelected(node);
+                    {
+                        var temp = Node.GetSelected(node);
+                        if (temp != null) return temp;
+                    }
                 }
+            return null;
+        }
+
+        public static void RemoveRecursive(ObservableCollection<Node> nodes, Node target)
+        {
+            bool result = nodes.Remove(target);
+            if (!result)
+            {
+                foreach(var node in nodes)
+                    RemoveSelected(node,target);
+            }
+        }
+
+        private static Node RemoveSelected(Node baseNode,Node target)
+        {
+            if (baseNode == null) return null;
+
+            if (baseNode.Children != null)
+            {
+                if (baseNode.Children.Remove(target))
+                    return null;
+
+                foreach (Node node in baseNode.Children)
+                {
+                        
+                    if (node.Children != null)
+                        return Node.RemoveSelected(node, target);
+                }
+            }
             return null;
         }
 

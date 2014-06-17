@@ -9,6 +9,7 @@
                     xmlns:selector="clr-namespace:OrdersManager.TemplateSelector"
                     xmlns:mv="clr-namespace:OrdersManager.Views" 
                     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+                    xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
                     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
                     mc:Ignorable="d">
 
@@ -19,12 +20,56 @@
 
     <!--style-->
 
+    <Style x:Key="ContextMenuStyle" TargetType="{x:Type ContextMenu}">
+
+        <!-- <i:Interaction.Triggers>
+                                    <i:EventTrigger EventName="MouseDoubleClick">
+                                        <i:InvokeCommandAction Command="{Binding DoSomethingCommand}" 
+                                CommandParameter="{Binding SelectedItem, 
+                                                   ElementName=ItemsList}" />
+                                    </i:EventTrigger>
+                                </i:Interaction.Triggers>-->
+
+    </Style>
+
     <!--Converters-->
     <converters:VisibityToBool  x:Key="visibilityConv"/>
 
 
+    <!--TreeViewItem-->
+    <Style TargetType="{x:Type TreeViewItem}">
+        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
+        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
+        <Setter Property="Margin" Value="2"/>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="true">
+                <Setter Property="FontWeight" Value="Bold" />
+                <Setter Property = "Background" Value="Red"/>
+
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
+
+    <!--MenuItemSimple-->
+    <Style x:Key="ContextMenuItemSimpleStyle" TargetType="{x:Type MenuItem}">
+
+        <Setter Property="FontSize" Value="12" />
+        <Setter Property="FontStyle" Value="Normal" />
+        <Style.Triggers>
+            <Trigger Property="IsMouseOver" Value="true">
+                <Setter Property = "Foreground" Value="White"/>
+                <Setter Property = "Background" Value="Blue"/>
+                <Setter Property="FontStyle" Value="Italic" />
+
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+
     <!--MenuItem-->
-    <Style x:Key="ContextMenuItemStyle" TargetType="{x:Type MenuItem}">
+    <Style x:Key="ContextMenuItemStyle" 
+           BasedOn="{StaticResource ResourceKey=ContextMenuItemSimpleStyle}"
+           TargetType="{x:Type MenuItem}">
         <Setter Property="Header" Value="{Binding Text}"/>
         <Setter Property="ItemsSource" Value="{Binding Children}"/>
         <Setter Property="Command" Value="{Binding Command}" />
@@ -36,6 +81,8 @@
         </Style.Triggers>
     </Style>
 
+
+
     <!--ContextMenu-->
 <!--    <DataTemplate x:Key="ContextMenuTemplate" DataType="{x:Type ContextMenu}">
         <ContextMenu ItemContainerStyle="{StaticResource ContextMenuItemStyle}" 
@@ -43,6 +90,27 @@
 
         </ContextMenu>
     </DataTemplate>-->
+
+    <DataTemplate x:Key="PersonMenuDataContext" DataType="{x:Type local:PersonTabViewModel}">
+        <MenuItem>
+            <MenuItem Header="Edit item" Command="{Binding EditEmployeeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"/>
+            <MenuItem Header="Delete item" Command="{Binding DeleteEmployeeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"/>
+        </MenuItem>
+    </DataTemplate>
+
+    <DataTemplate x:Key="ProjectMenuDataContext" DataType="{x:Type local:ProjectViewModel}">
+        <MenuItem>
+            <MenuItem Header="Edit item" Command="{Binding EditEmployeeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"/>
+        </MenuItem>
+    </DataTemplate>
+
+    <DataTemplate x:Key="TaskMenuDataContext" DataType="{x:Type local:TaskViewModel}">
+        <MenuItem>
+            <MenuItem Header="Edit item" Command="{Binding EditEmployeeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"/>
+            <MenuItem Header="Edit item" Command="{Binding EditEmployeeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"/>
+            <MenuItem Header="Edit item" Command="{Binding EditEmployeeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"/>
+        </MenuItem>
+    </DataTemplate>
 
     <!--FreelancerViewModel-->
     <HierarchicalDataTemplate
@@ -97,6 +165,37 @@
         </Border>
     </HierarchicalDataTemplate>
 
+
+
+    <!-- the context menu for all tree view items -->
+    <ContextMenu x:Key="TreeViewItemContextMenu">
+        <MenuItem Header="Добавить" Command="{Binding OnAdd}" Style="{StaticResource ContextMenuItemSimpleStyle}" />
+        <!-- <MenuItem Header="Удалить" Command="{Binding OnRemoveNode}" Style="{StaticResource ContextMenuItemSimpleStyle}" />-->
+        <MenuItem Header="Переход..." Command="{Binding OnGoToNode}" Style="{StaticResource ContextMenuItemSimpleStyle}" />
+        <MenuItem Header="Свернуть" Command="{Binding OnHideNode}" Style="{StaticResource ContextMenuItemSimpleStyle}" />
+    </ContextMenu>
+
+    <!--<ContextMenu x:Key="TreeViewItemContextMenu1"
+                ItemsSource="{Binding MenuOptions}"
+                ItemContainerStyle="{StaticResource ContextMenuItemStyle}" >
+    </ContextMenu>-->
+
+    <!--HeaderNode-->
+    <HierarchicalDataTemplate DataType="{x:Type mvvvm:HeaderNode}" ItemsSource="{Binding Children}">
+        <Border>
+            <StackPanel Orientation="Horizontal">
+                <TextBlock x:Name="TextBlock" FontSize="14" FontStretch="Normal" Text="{Binding Text}" ContextMenu="{StaticResource TreeViewItemContextMenu}">
+                </TextBlock>
+
+            </StackPanel>
+        </Border>
+        <!--<HierarchicalDataTemplate.Triggers>
+            <DataTrigger Binding="{Binding IsLeaf}" Value="True">
+                <Setter TargetName="TextBlock" Property="ContextMenu" Value="{StaticResource TreeViewItemContextMenu}" />
+            </DataTrigger>
+        </HierarchicalDataTemplate.Triggers>-->
+    </HierarchicalDataTemplate>
+
     <!--Node-->
     <HierarchicalDataTemplate DataType="{x:Type mvvvm:Node}" ItemsSource="{Binding Children}">
         <StackPanel Orientation="Horizontal">
@@ -130,6 +229,7 @@
                     <RowDefinition Height="83*"/>
                     <RowDefinition Height="32"/>
                     <RowDefinition Height="78"/>
+                    <RowDefinition Height="78"/>
                     <RowDefinition Height="80*"/>
                     <RowDefinition Height="32"/>
                 </Grid.RowDefinitions>
@@ -151,16 +251,21 @@
                 </Button>
 
                 <StackPanel Grid.Row="3" Orientation="Vertical">
+                    <TextBlock Text="Проект:" Style="{StaticResource ResourceKey=TexBlock}" Margin="2"/>
+                    <ComboBox ItemsSource="{Binding Projects}" SelectedItem="{Binding SelectedProject}"></ComboBox>
+                </StackPanel>
+
+                <StackPanel Grid.Row="4" Orientation="Vertical">
                     <TextBlock Text="ФИО:" VerticalAlignment="Center" HorizontalAlignment="Left" Width="29.353" />
                     <TextBox   VerticalAlignment="Top"  Text="{Binding FIO}" AcceptsReturn="False" Height="30"  />
                 </StackPanel>
 
-                <StackPanel Grid.Row="4" Orientation="Vertical">
+                <StackPanel Grid.Row="5" Orientation="Vertical">
                     <TextBlock  Text="Контакты:" VerticalAlignment="Stretch" HorizontalAlignment="Left" Width="53.947" />
                     <TextBox   VerticalAlignment="Top"  Text="{Binding Adress}" AcceptsReturn="True" MinHeight="48"   />
                 </StackPanel>
 
-                <ContentControl Grid.Row="5" ContentTemplate="{StaticResource OkCancel}"></ContentControl>
+                <ContentControl Grid.Row="6" ContentTemplate="{StaticResource OkCancel}"></ContentControl>
             </Grid>
         </ScrollViewer>
     </DataTemplate>
@@ -209,6 +314,9 @@
                 <StackPanel Orientation="Vertical">
                     <TextBlock Text="Описание задачи:" Style="{StaticResource ResourceKey=TexBlock}" Margin="2"/>
                     <TextBox Text="{Binding Name}" />
+
+                    <TextBlock Text="Проект:" Style="{StaticResource ResourceKey=TexBlock}" Margin="2"/>
+                    <ComboBox ItemsSource="{Binding Projects}" SelectedItem="{Binding SelectedProject}"></ComboBox>
 
                     <TextBlock Text="Статус:" Style="{StaticResource ResourceKey=TexBlock}" Margin="2"/>
                     <TextBox Text="{Binding TaskStatus}"/>
@@ -260,21 +368,6 @@
         TaskView="{StaticResource TaskTemplate}" 
 		x:Key="GridProfileSelector"
         />
-
-    <!--TreeViewItem-->
-    <Style TargetType="{x:Type TreeViewItem}">
-        <Setter Property="IsExpanded" Value="{Binding IsExpanded, Mode=TwoWay}" />
-        <Setter Property="IsSelected" Value="{Binding IsSelected, Mode=TwoWay}" />
-        <Setter Property="Margin" Value="2"/>
-        <Style.Triggers>
-            <Trigger Property="IsSelected" Value="true">
-                <Setter Property="FontWeight" Value="Bold" />
-                <Setter Property = "Background" Value="Red"/>
-
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-
 
 
     <ControlTemplate x:Key="AddControl">

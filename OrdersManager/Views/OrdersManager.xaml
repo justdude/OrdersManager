@@ -42,24 +42,28 @@
                     <metro:ProgressRing Visibility="{Binding ProjectsRingVisibility, Converter={StaticResource visibilityConv}}" Width="30" State="Indeterminate"></metro:ProgressRing>
                     <metro:ProgressRing Visibility="{Binding InfoProjectsRingVisibility, Converter={StaticResource visibilityConv}}" Grid.Column="2" Width="30" State="Indeterminate"></metro:ProgressRing>
                     <TreeView  Name="trw_Products" 
-                                   ItemsSource="{Binding Projects}"
+                               mvvvm:TreeViewExtension.SelectItemOnRightClick="true"
+                               ItemsSource="{Binding Projects}"
                                 
-                                   mvvvm:CommandBehavior.RoutedEventName="SelectedItemChanged"
-                                   mvvvm:CommandBehavior.TheCommandToRun="{Binding Path=LoadContent}"
+                               mvvvm:CommandBehavior.RoutedEventName="SelectedItemChanged"
+                               mvvvm:CommandBehavior.TheCommandToRun="{Binding Path=LoadContent}"
+
                                    Margin="1"
                                    BorderBrush="{x:Null}" 
                                    Background="{x:Null}" >
+
+  
                         <TreeView.Resources>
-    <!-- x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                            <!-- x:Key="{x:Static SystemColors.HighlightBrushKey}"
                       Color="Blue" />
                             <SolidColorBrush x:Key="{x:Static SystemColors.HighlightTextBrushKey}"
                       Color="White" />-->
+
+
                         </TreeView.Resources>
                         <TreeView.ContextMenu>
                             <ContextMenu ItemContainerStyle="{StaticResource ContextMenuItemStyle}" 
-                                         ItemsSource="{Binding MenuOptions}" >
-
-								</ContextMenu>
+                                             ItemsSource="{Binding MenuOptions}" />
                         </TreeView.ContextMenu>
                     </TreeView>
 
@@ -108,6 +112,7 @@
                         </ListBox>
                         <TreeView  Name="trw_Products1" 
                                    ItemsSource="{Binding Peoples}"
+                                   mvvvm:TreeViewExtension.SelectItemOnRightClick="true"
                                    mvvvm:CommandBehavior.RoutedEventName="SelectedItemChanged"
                                    mvvvm:CommandBehavior.TheCommandToRun="{Binding Path=LoadContent}"
                                    Margin="1"

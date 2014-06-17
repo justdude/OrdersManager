@@ -22,6 +22,8 @@ namespace MVVM
                 typeof(CommandBehavior),
                 new FrameworkPropertyMetadata((ICommand)null));
 
+        public static object Param = null;
+
         /// <summary>
         /// Gets the TheCommandToRun property.  
         /// </summary>

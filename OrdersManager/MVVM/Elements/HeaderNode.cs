@@ -7,5 +7,16 @@ namespace MVVM
 {
     public class HeaderNode : Node
     {
+        public bool IsLeaf
+        {
+            get
+            {
+                return true;
+            }
+            set
+            {
+
+            }
+        }
     }
 }

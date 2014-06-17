@@ -40,64 +40,153 @@ namespace OrdersManager.ModelView
         #endregion
 
         #region ContextMenu
+
+
+        public void Someaction(object param)
+        {
+            string str = "";
+            if (param != null)
+                str = param.GetType().ToString();
+            System.Windows.MessageBox.Show("It works!! "+str);
+        }
+
         public List<MVVM.MenuItem> MenuOptions
         {
+
             get  {
                 var menu = new List<MVVM.MenuItem>();
-                var add = new MVVM.MenuItem("Add");
+                var add = new MVVM.MenuItem("Добавить");
+                add.Command = new DelegateCommand(AddNode);
 
-                add.Command = new DelegateCommand(() => 
-                    {
-                        var selected = SelectedItem;
-                        if (selected != null)
-                        { 
+                var remove = new MVVM.MenuItem("Удалить");
+                remove.Command = new MVVM.DelegateCommand(RemoveNode );
 
-                            if (selected is PersonViewModel)
-                            {
-                                var window = new PersonInsertView();
-                                window.Show();
-                                window.Activate();
-                            }
+                var goTo = new MVVM.MenuItem("Переход...");
+                   goTo. Command =  new MVVM.DelegateCommand(() => 
+                                    { 
+                                        GoToTab(SelectedItem.GetType().ToString());
+                                    }); 
+                var hide = new MVVM.MenuItem("Свернуть");
+                 hide.Command = new DelegateCommand(HideAll);
 
-                            else if (selected is ProjectViewModel)
-                            {
-                                var window = new PersonInsertView();
-                                window.Show();
-                            }
-
-                            else if (selected is TaskViewModel)
-                            {
-                                var window = new PersonInsertView();
-                                window.Show();
-                            }
-                        }
-                    
-                    });
-
-                var remove = new MVVM.MenuItem("Remove")
-                {
-                    Command = new MVVM.DelegateCommand(this.OnDeleteClick )
-                };
-
-                var goTo = new MVVM.MenuItem("Go to...")
-                {
-                    Command =  new MVVM.DelegateCommand( 
-                                                         () => { GoToTab(SelectedItem.GetType().ToString()); }
-                                )
-                };
-
-
-
-                menu.Add(add);
+                //menu.Add(add);
                 menu.Add(remove);
                 menu.Add(goTo);
-                menu.Add(new MVVM.MenuItem("Close _All") 
-                                    { 
-                                        /*Command = new DelegatingCommand(OnCloseAll, 
-                                                        () => FileList.Count > 0)*/
-                                    });
+                menu.Add(hide);
 
                return menu;
+            }
+        }
+
+        private DelegateCommand addNode;
+        private DelegateCommand removeNode;
+        private DelegateCommand goToNode;
+        private DelegateCommand hideNode;
+
+        public ICommand OnAdd
+        {
+            get
+            {
+                if (addNode!=null)
+                {
+                    addNode = new MVVM.DelegateCommand(AddNode);
+                }
+                return addNode;
+            }
+            set
+            {
+                OnPropertyChanged("OnAdd");
+            }
+        }
+
+        public ICommand OnRemoveNode
+        {
+            get
+            {
+                if (removeNode != null)
+                {
+                    removeNode = new MVVM.DelegateCommand(RemoveNode);
+                }
+                return removeNode;
+            }
+            set
+            {
+                OnPropertyChanged("OnRemoveNode");
+            }
+        }
+
+        public ICommand OnGoToNode
+        {
+            get
+            {
+                if (goToNode != null)
+                {
+                    goToNode = new MVVM.DelegateCommand(() => { });
+                }
+                return goToNode;
+            }
+            set
+            {
+                OnPropertyChanged("OnGoToNode");
+            }
+        }
+
+        public ICommand OnHideNode
+        {
+            get
+            {
+                if (hideNode != null)
+                {
+                    hideNode = new MVVM.DelegateCommand(HideAll);
+                }
+                return hideNode;
+            }
+            set
+            {
+                OnPropertyChanged("OnHideNode");
+            }
+        }
+
+
+        private void HideAll()
+        {
+            var selected = SelectedItem;
+            if (selected!=null)
+            {
+                Node parent = (Node)selected;
+                parent.IsExpanded = false;
+            }
+        }
+
+        private void AddNode()
+        {
+            var str = SelectedItem.GetType().ToString();
+
+            var selected = SelectedItem;
+            if (selected != null)
+            {
+
+                if (selected is PersonViewModel)
+                {
+                    var window = new PersonInsertView();
+                    window.Show();
+                    window.Activate();
+                }
+
+                else if (selected is ProjectViewModel)
+                {
+                    var window = new ProjectInsertView();
+                    window.Show();
+                    window.Activate();
+
+                }
+
+                else if (selected is TaskViewModel)
+                {
+                    var window = new TaskInsertView();
+                    window.Show(); 
+                    window.Activate();
+                }
             }
         }
         #endregion
@@ -359,16 +448,14 @@ namespace OrdersManager.ModelView
                
             }
 
-            var array = new int[]{ 34,2,1,65}.ToList();
-            array.Sort();
 
-            Node temp = new MVVM.Node();
+            Node temp = new HeaderNode(); 
             temp.Text = "Projects";
             temp.IsExpanded = true;
             foreach (var node in nodes)
                 temp.Children.Add(node);
 
-            var tempList = new AsyncObservableCollection<MVVM.Node>();
+            var tempList = new ObservableCollection<MVVM.Node>();
             tempList.Add(temp);
             return tempList;
         }
@@ -400,13 +487,13 @@ namespace OrdersManager.ModelView
             }
 
 
-            Node temp = new MVVM.Node();
+            Node temp = new MVVM.HeaderNode(); 
             temp.Text = "Costumers";
             temp.IsExpanded = true;
             foreach (var node in nodes)
                 temp.Children.Add(node);
 
-            var tempList = new AsyncObservableCollection<MVVM.Node>();
+            var tempList = new ObservableCollection<MVVM.Node>();
             tempList.Add(temp);
             return tempList;
         }
@@ -438,7 +525,7 @@ namespace OrdersManager.ModelView
 
             }
 
-            Node temp = new MVVM.Node();
+            Node temp = new MVVM.HeaderNode();
             temp.Text = "Freelancers";
             temp.IsExpanded = true;
             foreach (var node in nodes)
@@ -454,11 +541,28 @@ namespace OrdersManager.ModelView
 
         #region OnClick
 
-        public void OnDeleteClick()
+        public void RemoveNode()
         {
-            bool typed = SelectedItem is PersonTabViewModel; 
-           // var target = null;
-            //if ()
+            var str = SelectedItem.GetType().ToString();
+            Node selected = SelectedItem as Node;
+           if (selected!=null)
+           {
+               var tabName = ((TabItem)Tabs.CurrentItem).Header.ToString();
+               if (tabName == "Проекты")
+               {
+                   Node.RemoveRecursive(Projects, selected);
+               }
+               else if (tabName == "Персоны")
+               {
+                   //Peoples.Remove(selected);
+                   Node.RemoveRecursive(Peoples, selected);
+                   //foreach( var node in Peoples.Cast<Node>().ToArray())
+                   {
+                       
+                   }
+               }
+               
+           }
         }
 
         public void OnInsertClick()
