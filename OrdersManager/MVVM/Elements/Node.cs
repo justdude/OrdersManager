@@ -71,6 +71,11 @@ namespace MVVM
             }
         }
 
+        public override string ToString()
+        {
+            return Text;
+        }
+
         /*private static Node GetSelectedItem(IEnumerable<Node> items)
         {
             //top-level items:

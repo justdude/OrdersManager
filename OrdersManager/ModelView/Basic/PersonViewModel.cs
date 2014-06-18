@@ -5,6 +5,7 @@ using System.Text;
 using MVVM;
 using System.Collections.ObjectModel;
 using OrdersManager.Model;
+using System.Windows.Input;
 namespace OrdersManager.ModelView
 {
     public class PersonViewModel: Node
@@ -73,23 +74,53 @@ namespace OrdersManager.ModelView
         }
 
 
-       /* public ObservableCollection<ProjectViewModel> Projects
+        private DelegateCommand ok;
+        private DelegateCommand cansel;
+        public ICommand OkeyClick
         {
             get
             {
-                return new ObservableCollection<ProjectViewModel>(Cache.Cache.Instance.Projects); //.Where(p=>p. = base.FIO) 
+                if (ok == null)
+                    ok = new DelegateCommand(OnOkeyClick, OkeyEnabled);
+                return ok;
             }
             set
             {
-                Cache.Cache.Instance.Projects = value.ToList();
-                OnPropertyChanged("Projects");
+                OnPropertyChanged("OkeyClick");
             }
         }
 
-        public override string ToString()
+        public ICommand CancelClick
         {
-            return FIO;
-        }*/
+            get
+            {
 
+                if (cansel == null)
+                    cansel = new DelegateCommand(OnCancelClick);
+
+                return cansel;
+            }
+            set
+            {
+                OnPropertyChanged("CancelClick");
+            }
+        }
+
+
+        public virtual bool OkeyEnabled()
+        {
+            return false;
+        }
+
+        public virtual void OnOkeyClick()
+        {
+            System.Windows.MessageBox.Show("");
+        }
+
+        public virtual void OnCancelClick()
+        {
+            System.Windows.MessageBox.Show("OnCancelClick");
+
+        }
     }
 }

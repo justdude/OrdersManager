@@ -270,10 +270,10 @@
         </ScrollViewer>
     </DataTemplate>
 
-    <!--Grided data template-->
+    <!--Project data template-->
     <DataTemplate x:Key="GridedTemplate" DataType="{x:Type local:ProjectViewModel}">
         <ScrollViewer>
-            <Grid Margin="2" DataContext="{Binding TableView}" 
+            <Grid Margin="2" 
             VerticalAlignment="Stretch" 
             HorizontalAlignment="Stretch" >
                 <StackPanel Orientation="Vertical">
@@ -281,11 +281,18 @@
                     <TextBox Text="{Binding ProjectName}" />
 
                     <TextBlock Text="Заказчик:" Style="{StaticResource ResourceKey=TexBlock}" Margin="2"/>
-                    <ComboBox ItemsSource="{Binding AllPeoples}" SelectedItem="{Binding SelectedCostumer}"></ComboBox>
+                    <ComboBox ItemsSource="{Binding AllPeoples}" 
+                              DisplayMemberPath="FIO"
+                              SelectedValuePath="FIO"
+                              SelectedItem="{Binding SelectedCostumer}"></ComboBox>
 
                     <TextBlock Text="Лидер:" Style="{StaticResource ResourceKey=TexBlock}" Margin="2"/>
-                    <ComboBox ItemsSource="{Binding AllPeoples}" SelectedItem="{Binding SelectedTeamLead}"></ComboBox>
-
+                    <ComboBox ItemsSource="{Binding AllPeoples}" 
+                              SelectedItem="{Binding SelectedTeamLead}"
+                              DisplayMemberPath="FIO"
+                              SelectedValuePath="FIO">
+                    </ComboBox>
+                    
                     <TextBlock Text="Стоимость:" Style="{StaticResource ResourceKey=TexBlock}" Margin="2"/>
                     <TextBox Text="{Binding ProjectCost}"/>
 
@@ -298,8 +305,7 @@
                     <TextBlock Text="Срок:" Style="{StaticResource ResourceKey=TexBlock}" Margin="2"/>
                     <TextBox Text="{Binding FinalDate}"/>
 
-
-                    <ContentControl Margin="5" ContentTemplate="{DynamicResource OkCancel}"/>
+                    <ContentControl Margin="5" Content="{Binding}" ContentTemplate="{DynamicResource OkCancel}"/>
                 </StackPanel>
             </Grid>
         </ScrollViewer>
@@ -326,7 +332,6 @@
 
                     <TextBlock Text="Срок:" Style="{StaticResource ResourceKey=TexBlock}" Margin="2"/>
                     <TextBox Text="{Binding EstimateDate}"/>
-
 
                     <ContentControl Margin="5" ContentTemplate="{DynamicResource OkCancel}"/>
                 </StackPanel>

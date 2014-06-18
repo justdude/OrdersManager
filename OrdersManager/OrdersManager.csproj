@@ -112,6 +112,7 @@
       <DependentUpon>DataSet1.xsd</DependentUpon>
     </Compile>
     <Compile Include="Helper.cs" />
+    <Compile Include="ModelView\InsertModelView\InsertProjectModelView.cs" />
     <Compile Include="ModelView\Tabs\AddTabViewModel.cs" />
     <Compile Include="ModelView\Basic\CostumerViewModel.cs" />
     <Compile Include="ModelView\Basic\FreelancerViewModel.cs" />
@@ -259,7 +260,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ModelView\InsertModelView\" />
     <Folder Include="PhotoCache\" />
     <Folder Include="Views\SimpleView\" />
   </ItemGroup>

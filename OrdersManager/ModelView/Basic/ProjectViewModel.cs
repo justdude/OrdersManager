@@ -6,6 +6,7 @@ using MVVM;
 using System.Collections.ObjectModel;
 using System.Data;
 using OrdersManager.Model;
+using System.Windows.Input;
 
 namespace OrdersManager.ModelView
 {
@@ -56,6 +57,19 @@ namespace OrdersManager.ModelView
             }
         }
 
+
+        public long CostumerId
+        {
+            get
+            {
+                return Project.CostumerId;
+            }
+            set
+            {
+                Project.CostumerId = value;
+                OnPropertyChanged("CostumerId");
+            }
+        }
 
         public long TeamLeadId
         {
@@ -136,23 +150,119 @@ namespace OrdersManager.ModelView
             }
         }
 
-        /*public ObservableCollection<TaskViewModel> Tasks
+         //AllPeoples}" SelectedItem="{Binding SelectedTeamLead
+
+        //SelectedCostumer
+
+        private List<Costumer> allPeoples;
+        public List<Costumer> AllPeoples
         {
             get
             {
-                var tasks = new List<TaskViewModel>(){ new TaskViewModel(), new TaskViewModel(), new TaskViewModel()};
-                return new ObservableCollection<TaskViewModel>(tasks); //.Where(p=>p. = base.FIO) 
+                if (allPeoples == null)
+                {
+                    var comm = new Database.Command(Database.DatabaseManager.Instance.Connection);
+                    var table = comm.SelectCostumers();
+                    allPeoples = Database.DatabaseConverter.ConvertRowsToList<Costumer>(table, Database.DatabaseConverter.ToCostumer);
+                }
+                return allPeoples;
             }
             set
             {
-                OnPropertyChanged("Tasks");
+                allPeoples = value;
+                OnPropertyChanged("AllPeoples");
             }
-        }*/
+        }
 
-        /*public override string ToString()
+
+        private Costumer selectedCostumer;
+        public Costumer SelectedCostumer
         {
-            return Name;
-        }*/
+            get
+            {
+                if (selectedCostumer == null)
+                {
+                    var comm = new Database.Command(Database.DatabaseManager.Instance.Connection);
+                    selectedCostumer = AllPeoples.Where(p => p.Id == CostumerId).FirstOrDefault();
+                }
+                return selectedCostumer;
+            }
+            set
+            {
+                selectedTeamLead = value;
+                OnPropertyChanged("SelectedTeamLead");
+            }
+        }
+
+        private Costumer selectedTeamLead;
+        public Costumer SelectedTeamLead
+        {
+            get
+            {
+                if (selectedTeamLead == null)
+                {
+                    var comm = new Database.Command(Database.DatabaseManager.Instance.Connection);
+                    selectedTeamLead = AllPeoples.Where(p => p.Id == TeamLeadId).FirstOrDefault();
+                }
+                return selectedTeamLead;
+            }
+            set
+            {
+                selectedTeamLead = value;
+                OnPropertyChanged("SelectedTeamLead");
+            }
+        }
+
+
+        
+        private DelegateCommand ok;
+        private DelegateCommand cansel;
+        public ICommand OkeyClick
+        {
+            get
+            {
+                if (ok == null)
+                    ok = new DelegateCommand(OnOkeyClick, OkeyEnabled);
+                return ok;
+            }
+            set
+            {
+                OnPropertyChanged("OkeyClick");
+            }
+        }
+
+        public ICommand CancelClick
+        {
+            get
+            {
+
+                if (cansel == null)
+                    cansel = new DelegateCommand(OnCancelClick);
+
+                return cansel;
+            }
+            set
+            {
+                OnPropertyChanged("CancelClick");
+            }
+        }
+
+
+        public virtual bool OkeyEnabled()
+        {
+            return true;
+        }
+
+        public virtual void OnOkeyClick()
+        {
+            System.Windows.MessageBox.Show("");
+        }
+
+        public virtual void OnCancelClick()
+        {
+            System.Windows.MessageBox.Show("OnCancelClick");
+
+        }
 
     }
 }

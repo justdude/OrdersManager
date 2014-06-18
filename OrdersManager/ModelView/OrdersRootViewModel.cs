@@ -160,32 +160,32 @@ namespace OrdersManager.ModelView
 
         private void AddNode()
         {
-            var str = SelectedItem.GetType().ToString();
-
             var selected = SelectedItem;
+            
             if (selected != null)
             {
-
-                if (selected is PersonViewModel)
+                var str = (SelectedItem as Node).Text;
+                if (str == "Costumers")
                 {
                     var window = new PersonInsertView();
+                    window.DataContext = new CostumerViewModel(new Person());
                     window.Show();
                     window.Activate();
                 }
-
-                else if (selected is ProjectViewModel)
+                else if (str == "Freelancers")
+                {
+                    var window = new PersonInsertView();
+                    window.DataContext = new FreelancerViewModel(new Person());
+                    window.Show();
+                    window.Activate();
+                }
+                else if (str == "Projects")
                 {
                     var window = new ProjectInsertView();
+                    window.DataContext = new ProjectInsertView();
                     window.Show();
                     window.Activate();
 
-                }
-
-                else if (selected is TaskViewModel)
-                {
-                    var window = new TaskInsertView();
-                    window.Show(); 
-                    window.Activate();
                 }
             }
         }

@@ -146,7 +146,7 @@
             <TabItem Header="...">
                 <TabItem.Template>
                     <ControlTemplate>
-                        <Button Command="{Binding AddTabItemClick}"
+                        <metro:CommandButton Command="{Binding AddTabItemClick}"
                                 Background="{x:Null}" 
                                 BorderBrush="{x:Null}" 
                                 Foreground="Black"  >
@@ -156,7 +156,7 @@
                                 HorizontalAlignment="Stretch"
                                 VerticalAlignment="Stretch"
                                 Source="/Images/plus.png"></Image>
-                        </Button>
+                        </metro:CommandButton>
                     </ControlTemplate>
                 </TabItem.Template>
                 <Grid>
