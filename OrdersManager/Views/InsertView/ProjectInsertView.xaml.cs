@@ -19,8 +19,11 @@ namespace OrdersManager.Views
     /// </summary>
     public partial class ProjectInsertView : Elysium.Controls.Window
     {
+        public static ProjectInsertView Instance
+        { get; private set; }
         public ProjectInsertView()
         {
+            Instance = this;
             InitializeComponent();
         }
     }

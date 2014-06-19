@@ -255,12 +255,12 @@ namespace OrdersManager.ModelView
 
         public virtual void OnOkeyClick()
         {
-            System.Windows.MessageBox.Show("");
+            Database.Command comm = new Database.Command(Database.DatabaseManager.Instance.Connection);
+            comm.UpdateProject(this.Project);
         }
 
         public virtual void OnCancelClick()
         {
-            System.Windows.MessageBox.Show("OnCancelClick");
 
         }
 

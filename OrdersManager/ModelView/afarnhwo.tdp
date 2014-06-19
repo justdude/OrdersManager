@@ -185,7 +185,7 @@ namespace OrdersManager.ModelView
                 else if (selected is ProjectViewModel)
                 {
                     var window = new ProjectInsertView();
-                    window.DataContext = new ModelView.InsertProjectModelView(new Project());
+                    window.DataContext = new ProjectInsertView();
                     window.Show();
                     window.Activate();
 
@@ -196,6 +196,7 @@ namespace OrdersManager.ModelView
                     window.DataContext = new TaskViewModel(new OrdersManager.Model.Task());
                     window.Show();
                     window.Activate();
+                    
                 }
 
             }

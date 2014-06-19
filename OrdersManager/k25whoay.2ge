@@ -92,11 +92,8 @@
 
     <DataTemplate x:Key="PersonMenuDataContext" DataType="{x:Type local:PersonTabViewModel}">
         <MenuItem>
-            <MenuItem Header="Edit item" 
-                      Command="{Binding EditEmployeeCommand}" 
-                      CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"/>
-            <MenuItem Header="Delete item" 
-                      Command="{Binding DeleteEmployeeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"/>
+            <MenuItem Header="Edit item" Command="{Binding EditEmployeeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"/>
+            <MenuItem Header="Delete item" Command="{Binding DeleteEmployeeCommand}" CommandParameter="{Binding RelativeSource={RelativeSource AncestorType=ContextMenu}, Path=PlacementTarget.SelectedItem}"/>
         </MenuItem>
     </DataTemplate>
 
@@ -170,8 +167,8 @@
 
 
     <!-- the context menu for all tree view items -->
-    <ContextMenu  x:Key="TreeViewItemContextMenu">
-        <MenuItem Header="Добавить" Command="{Binding Path=PlacementTarget.Tag.DataContext.OnAdd, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType=ContextMenu}}" Style="{StaticResource ContextMenuItemSimpleStyle}" />
+    <ContextMenu x:Key="TreeViewItemContextMenu">
+        <MenuItem Header="Добавить" Command="{Binding OnAdd}" Style="{StaticResource ContextMenuItemSimpleStyle}" />
         <!-- <MenuItem Header="Удалить" Command="{Binding OnRemoveNode}" Style="{StaticResource ContextMenuItemSimpleStyle}" />-->
         <MenuItem Header="Переход..." Command="{Binding OnGoToNode}" Style="{StaticResource ContextMenuItemSimpleStyle}" />
         <MenuItem Header="Свернуть" Command="{Binding OnHideNode}" Style="{StaticResource ContextMenuItemSimpleStyle}" />
@@ -183,23 +180,12 @@
     </ContextMenu>-->
 
     <!--HeaderNode-->
-    <HierarchicalDataTemplate  DataType="{x:Type mvvvm:HeaderNode}" ItemsSource="{Binding Children}">
+    <HierarchicalDataTemplate DataType="{x:Type mvvvm:HeaderNode}" ItemsSource="{Binding Children}">
         <Border>
             <StackPanel Orientation="Horizontal">
-                <TextBlock x:Name="TextBlock" 
-                           Tag="{Binding  DataContext}"
-                           FontSize="14" FontStretch="Normal" 
-                           Text="{Binding Text}" >
-                    <TextBlock.ContextMenu>
-                        <ContextMenu>
-
-                            <MenuItem Header="Добавить" Command="{Binding PlacementTarget.Tag.OnAdd,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=ContextMenu}}" Style="{StaticResource ContextMenuItemSimpleStyle}" />
-                            <!-- <MenuItem Header="Удалить" Command="{Binding OnRemoveNode}" Style="{StaticResource ContextMenuItemSimpleStyle}" />-->
-                            <MenuItem Header="Переход..." Command="{Binding OnGoToNode}" Style="{StaticResource ContextMenuItemSimpleStyle}" />
-                            <MenuItem Header="Свернуть" Command="{Binding OnHideNode}" Style="{StaticResource ContextMenuItemSimpleStyle}" />
-                        </ContextMenu>
-                    </TextBlock.ContextMenu>
+                <TextBlock x:Name="TextBlock" FontSize="14" FontStretch="Normal" Text="{Binding Text}" ContextMenu="{StaticResource TreeViewItemContextMenu}">
                 </TextBlock>
+
             </StackPanel>
         </Border>
         <!--<HierarchicalDataTemplate.Triggers>

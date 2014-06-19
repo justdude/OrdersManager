@@ -18,8 +18,11 @@ namespace OrdersManager.Views
     /// </summary>
     public partial class PersonInsertView : Elysium.Controls.Window
     {
+        public static PersonInsertView Instance
+        { get; private set; }
         public PersonInsertView()
         {
+            Instance = this;
             InitializeComponent();
         }
     }

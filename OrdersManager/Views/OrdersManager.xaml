@@ -14,6 +14,7 @@
         params:Manager.Theme="Light" 
         params:Manager.AccentBrush="{x:Static metro:AccentBrushes.Viridian}"
         params:Manager.ContrastBrush="White"
+        Name="Window"
         Title="MainWindow" Height="350" Width="525" >
 
 
@@ -29,6 +30,9 @@
             <RowDefinition Height="291*"/>
             <RowDefinition Height="25*" MaxHeight="30"/>
         </Grid.RowDefinitions>
+        <Grid.Resources>
+            <!--<mvvvm:BindingProxy x:Key="proxy" Data="{Binding}" />-->
+        </Grid.Resources>
         <TabControl Grid.Row="0"
                     Name="tabControl"
                     IsSynchronizedWithCurrentItem="True">
@@ -42,6 +46,7 @@
                     <metro:ProgressRing Visibility="{Binding ProjectsRingVisibility, Converter={StaticResource visibilityConv}}" Width="30" State="Indeterminate"></metro:ProgressRing>
                     <metro:ProgressRing Visibility="{Binding InfoProjectsRingVisibility, Converter={StaticResource visibilityConv}}" Grid.Column="2" Width="30" State="Indeterminate"></metro:ProgressRing>
                     <TreeView  Name="trw_Products" 
+                               Tag="{Binding DataContext,RelativeSource={RelativeSource Mode=FindAncestor,AncestorType=Window}}"
                                mvvvm:TreeViewExtension.SelectItemOnRightClick="true"
                                ItemsSource="{Binding Projects}"
                                 

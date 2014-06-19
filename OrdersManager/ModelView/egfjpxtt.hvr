@@ -69,7 +69,7 @@ namespace OrdersManager.ModelView
                 var hide = new MVVM.MenuItem("Свернуть");
                  hide.Command = new DelegateCommand(HideAll);
 
-                menu.Add(add);
+                //menu.Add(add);
                 menu.Add(remove);
                 menu.Add(goTo);
                 menu.Add(hide);
@@ -103,7 +103,7 @@ namespace OrdersManager.ModelView
         {
             get
             {
-                if (removeNode == null)
+                if (removeNode != null)
                 {
                     removeNode = new MVVM.DelegateCommand(RemoveNode);
                 }
@@ -119,7 +119,7 @@ namespace OrdersManager.ModelView
         {
             get
             {
-                if (goToNode == null)
+                if (goToNode != null)
                 {
                     goToNode = new MVVM.DelegateCommand(() => { });
                 }
@@ -135,7 +135,7 @@ namespace OrdersManager.ModelView
         {
             get
             {
-                if (hideNode == null)
+                if (hideNode != null)
                 {
                     hideNode = new MVVM.DelegateCommand(HideAll);
                 }
@@ -165,39 +165,28 @@ namespace OrdersManager.ModelView
             if (selected != null)
             {
                 var str = (SelectedItem as Node).Text;
-                //if (str == "Costumers")
-                if (selected is CostumerViewModel)
+                if (str == "Costumers")
                 {
                     var window = new PersonInsertView();
                     window.DataContext = new CostumerViewModel(new Person());
                     window.Show();
                     window.Activate();
                 }
-                //else if (str == "Freelancers")
-                else if (selected is FreelancerViewModel)
+                else if (str == "Freelancers")
                 {
                     var window = new PersonInsertView();
                     window.DataContext = new FreelancerViewModel(new Person());
                     window.Show();
                     window.Activate();
                 }
-                //else if (str == "Projects")
-                else if (selected is ProjectViewModel)
+                else if (str == "Projects")
                 {
                     var window = new ProjectInsertView();
-                    window.DataContext = new ModelView.InsertProjectModelView(new Project());
+                    window.DataContext = new ProjectInsertView();
                     window.Show();
                     window.Activate();
 
                 }
-                else if (selected is TaskViewModel)
-                {
-                    var window = new TaskInsertView();
-                    window.DataContext = new TaskViewModel(new OrdersManager.Model.Task());
-                    window.Show();
-                    window.Activate();
-                }
-
             }
         }
         #endregion

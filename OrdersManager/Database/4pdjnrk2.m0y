@@ -239,7 +239,7 @@ namespace OrdersManager.Database
 
         public void InsertProject(Project item)
         {
-            string query = "Insert Into Projects(TeamLeadId, CostumerId, ProjectCost, ProjectStatus, StartDate, FinalDate ) Values(@TeamLeadId, @CostumerId, @ProjectCost, @ProjectStatus, @StartDate, @FinalDate)";
+            string query = "Insert Into Project(TeamLeadId, CostumerId, ProjectCost, ProjectStatus, StartDate, FinalDate ) Values(@TeamLeadId, @CostumerId, @ProjectCost, @ProjectStatus, @StartDate, @FinalDate)";
             SQLiteCommand command = new SQLiteCommand(query, Connection);
             command.Parameters.AddWithValue("@TeamLeadId", item.TeamLeadId);
             command.Parameters.AddWithValue("@CostumerId", item.CostumerId);
@@ -258,23 +258,9 @@ namespace OrdersManager.Database
         public void UpdateCostumer(Costumer item)
         {
             SQLiteCommand command = new SQLiteCommand(Connection);
-            string query = "Update Costumers Set CareerName='{0}', FIO='{1}', PhotoPath='{2}', Adress='{3}', PhotoName='{4}' Where Id='{5}'";
-            string commStr = string.Format(query, item.CareerName, item.FIO, item.PhotoPath, item.Adress, item.PhotoName, item.Id);
+            string query = "Update Costumers Set CareerName='{0}', FIO='{1}', PhotoPath='{2}', Adress, PhotoName ) Values(,,,'{3}','{4}')";
+            string commStr = string.Format(query, item.CareerName, item.FIO, item.PhotoPath, item.Adress, item.PhotoName);
             command.CommandText = commStr;
-            command.ExecuteNonQuery();
-        }
-
-        public void UpdateProject(Project item)
-        {
-            string query = "Update Projects Set CostumerId=@CostumerId, ProjectCost=@ProjectCost, ProjectStatus= @ProjectStatus, StartDate=@StartDate, FinalDate=@FinalDate Where TeamLeadId=@TeamLeadId";
-            SQLiteCommand command = new SQLiteCommand(query, Connection);
-            command.Parameters.AddWithValue("@TeamLeadId", item.TeamLeadId);
-            command.Parameters.AddWithValue("@CostumerId", item.CostumerId);
-            command.Parameters.AddWithValue("@ProjectCost", item.ProjectCost);
-            command.Parameters.AddWithValue("@ProjectStatus", item.ProjectStatus);
-            command.Parameters.AddWithValue("@StartDate", item.StartDate);
-            command.Parameters.AddWithValue("@FinalDate", item.FinalDate);
-            command.Parameters.AddWithValue("@FinalDate", item.ProjectName);
             command.ExecuteNonQuery();
         }
 
